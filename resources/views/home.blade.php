@@ -10,6 +10,12 @@
                 <div class="panel-body">
                     You are logged in!
                 </div>
+
+                @foreach ($publications as $publication)
+                    <img src="{{url('uploads/'.$publication->fichier->nom_fichier)}}" alt="test">
+                    <h4>{{ $publication->titre }}</h4>
+                    <p>{!! nl2br($publication->description) !!}</p>
+                @endforeach
             </div>
         </div>
     </div>

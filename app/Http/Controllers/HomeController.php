@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Publication;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $publications = Publication::All();
+
+        // Attention toujours inclure dans un tableau les résultats
+        $data = array(
+            'publications' => $publications,
+        );
+
+        return view('home', $data);
     }
 }
