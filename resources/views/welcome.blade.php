@@ -7,6 +7,7 @@
         <div class="title m-b-md">
             Magazine
         </div>
+        @include('auth.login')
     </div>
 </div>
 @endsection

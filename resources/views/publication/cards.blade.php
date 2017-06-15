@@ -1,11 +1,9 @@
-@extends('layouts.app')
 
-@section('content')
-    <div class="container">
-        <div class="row">
+<div class="row">
+    <div class="card-group">
+        @foreach ($publications as $publication)
 
-            @foreach ($publications as $publication)
-
+            <div class="col-sm-3">
                 <div class="card">
                     <img class="card-img-top" src="{{url('uploads/'.$publication->fichier->nom_server)}}" alt="{{$publication->fichier->nom_fichier}}">
                     <div class="card-block">
@@ -15,9 +13,8 @@
                         <a class="col-md-2" href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </div>
                 </div>
+            </div>
 
-            @endforeach
-
-        </div>
+        @endforeach
     </div>
-@endsection
+</div>
