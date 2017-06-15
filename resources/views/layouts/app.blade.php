@@ -10,13 +10,12 @@
 
     <title>{{ config('app.name', 'Magazine') }}</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Bootstrap Styles -->
+    <link href="{{ asset('css/vendor.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('css/app-purple.css') }}" type="text/css" rel="stylesheet">
 
-    <!-- Custom Styles -->
+    <!-- Custom styles -->
     <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
-    <link href="{{ asset('css/theme.css') }}" type="text/css" rel="stylesheet">
 
 </head>
 <body>
@@ -25,16 +24,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-    @if (Auth::check())
-        @include('nav.navbar')
-        @include('nav.sidebar')
-    @endif
-
-    <div class="container-fluid">
-        @yield('content')
+    <div class="main-wrapper">
+        <div class="app" id="app">
+            <header class="header">
+                <div class="header-block header-block-nav">
+                    @include('nav.navbar')
+                </div>
+            </header>
+            <aside class="sidebar">
+                <div class="sidebar-container">
+                    @include('nav.sidebar')
+                </div>
+            </aside>
+            <div class="sidebar-overlay" id="sidebar-overlay"></div>
+            <article class="content dashboard-page">
+                <section class="section">
+                    <div class="row sameheight-container">
+                        @yield('content')
+                    </div>
+                </section>
+            </article>
+            <footer class="footer">
+                <div class="footer-block buttons">
+                    <iframe class="footer-github-btn"
+                                src="https://ghbtns.com/github-btn.html?user=RemiLarrouquis&repo=magazine&type=star&count=true"
+                            frameborder="0" scrolling="0" width="140px" height="20px"></iframe>
+                </div>
+                <div class="footer-block author">
+                    <ul>
+                        <li> Créé par Rémi Larrouquis </li>
+                        <li> Ludovic Girard </li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
     </div>
 
     <!-- Scripts -->
+    <script src="{{ asset('js/vendor.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/dropzone.js') }}"></script>
 </body>
