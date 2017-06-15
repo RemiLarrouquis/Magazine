@@ -12,10 +12,11 @@ class Publication extends Model
      * @var array
      */
     protected $fillable = [
-        'titre', 'nb_an', 'prix_an', 'description',
+        'fichier_id', 'titre', 'nb_an', 'prix_an', 'description',
     ];
 
-    public function fichier () {
-        return $this -> belongsTo('App\Fichier');
+    public function fichier()
+    {
+        return $this->belongsTo('App\Fichier');
     }
 }

@@ -7,14 +7,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Ajout d'une publication</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/publication/save') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('titre') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Name</label>
+                            <div class="row form-group{{ $errors->has('titre') ? ' has-error' : '' }}">
+                                <label for="titre" class="col-md-4 control-label">Titre</label>
 
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('titre') }}" required autofocus>
+                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                    <input id="titre" type="text" class="form-control" name="titre"
+                                           value="{{ old('titre') }}" required autofocus>
 
                                     @if ($errors->has('titre'))
                                         <span class="help-block">
@@ -24,11 +25,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('nb_an') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <div class="form-group row">
 
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('nb_an') }}" required>
+                                <div class="col-xs-6 col-md-6 col-lg-6">
+                                    <label for="nban" class="col-md-12 control-label">Nombre par an</label>
+                                    <input id="nban" type="number" class="form-control" name="nban"
+                                           value="{{ old('nb_an') }}" required>
 
                                     @if ($errors->has('nb_an'))
                                         <span class="help-block">
@@ -36,13 +38,10 @@
                                     </span>
                                     @endif
                                 </div>
-                            </div>
+                                <div class="col-xs-6 col-md-6 col-lg-6">
+                                    <label for="prixan" class="col-md-12 control-label">Prix à l'année</label>
 
-                            <div class="form-group{{ $errors->has('prix_an') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required>
+                                    <input id="prixan" type="number" class="form-control" name="prixan" value="{{ old('prix_an') }}" required>
 
                                     @if ($errors->has('prix_an'))
                                         <span class="help-block">
@@ -52,12 +51,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
+                            <div class="row form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                                <label for="description" class="col-md-4 control-label">Description</label>
 
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required>
-
+                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                    <textarea id="description" rows="4" cols="50" class="form-control"
+                                              name="description" required></textarea>
                                     @if ($errors->has('description'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -66,10 +65,19 @@
                                 </div>
                             </div>
 
+                            <div class="row form-group">
+                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                    <label for="photo" class="col-md-12 control-label">Photo de présentation</label>
+                                    {{--<input id="photo" type="file" class="form-control" name="photo" value="{{ old('photo') }}" required>--}}
+                                    {!! Form::file('photo') !!}
+                                </div>
+                            </div>
+
+
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="col-xs-12 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Register
+                                        Enregistrer
                                     </button>
                                 </div>
                             </div>
@@ -78,5 +86,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection
