@@ -15,7 +15,7 @@ class Fichier extends Model
         'nom_fichier', 'nom_server',
     ];
 
-    public function defi() {
+    public function publication() {
         return $this -> hasMany('App\Publication');
     }
 }

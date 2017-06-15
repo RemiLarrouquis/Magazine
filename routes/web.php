@@ -19,3 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get("/publication/new","PublicationController@newPublication");
+
+
+
+Route::post("/publication/save","PublicationController@savePublication");
+Route::post("/publication/addPicture","PublicationController@upload");
