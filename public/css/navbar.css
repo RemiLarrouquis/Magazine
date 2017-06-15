@@ -1,21 +1,21 @@
-.navbar-custom {
+.navbar {
     background-color: #222222;
     border-color: transparent;
 }
-.navbar-custom .navbar-brand {
+.navbar .navbar-brand {
     color: #fed136;
     font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
 }
-.navbar-custom .navbar-brand:hover,
-.navbar-custom .navbar-brand:focus,
-.navbar-custom .navbar-brand:active,
-.navbar-custom .navbar-brand.active {
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus,
+.navbar .navbar-brand:active,
+.navbar .navbar-brand.active {
     color: #fec503;
 }
-.navbar-custom .navbar-collapse {
+.navbar .navbar-collapse {
     border-color: rgba(255, 255, 255, 0.02);
 }
-.navbar-custom .navbar-toggle {
+.navbar .navbar-toggle {
     background-color: #fed136;
     border-color: #fed136;
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -23,34 +23,34 @@
     color: white;
     font-size: 12px;
 }
-.navbar-custom .navbar-toggle:hover,
-.navbar-custom .navbar-toggle:focus {
+.navbar .navbar-toggle:hover,
+.navbar .navbar-toggle:focus {
     background-color: #fed136;
 }
-.navbar-custom .nav li a {
+.navbar .nav li a {
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 400;
     letter-spacing: 1px;
     color: white;
 }
-.navbar-custom .nav li a:hover,
-.navbar-custom .nav li a:focus {
+.navbar .nav li a:hover,
+.navbar .nav li a:focus {
     color: #fed136;
     outline: none;
 }
-.navbar-custom .navbar-nav > .active > a {
+.navbar .navbar-nav > .active > a {
     border-radius: 0;
     color: white;
     background-color: #fed136;
 }
-.navbar-custom .navbar-nav > .active > a:hover,
-.navbar-custom .navbar-nav > .active > a:focus {
+.navbar .navbar-nav > .active > a:hover,
+.navbar .navbar-nav > .active > a:focus {
     color: white;
     background-color: #fec503;
 }
 @media (min-width: 768px) {
-    .navbar-custom {
+    .navbar {
         background-color: transparent;
         padding: 25px 0;
         -webkit-transition: padding 0.3s;
@@ -58,22 +58,22 @@
         transition: padding 0.3s;
         border: none;
     }
-    .navbar-custom .navbar-brand {
+    .navbar .navbar-brand {
         font-size: 2em;
         -webkit-transition: all 0.3s;
         -moz-transition: all 0.3s;
         transition: all 0.3s;
     }
-    .navbar-custom .navbar-nav > .active > a {
+    .navbar .navbar-nav > .active > a {
         border-radius: 3px;
     }
 }
 @media (min-width: 768px) {
-    .navbar-custom.affix {
+    .navbar.affix {
         background-color: #222222;
         padding: 10px 0;
     }
-    .navbar-custom.affix .navbar-brand {
+    .navbar.affix .navbar-brand {
         font-size: 1.5em;
     }
 }
