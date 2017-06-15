@@ -69,6 +69,5 @@ class PublicationController extends Controller
         );
 
         return view('home', $data);
-
     }
 }
