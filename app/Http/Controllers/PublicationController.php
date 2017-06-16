@@ -40,8 +40,8 @@ class PublicationController extends Controller
 
     public function savePublication(Request $request)
     {
-
-        if ($request->id == NULL) {
+        $newfile = new Fichier();
+        if (Input::file('photo') != null) {
             $destinationPath = 'uploads';
             $dateNow = Carbon::now()->format('Ymd_His');
             $extension = Input::file('photo')->getClientOriginalExtension();
@@ -52,6 +52,8 @@ class PublicationController extends Controller
                 'nom_fichier' => $fileName,
                 'nom_server' => $fileName,
             ]);
+        }
+        if ($request->id == NULL) {
 
             Publication::Create([
                 'fichier_id' => $newfile->id,
@@ -61,6 +63,7 @@ class PublicationController extends Controller
                 'description' => trim($request->description)
             ]);
         } else {
+
             $publication = Publication::Find($request->id);
             $publication->update($request->all());
         }
