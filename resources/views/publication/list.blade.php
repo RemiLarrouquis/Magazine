@@ -66,7 +66,7 @@
                             </div>
                             <div class="item-col item-col-sales">
                                 <div class="item-heading">Prix par an</div>
-                                <div> {{ $publication->prix_an }} € </div>
+                                <div> {{ $publication->prix_an }} <i class="fa fa-eur"></i></div>
                             </div>
                             <div class="item-col item-col-stats no-overflow">
                                 <div class="item-heading">Nombre par an</div>
@@ -74,7 +74,10 @@
                             </div>
                             <div class="item-col fixed item-col-actions-dropdown">
                                 <div class="item-actions-dropdown">
-                                    <a class="edit" href="#"> <i class="fa fa-pencil"></i> </a>
+                                    <a class="edit"
+                                       href="{{ url('/publication/edit/') . '/' . $publication->id }}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>

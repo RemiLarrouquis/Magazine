@@ -12,7 +12,7 @@ class Publication extends Model
      * @var array
      */
     protected $fillable = [
-        'fichier_id', 'titre', 'nb_an', 'prix_an', 'description',
+        'id', 'fichier_id', 'titre', 'nb_an', 'prix_an', 'description',
     ];
 
     public function fichier()

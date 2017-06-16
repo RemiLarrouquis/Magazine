@@ -10,7 +10,7 @@
                         <h4 class="card-title text-left">{{ $publication->titre }}</h4>
                         <small class="text-muted col-md-5">Prix : {{ $publication->prix_an }}€</small>
                         <small class="text-muted col-md-5">{{ $publication->nb_an }} / an</small>
-                        <a class="col-md-2" href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a class="col-md-2" href="/publication/edit/{{$publication->id}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
