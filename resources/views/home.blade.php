@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        @include('publication.cards');
+        @include('publication.cards')
     </div>
 
 @endsection

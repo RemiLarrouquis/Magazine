@@ -61,13 +61,6 @@ class PublicationController extends Controller
             'description' => trim($request->description)
         ]);
 
-
-        $publications = Publication::All();
-
-        $data = array(
-            'publications' => $publications,
-        );
-
-        return view('home', $data);
+        return redirect('home');
     }
 }

@@ -10962,6 +10962,13 @@ tbody.collapse.in {
 }
 
 .card-block {
+  padding: 4px !important;
+  width: 225px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-block {
   padding: 1.25rem;
 }
 
