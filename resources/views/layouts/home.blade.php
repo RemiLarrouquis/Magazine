@@ -14,13 +14,9 @@
                 </div>
             </aside>
             <div class="sidebar-overlay" id="sidebar-overlay"></div>
-            <article class="content dashboard-page">
-                <section class="section">
-                    <div class="row sameheight-container">
-                        @yield('content')
-                    </div>
-                </section>
-            </article>
+
+            @yield('content')
+
             <footer class="footer">
                 <div class="footer-block buttons">
                     <iframe class="footer-github-btn"

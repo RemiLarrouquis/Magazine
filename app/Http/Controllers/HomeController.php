@@ -31,6 +31,6 @@ class HomeController extends Controller
             'publications' => $publications,
         );
 
-        return view('home', $data);
+        return view('publication.list', $data);
     }
 }
