@@ -1,13 +1,11 @@
 @extends('layouts.home')
 
 @section('content')
-    <div class="row">
-        @if($publication->id != null)
-            <div class="col-md-10">
-                @else
-                    <div class="col-lg-12">
-                        @endif
-
+    <article class="content dashboard-page">
+        <section class="section">
+            <div class="row sameheight-container">
+                <div class="row">
+                    <div @if($publication->id != null) class="col-md-10" @else class="col-lg-12" @endif>
                         <div class="panel panel-default">
                             <div class="panel-heading">Ajout d'une publication</div>
                             <div class="panel-body">
@@ -35,7 +33,8 @@
                                     <div class="form-group row">
 
                                         <div class="col-xs-6 col-md-6 col-lg-6">
-                                            <label for="nban" class="col-md-12 control-label">Nombre par an</label>
+                                            <label for="nban" class="col-md-12 control-label">Nombre par
+                                                an</label>
                                             <input id="nban" type="number" class="form-control" name="nban"
                                                    value="{{$publication->nb_an}}" required>
 
@@ -46,9 +45,11 @@
                                             @endif
                                         </div>
                                         <div class="col-xs-6 col-md-6 col-lg-6">
-                                            <label for="prixan" class="col-md-12 control-label">Prix à l'année</label>
+                                            <label for="prixan" class="col-md-12 control-label">Prix à
+                                                l'année</label>
 
-                                            <input id="prixan" type="number" class="form-control" name="prixan"
+                                            <input id="prixan" type="number" class="form-control"
+                                                   name="prixan"
                                                    value="{{$publication->prix_an}}" required>
 
                                             @if ($errors->has('prix_an'))
@@ -58,9 +59,9 @@
                                             @endif
                                         </div>
                                     </div>
-
                                     <div class="row form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                        <label for="description" class="col-md-4 control-label">Description</label>
+                                        <label for="description"
+                                               class="col-md-4 control-label">Description</label>
 
                                         <div class="col-xs-12 col-md-12 col-lg-12">
                                     <textarea id="description" rows="4" cols="50" class="form-control"
@@ -72,7 +73,6 @@
                                             @endif
                                         </div>
                                     </div>
-
                                     <div class="row form-group">
                                         <div class="col-xs-12 col-md-12 col-lg-12">
                                             <label for="photo" class="col-md-12 control-label">Photo de
@@ -80,8 +80,6 @@
                                             {!! Form::file('photo') !!}
                                         </div>
                                     </div>
-
-
                                     <div class="form-group">
                                         <div class="col-xs-12 col-md-offset-4">
                                             <button type="submit" class="btn btn-primary">
@@ -93,19 +91,39 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                        $("#titre").on('input', function () {
+                            $("#titreCard").text($("#titre").val());
+                        });
+                        $("#prixan").on('input', function () {
+                            $("#prixanCard").text("Prix : " + $("#prixan").val() + "€");
+                        });
+                        $("#nban").on('input', function () {
+                            $("#nbanCard").text($("#nban").val() + " / an");
+                        });
+
+
+                    </script>
                     @if($publication->id != null)
                         <div class="col-md-2">
                             <div class="panel-heading">Prévisualitation</div>
                             <div class="card">
-                                <img class="card-img-top" src="{{url('uploads/'.$publication->fichier->nom_server)}}"
+                                <img class="card-img-top"
+                                     src="{{url('uploads/'.$publication->fichier->nom_server)}}"
                                      alt="{{$publication->fichier->nom_fichier}}" height="300" width="225">
                                 <div class="card-block">
-                                    <h4 class="card-title text-left">{{ $publication->titre }}</h4>
-                                    <small class="text-muted col-md-5">Prix : {{ $publication->prix_an }}€</small>
-                                    <small class="text-muted col-md-5">{{ $publication->nb_an }} / an</small>
+                                    <h4 class="card-title text-left" id="titreCard">{{ $publication->titre }}</h4>
+                                    <small class="text-muted col-md-5" id="prixanCard">Prix
+                                        : {{ $publication->prix_an }}€
+                                    </small>
+                                    <small class="text-muted col-md-5" id="nbanCard">{{ $publication->nb_an }} / an
+                                    </small>
                                 </div>
                             </div>
                         </div>
                     @endif
+                </div>
             </div>
+        </section>
+    </article>
 @endsection

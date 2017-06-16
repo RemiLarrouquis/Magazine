@@ -7,9 +7,7 @@ use App\Fichier;
 use Illuminate\Http\Request;
 use App\Publication;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class PublicationController extends Controller
 {
@@ -40,9 +38,8 @@ class PublicationController extends Controller
 
     public function savePublication(Request $request)
     {
-        $newfile = new Fichier();
+        $destinationPath = 'uploads';
         if (Input::file('photo') != null) {
-            $destinationPath = 'uploads';
             $dateNow = Carbon::now()->format('Ymd_His');
             $extension = Input::file('photo')->getClientOriginalExtension();
             $fileName = $dateNow . '.' . $extension; // renameing image
@@ -52,6 +49,12 @@ class PublicationController extends Controller
                 'nom_fichier' => $fileName,
                 'nom_server' => $fileName,
             ]);
+        } else {
+            if ($request->id == NULL) {
+                $newfile = DB::table('fichiers')->where('nom_fichier', 'empty.JPG')->first();
+            } else {
+                $newfile = new Fichier();
+            }
         }
         if ($request->id == NULL) {
 
@@ -65,7 +68,11 @@ class PublicationController extends Controller
         } else {
 
             $publication = Publication::Find($request->id);
+
             $publication->update($request->all());
+            if ($newfile->id != null) {
+                DB::table('publications')->where('id', $request->id)->update(array('fichier_id' => $newfile->id));
+            }
         }
 
 

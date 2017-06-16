@@ -121,6 +121,11 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication6 -> description = "Tout Télérama en un abonnement, c’est le meilleur de l’actualité culturelle. Un magazine qui vous accompagne dans toutes vos envies de culture : littérature, musique, cinéma, théâtre, art, télévision. des articles de fond, un ton inimitable et une communauté unique, pour exercer chaque jour un esprit critique sur la société ; des contenus exclusivement réservés aux abonnés sur telerama.fr";
         $publication6 -> save();
 
+        $fichier7 = new \App\Fichier();
+        $fichier7 -> nom_fichier = "empty.JPG";
+        $fichier7 -> nom_server = "empty.JPG";
+        $fichier7 -> save();
+
 
     }
 
