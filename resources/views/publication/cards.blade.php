@@ -5,7 +5,7 @@
 
             <div class="col-sm-3">
                 <div class="card">
-                    <img class="card-img-top" src="{{url('uploads/'.$publication->fichier->nom_server)}}" alt="{{$publication->fichier->nom_fichier}}">
+                    <img class="card-img-top" src="{{url('uploads/'.$publication->fichier->nom_server)}}" alt="{{$publication->fichier->nom_fichier}}" height="300" width="225">
                     <div class="card-block">
                         <h4 class="card-title text-left">{{ $publication->titre }}</h4>
                         <small class="text-muted col-md-5">Prix : {{ $publication->prix_an }}€</small>
