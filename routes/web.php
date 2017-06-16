@@ -28,3 +28,10 @@ Route::get("/publication/new","PublicationController@newPublication");
 
 Route::post("/publication/save","PublicationController@savePublication");
 Route::post("/publication/addPicture","PublicationController@upload");
+
+
+Route::get("/api/abonnements", "AbonnementController@getAbonnements");
+
+Route::get("/user/get/{id}", 'ApiUserController@user');
+Route::post("/user/edit", 'ApiUserController@updateUser');
+Route::get("/user/exist/{email}", 'ApiUserController@userExist');
