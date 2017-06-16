@@ -7,7 +7,7 @@
 <nav class="menu">
     <ul class="nav metismenu" id="sidebar-menu">
         <li class="active">
-            <a href="{{ url('/publication') }}"> <i class="fa fa-home"></i> Publications </a>
+            <a href="{{ url('/home') }}"> <i class="fa fa-home"></i> Publications </a>
         </li>
         <li>
             <a href="#"> <i class="fa fa-users"></i> Clients <i class="fa arrow"></i> </a>
