@@ -32,8 +32,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Routage publication
 Route::get("/publication/new","PublicationController@newPublication");
 Route::get("/publication/edit/{id}","PublicationController@editForm");
-
-Route::put("/publication/editForm","PublicationController@editPublication");
+Route::get("/publication/list","PublicationController@liste");
 
 Route::post("/publication/save","PublicationController@savePublication");
 Route::post("/publication/addPicture","PublicationController@upload");

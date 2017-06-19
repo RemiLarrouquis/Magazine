@@ -48,7 +48,7 @@
                     <li class="item">
                         <div class="item-row">
                             <div class="item-col fixed item-col-img md">
-                                <div class="item-img rounded" style="background-image: url({{url('uploads/'.$publication->fichier->nom_server)}})"></div>
+                                <div class="item-img rounded" style="background-image: url({{url('uploads/'.$publication->nom_server)}})"></div>
                             </div>
                             <div class="item-col fixed pull-left item-col-title">
                                 <div class="item-heading">Titre</div>
@@ -86,31 +86,8 @@
                     <!-- Fin liste dynamique -->
             </ul>
         </div>
-        <nav class="text-xs-right">
-            <ul class="pagination">
-                <li class="page-item"> <a class="page-link" href="">
-                        Prev
-                    </a> </li>
-                <li class="page-item active"> <a class="page-link" href="">
-                        1
-                    </a> </li>
-                <li class="page-item"> <a class="page-link" href="">
-                        2
-                    </a> </li>
-                <li class="page-item"> <a class="page-link" href="">
-                        3
-                    </a> </li>
-                <li class="page-item"> <a class="page-link" href="">
-                        4
-                    </a> </li>
-                <li class="page-item"> <a class="page-link" href="">
-                        5
-                    </a> </li>
-                <li class="page-item"> <a class="page-link" href="">
-                        Next
-                    </a> </li>
-            </ul>
-        </nav>
+        {{-- Pagination de la page (surcharge dans ressources/vendor/pagination/default.blade.php --}}
+        {{ $publications->links() }}
     </article>
 
 
