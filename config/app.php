@@ -178,6 +178,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+
     ],
 
     /*
@@ -228,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+        'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth'
 
     ],
 

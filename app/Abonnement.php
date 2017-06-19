@@ -20,7 +20,7 @@ class Abonnement extends Model
     }
 
     public function client() {
-        $this->hasOne('\App\User', 'client_id');
+        $this->hasOne('\App\InfoUser', 'client_id');
     }
 
     public function etat() {

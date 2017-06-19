@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
+use JWTAuth;
 use App\Abonnement;
 use App\User;
 use Carbon\Carbon;
@@ -16,30 +18,19 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiUserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+
+    public function details(Request $request)
     {
-        $this->middleware('auth');
-    }
-
-    public function user($id) {
-        $user = '';
-        // Vérifie qu'il s'agit d'un id en parametre
-        if (is_numeric($id)) {
-            $user = User::find($id);
-        }
-
+        $input = $request->all();
+        $user = JWTAuth::toUser($input['token']);
         return Response::json(array(
             'error' => false,
-            'abonnements' => $user,
+            'result' => $user,
             'status_code' => 200
         ));
     }
 
+    // Vérifie si l'adresse mail est déjà utilisé
     public function userExist($email) {
         $user = User::where('email', $email)->get();
 
@@ -57,32 +48,18 @@ class ApiUserController extends Controller
         ));
     }
 
-    public function users() {
-        $users = User::all();
 
-        return Response::json(array(
-            'error' => false,
-            'abonnements' => $users,
-            'status_code' => 200
-        ));
-    }
-
-    public function updateUser(Request $request)
+    public function update(Request $request)
     {
-        $user = Auth::user();
-        if ($user->id == $request->request->get('id')) {
-            $user->name = trim($request->request->get('name'));
-            $user->email = trim($request->request->get('email'));
-            $user->nom = trim($request->request->get('nom'));
-            $user->prenom = trim($request->request->get('prenom'));
-            if ($request->request->get('afficherReussi') == 'on') {
-                $user->setting->afficherReussi = true;
-            } else {
-                $user->setting->afficherReussi = false;
-            }
-            $user->setting->save();
+        $input = $request->all();
+        $user = JWTAuth::toUser($input['token']);
+        if ($user->id == $input['id']) {
+            $user->email = trim($input['email']);
+            $user->nom = trim($input['nom']);
+            $user->prenom = trim($input['prenom']);
             $user->save();
         }
-        return redirect(url('/user/get/'.$user->id));
+        $token = JWTAuth::refresh($input['token']);
+        return response()->json(['result' => $token]);
     }
 }
