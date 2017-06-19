@@ -24,13 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $publications = Publication::All();
-
-        // Attention toujours inclure dans un tableau les résultats
-        $data = array(
-            'publications' => $publications,
-        );
-
-        return view('publication.list', $data);
+        return redirect('/publication/list');
     }
 }
