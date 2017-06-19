@@ -91,9 +91,15 @@ class PublicationController extends Controller
         return view('publication.publicationform', $data);
     }
 
-    public function editPublication(Request $request)
-    {
-        var_dump($request->id);
-        exit();
+    public function liste() {
+
+        $publications = DB::table('publications')->join('fichiers', 'fichiers.id', '=', 'publications.fichier_id')->paginate(6);
+
+        // Attention toujours inclure dans un tableau les résultats
+        $data = array(
+            'publications' => $publications,
+        );
+
+        return view('publication.list', $data);
     }
 }
