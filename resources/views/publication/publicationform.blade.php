@@ -77,7 +77,7 @@
                                         <div class="col-xs-12 col-md-12 col-lg-12">
                                             <label for="photo" class="col-md-12 control-label">Photo de
                                                 présentation</label>
-                                            {!! Form::file('photo') !!}
+                                            {!! Form::file('photo', $attributes = array('id' => 'imgInp')) !!}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -101,14 +101,28 @@
                         $("#nban").on('input', function () {
                             $("#nbanCard").text($("#nban").val() + " / an");
                         });
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
 
+                                reader.onload = function (e) {
+                                    $('#blah').attr('src', e.target.result);
+                                }
+
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+
+                        $("#imgInp").change(function () {
+                            readURL(this);
+                        });
 
                     </script>
                     @if($publication->id != null)
                         <div class="col-md-2">
                             <div class="panel-heading">Prévisualitation</div>
                             <div class="card">
-                                <img class="card-img-top"
+                                <img class="card-img-top" id="blah"
                                      src="{{url('uploads/'.$publication->fichier->nom_server)}}"
                                      alt="{{$publication->fichier->nom_fichier}}" height="300" width="225">
                                 <div class="card-block">
