@@ -8,13 +8,12 @@ class InfoUser extends Model
 {
     //
     protected $fillable = [
-        'user_id', 'nom', 'prenom', 'sexe_id', 'date_naissance', 'lieu_naissance', 'adresse', 'code_postal', 'telephone',
+        'nom', 'prenom', 'email', 'password', 'sexe_id', 'date_naissance', 'lieu_naissance', 'adresse', 'code_postal', 'telephone',
     ];
 
-    public function user()
-    {
-        return $this->hasOne('App\User');
-    }
+    protected $hidden = [
+        'password',
+    ];
 
     public function sexe()
     {
