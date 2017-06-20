@@ -11,22 +11,17 @@
 |
 */
 
-Route::get('/', function () {
+Route::get("/", function () {
     if (Auth::guest()) {
-        return view('welcome');
+        return view("welcome");
     } else {
-        return redirect('home');
+        return redirect("home");
     }
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-
-
-
+Route::get("/home", "HomeController@index")->name("home");
 
 
 //Routage publication
@@ -36,3 +31,24 @@ Route::get("/publication/list","PublicationController@liste");
 
 Route::post("/publication/save","PublicationController@savePublication");
 Route::post("/publication/addPicture","PublicationController@upload");
+
+// API routes
+Route::group(["middleware" => ["api"],"prefix" => "api"], function () {
+
+    Route::get("register", "APIController@register");
+    Route::get("login", "APIController@login");
+
+    Route::group(["middleware" => "jwt-auth"], function () {
+
+        // Clients
+        Route::get("/user/details", "ApiUserController@details");
+        Route::get("/user/edit", "ApiUserController@update");
+        Route::get("/user/exist", "ApiUserController@userExist");
+
+        // Abonnements
+        Route::get("/abonnement/liste", "AbonnementController@getAbonnements");
+
+        // Publications
+        Route::get("/publication/liste", "ApiPublicationsController@liste");
+    });
+});
