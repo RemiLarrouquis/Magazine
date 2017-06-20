@@ -126,7 +126,108 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $fichier7 -> nom_server = "empty.JPG";
         $fichier7 -> save();
 
+        $publication7 = new \App\Publication();
+        $publication7 -> fichier() -> associate($fichier7);
+        $publication7 -> titre = "Magazine";
+        $publication7 -> nb_an = 6;
+        $publication7 -> prix_an = 35;
+        $publication7 -> description = "Accédez au suivi de vos abonnements magazines pour connaître la date de fin de votre abonnement magazine. Profitez-en pour vous réabonner !";
+        $publication7 -> save();
 
+
+        $fichier8 = new \App\Fichier();
+        $fichier8 -> nom_fichier = "psycho.JPG";
+        $fichier8 -> nom_server = "psycho.JPG";
+        $fichier8 -> save();
+
+        $publication8 = new \App\Publication();
+        $publication8 -> fichier() -> associate($fichier8);
+        $publication8 -> titre = "Psychologies";
+        $publication8 -> nb_an = 11;
+        $publication8 -> prix_an = 26;
+        $publication8 -> description = "Dans le contexte actuel plus compliqué pour tous, Psychologies magazine est un véritable atout !Il vous donne de nouveaux repères et vous offre un regard neuf sur votre vie… sur vous-même et sur les autres.";
+        $publication8 -> save();
+
+        $fichier9 = new \App\Fichier();
+        $fichier9 -> nom_fichier = "premiere.JPG";
+        $fichier9 -> nom_server = "premiere.JPG";
+        $fichier9 -> save();
+
+        $publication9 = new \App\Publication();
+        $publication9 -> fichier() -> associate($fichier9);
+        $publication9 -> titre = "Première";
+        $publication9 -> nb_an = 6;
+        $publication9 -> prix_an = 23;
+        $publication9 -> description = "Chaque mois, retrouvez dans Première l’agenda des films, les box-offices en France et aux U.S.A., les brèves sur les tournages français et américains, les coups de cœur de la rédaction, des interviews et reportages, les prévisions de sortie, les fiches cinéma et deux affiches de film.";
+        $publication9 -> save();
+
+        $fichier10 = new \App\Fichier();
+        $fichier10 -> nom_fichier = "tele7.JPG";
+        $fichier10 -> nom_server = "tele7.JPG";
+        $fichier10 -> save();
+
+        $publication10 = new \App\Publication();
+        $publication10 -> fichier() -> associate($fichier10);
+        $publication10 -> titre = "Télé 7 Jours";
+        $publication10 -> nb_an = 52;
+        $publication10 -> prix_an = 41;
+        $publication10 -> description = "Chaque semaine recevez chez vous le plus attractif des magazines télé. Laissez-vous guider par les grilles de programmes complètes et conviviales de toutes les chaînes, y compris câble et satellites.Avec TELE 7 JOURS vous serez informé par nos nombreux commentaires. ";
+        $publication10 -> save();
+
+        $fichier11 = new \App\Fichier();
+        $fichier11 -> nom_fichier = "camping.JPG";
+        $fichier11 -> nom_server = "camping.JPG";
+        $fichier11 -> save();
+
+        $publication11 = new \App\Publication();
+        $publication11 -> fichier() -> associate($fichier11);
+        $publication11 -> titre = "Camping Car Magazine";
+        $publication11 -> nb_an = 1;
+        $publication11 -> prix_an = 35;
+        $publication11 -> description = "Actualité, essais, enquêtes et dossiers : nouveaux modèles, réglementation... tout ce qui de passe dans le monde des camping-caristes.Equipement, fiches pratiques : petits gadgets ou grandes innovations, découvrez les technologies et les idées simples qui vous facilitent la vie...";
+        $publication11 -> save();
+
+
+        $fichier12 = new \App\Fichier();
+        $fichier12 -> nom_fichier = "cheval.JPG";
+        $fichier12 -> nom_server = "cheval.JPG";
+        $fichier12 -> save();
+
+        $publication12 = new \App\Publication();
+        $publication12 -> fichier() -> associate($fichier12);
+        $publication12 -> titre = "Cheval Pratique";
+        $publication12 -> nb_an = 12;
+        $publication12 -> prix_an = 56;
+        $publication12 -> description = "Depuis 1990, Cheval Pratique apporte à tous ceux qui aiment les chevaux les informations indispensables pour vivre pleinement leur passion. Les journalistes, tous cavaliers, travaillent en collaboration avec des intervenants professionnels qui comptent parmi les meilleurs du monde équestre.";
+        $publication12 -> save();
+
+
+        $fichier13 = new \App\Fichier();
+        $fichier13 -> nom_fichier = "jeux.JPG";
+        $fichier13 -> nom_server = "jeux.JPG";
+        $fichier13 -> save();
+
+        $publication13 = new \App\Publication();
+        $publication13 -> fichier() -> associate($fichier13);
+        $publication13 -> titre = "Jeux Vidéo Magazine";
+        $publication13 -> nb_an = 12;
+        $publication13 -> prix_an = 31;
+        $publication13 -> description = "Jeux Vidéo Magazine est le magazine de jeux vidéo français le plus vendu. Ilest consacré au jeu vidéo sous toutes ses formes et sur tous ses supports :consoles, PC, nomades, online, mobiles et tablettes. Tous les mois retrouveztoute l’actualité du jeu vidéo : des actus, des dossiers, des enquêtes et biensûr les tests de tous les jeux";
+        $publication13 -> save();
+
+
+        $fichier14 = new \App\Fichier();
+        $fichier14 -> nom_fichier = "minou.JPG";
+        $fichier14 -> nom_server = "minou.JPG";
+        $fichier14 -> save();
+
+        $publication14 = new \App\Publication();
+        $publication14 -> fichier() -> associate($fichier14);
+        $publication14 -> titre = "Terre Sauvage";
+        $publication14 -> nb_an = 12;
+        $publication14 -> prix_an = 55;
+        $publication14 -> description = "Avec [Terre Sauvage], partez à la découverte de notre planète dans ce qu’elle a de plus authentique, de plus fragile, de plus vivant : sa nature sauvage !Rencontres étonnantes entre les hommes et les animaux, récits d’aventuriers hors du commun, exploration sportive des terres extrêmes";
+        $publication14 -> save();
     }
 
     /**
