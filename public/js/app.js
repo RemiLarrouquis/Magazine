@@ -82,8 +82,8 @@ $(function() {
 	    },
 	    messages: {
 	        email1: {
-	            required: "Please enter email address",
-	            email: "Please enter a valid email address"
+	            required: "Veuillez entrer un email.",
+	            email: "Veuillez entrer un email valide."
 	        }
 	    },
 	    invalidHandler: function() {
@@ -115,11 +115,11 @@ $(function() {
 	    },
 	    messages: {
 	        username: {
-	            required: "Please enter username",
-	            email: "Please enter a valid email address"
+	            required: "Veuillez entrer un identifiant.",
+	            email: "Veuillez entrer un email valide."
 	        },
-	        password:  "Please enter password",
-	        agree: "Please accept our policy"
+	        password:  "Veuillez entrer un mot de passe.",
+	        agree: "Veuillez accepter nos conditions."
 	    },
 	    invalidHandler: function() {
 			animate({
@@ -193,21 +193,21 @@ $(function() {
 			}
 		},
 	    messages: {
-	    	firstname: "Please enter firstname and lastname",
-	    	lastname: "Please enter firstname and lastname",
+	    	firstname: "Veuillez entrer votre nom et prénom.",
+	    	lastname: "Veuillez entrer votre nom et prénom.",
 	        email: {
-	            required: "Please enter email",
-	            email: "Please enter a valid email address"
+	            required: "Veuillez entrer un email.",
+	            email: "Veuillez entrer un email valide."
 	        },
 	        password: {
-	        	required: "Please enter password fields.",
-	        	minlength: "Passwords should be at least 8 characters."
+	        	required: "Veuillez entrer un mot de passe.",
+	        	minlength: "Votre mot de passe doit contenir au moins 8 charactères."
 	        },
 	        retype_password: {
-	        	required: "Please enter password fields.",
-	        	minlength: "Passwords should be at least 8 characters."
+	        	required: "Veuillez entrer un mot de passe.",
+	        	minlength: "Votre mot de passe doit contenir au moins 8 charactères."
 	        },
-	        agree: "Please accept our policy"
+	        agree: "Veuillez accepter nos conditions."
 	    },
 	    invalidHandler: function() {
 			animate({
