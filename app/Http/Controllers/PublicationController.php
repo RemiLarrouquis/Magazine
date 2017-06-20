@@ -56,6 +56,7 @@ class PublicationController extends Controller
                 $newfile = new Fichier();
             }
         }
+
         if ($request->id == NULL) {
 
             Publication::Create([
@@ -67,9 +68,9 @@ class PublicationController extends Controller
             ]);
         } else {
 
-            $publication = Publication::Find($request->id);
+            $publication = Publication::find($request->id);
+            $publication->update($request->request->all());
 
-            $publication->update($request->all());
             if ($newfile->id != null) {
                 DB::table('publications')->where('id', $request->id)->update(array('fichier_id' => $newfile->id));
             }
@@ -93,7 +94,7 @@ class PublicationController extends Controller
 
     public function liste() {
 
-        $publications = DB::table('publications')->join('fichiers', 'fichiers.id', '=', 'publications.fichier_id')->paginate(6);
+        $publications = DB::table('publications')->join('fichiers', 'fichiers.id', '=', 'publications.fichier_id')->orderBy('publications.updated_at', 'desc')->paginate(6);
 
         // Attention toujours inclure dans un tableau les résultats
         $data = array(
