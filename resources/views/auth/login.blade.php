@@ -10,10 +10,12 @@
 
             <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email">Adresse mail</label>
-                <input type="email" class="form-control underlined" name="email" id="email" placeholder="Votre adresse" value="{{ old('email') }}" required autofocus>
+                <input type="email" class="form-control underlined" name="email" id="email"
+                       placeholder="Votre adresse" value="{{ old('email') }}" required autofocus
+                       aria-required="true" aria-describedby="email-error" aria-invalid="false">
 
                 @if ($errors->has('email'))
-                    <span class="has-error">{{ $errors->first('email') }}</span>
+                    <span id="email-error" class="has-error">{{ $errors->first('email') }}</span>
                 @endif
             </div>
 
