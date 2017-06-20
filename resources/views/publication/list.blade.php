@@ -48,7 +48,7 @@
                     <li class="item">
                         <div class="item-row">
                             <div class="item-col fixed item-col-img md">
-                                <div class="item-img rounded" style="background-image: url({{url('uploads/'.$publication->nom_server)}})"></div>
+                                <div class="item-img rounded" style="background-image: url({{url('uploads/'.$publication->image)}})"></div>
                             </div>
                             <div class="item-col fixed pull-left item-col-title">
                                 <div class="item-heading">Titre</div>

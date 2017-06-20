@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Fichier;
 use Illuminate\Http\Request;
 use App\Publication;
 use Illuminate\Support\Facades\Input;
@@ -39,28 +38,23 @@ class PublicationController extends Controller
     public function savePublication(Request $request)
     {
         $destinationPath = 'uploads';
+        $fileName = '';
         if (Input::file('photo') != null) {
             $dateNow = Carbon::now()->format('Ymd_His');
             $extension = Input::file('photo')->getClientOriginalExtension();
             $fileName = $dateNow . '.' . $extension; // renameing image
             Input::file('photo')->move($destinationPath, $fileName);
 
-            $newfile = Fichier::Create([
-                'nom_fichier' => $fileName,
-                'nom_server' => $fileName,
-            ]);
         } else {
             if ($request->id == NULL) {
-                $newfile = DB::table('fichiers')->where('nom_fichier', 'empty.JPG')->first();
-            } else {
-                $newfile = new Fichier();
+                $fileName = 'empty.JPG';
             }
         }
 
         if ($request->id == NULL) {
 
             Publication::Create([
-                'fichier_id' => $newfile->id,
+                'image' => $fileName,
                 'titre' => trim($request->titre),
                 'nb_an' => $request->nb_an,
                 'prix_an' => $request->prix_an,
@@ -69,13 +63,16 @@ class PublicationController extends Controller
         } else {
 
             $publication = Publication::find($request->id);
-            $publication->update($request->request->all());
 
-            if ($newfile->id != null) {
-                DB::table('publications')->where('id', $request->id)->update(array('fichier_id' => $newfile->id));
+            if ($fileName == '') {
+                $fileName = $publication->image;
             }
-        }
 
+            $toUpdate = $request->request->all();
+            $toUpdate['image'] = $fileName;
+
+            $publication->update($toUpdate);
+        }
 
         return redirect('home');
     }
@@ -83,10 +80,8 @@ class PublicationController extends Controller
     public function editForm($id)
     {
         $publication = Publication::find($id);
-        $fichier = Fichier::find($publication->fichier_id);
         $data = array(
             'publication' => $publication,
-            'fichier' => $fichier
         );
 
         return view('publication.publicationform', $data);
@@ -94,7 +89,9 @@ class PublicationController extends Controller
 
     public function liste() {
 
-        $publications = DB::table('publications')->join('fichiers', 'fichiers.id', '=', 'publications.fichier_id')->orderBy('publications.updated_at', 'desc')->paginate(6);
+        $publications = DB::table('publications')
+            ->orderBy('updated_at', 'desc')
+            ->paginate(6);
 
         // Attention toujours inclure dans un tableau les résultats
         $data = array(
