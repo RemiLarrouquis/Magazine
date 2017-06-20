@@ -35,7 +35,7 @@
                                         <div class="col-xs-6 col-md-6 col-lg-6">
                                             <label for="nban" class="col-md-12 control-label">Nombre par
                                                 an</label>
-                                            <input id="nban" type="number" class="form-control" name="nban"
+                                            <input id="nban" type="number" class="form-control" name="nb_an"
                                                    value="{{$publication->nb_an}}" required>
 
                                             @if ($errors->has('nb_an'))
@@ -49,7 +49,7 @@
                                                 l'année</label>
 
                                             <input id="prixan" type="number" class="form-control"
-                                                   name="prixan"
+                                                   name="prix_an"
                                                    value="{{$publication->prix_an}}" required>
 
                                             @if ($errors->has('prix_an'))
