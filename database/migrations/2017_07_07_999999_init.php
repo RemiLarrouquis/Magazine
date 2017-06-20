@@ -76,18 +76,18 @@ class Init extends Migration
         $userLudo -> save();
 
         // Création d'un client
-        $infoClient1 = new \App\InfoUser();
-        $infoClient1 -> sexe_id = $statusSexeH -> id;
-        $infoClient1 -> nom = "Client";
-        $infoClient1 -> prenom = "premier";
-        $infoClient1 -> email = "client1@test.fr";
-        $infoClient1 -> password = bcrypt('client1');
-        $infoClient1 -> date_naissance = Carbon::createFromDate("2000", "02", "05", "0");
-        $infoClient1 -> lieu_naissance = "Bordeaux";
-        $infoClient1 -> adresse = "une adresse au numéro 5";
-        $infoClient1 -> code_postal = "33000";
-        $infoClient1 -> telephone = "0705252625";
-        $infoClient1 -> save();
+        $client1 = new \App\User();
+        $client1 -> sexe_id = $statusSexeH -> id;
+        $client1 -> nom = "Client";
+        $client1 -> prenom = "premier";
+        $client1 -> email = "client1@test.fr";
+        $client1 -> password = bcrypt('client1');
+        $client1 -> date_naissance = Carbon::createFromDate("2000", "02", "05", "0");
+        $client1 -> lieu_naissance = "Bordeaux";
+        $client1 -> adresse = "une adresse au numéro 5";
+        $client1 -> code_postal = "33000";
+        $client1 -> telephone = "0705252625";
+        $client1 -> save();
 
         // Création des publications avec fichiers
         $fichier1 = new \App\Fichier();
@@ -186,7 +186,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         // Création d'un abonnement
         $abonnement1 = new \App\Abonnement();
         $abonnement1 -> publication_id = $publication1 -> id;
-        $abonnement1 -> client_id = $infoClient1-> id;
+        $abonnement1 -> client_id = $client1-> id;
         $abonnement1 -> etat_id = $statusAboEnCours -> id;
         $abonnement1 -> paye_id = $statusAboImpaye -> id;
         $abonnement1 -> date_fin = Carbon::createFromDate("2018", "02", "05", "0");

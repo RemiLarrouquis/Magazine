@@ -34,6 +34,7 @@ Route::post("/publication/addPicture","PublicationController@upload");
 
 // API routes
 Route::group(["middleware" => ["api"],"prefix" => "api"], function () {
+
     Route::get("register", "APIController@register");
     Route::get("login", "APIController@login");
 
@@ -45,6 +46,9 @@ Route::group(["middleware" => ["api"],"prefix" => "api"], function () {
         Route::get("/user/exist", "ApiUserController@userExist");
 
         // Abonnements
-        Route::get("/abonnement/list", "AbonnementController@getAbonnements");
+        Route::get("/abonnement/liste", "AbonnementController@getAbonnements");
+
+        // Publications
+        Route::get("/publication/liste", "ApiPublicationsController@liste");
     });
 });

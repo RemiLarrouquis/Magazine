@@ -31,10 +31,11 @@ class ApiUserController extends Controller
     }
 
     // Vérifie si l'adresse mail est déjà utilisé
-    public function userExist($email) {
-        $user = User::where('email', $email)->get();
+    public function userExist(Request $request) {
+        $input = $request->all();
+        $user = User::where('email', $input['email'])->get();
 
-        if ($user == null) {
+        if ($user->isEmpty()) {
             return Response::json(array(
                 'error' => false,
                 'exist' => false,
@@ -54,10 +55,7 @@ class ApiUserController extends Controller
         $input = $request->all();
         $user = JWTAuth::toUser($input['token']);
         if ($user->id == $input['id']) {
-            $user->email = trim($input['email']);
-            $user->nom = trim($input['nom']);
-            $user->prenom = trim($input['prenom']);
-            $user->save();
+            $user->update($input);
         }
         $token = JWTAuth::refresh($input['token']);
         return response()->json(['result' => $token]);

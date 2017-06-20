@@ -15,19 +15,26 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiAbonnementController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function liste(Request $request)
     {
-        $this->middleware('auth');
+        $input = $request->all();
+        $user = JWTAuth::toUser($input['token']);
+
+        $abonnements = Abonnement::where('client_id', $user->id);
+
+        return Response::json(array(
+            'error' => false,
+            'abonnements' => $abonnements,
+            'status_code' => 200
+        ));
     }
 
-    public function getAll()
+    public function create(Request $request)
     {
-        $abonnements = Abonnement::all();
+        $input = $request->all();
+        $user = JWTAuth::toUser($input['token']);
+
+        $abonnements = Abonnement::where('client_id', $user->id);
 
         return Response::json(array(
             'error' => false,
