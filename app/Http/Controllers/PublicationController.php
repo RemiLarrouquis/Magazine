@@ -62,8 +62,8 @@ class PublicationController extends Controller
             Publication::Create([
                 'fichier_id' => $newfile->id,
                 'titre' => trim($request->titre),
-                'nb_an' => $request->nban,
-                'prix_an' => $request->prixan,
+                'nb_an' => $request->nb_an,
+                'prix_an' => $request->prix_an,
                 'description' => trim($request->description)
             ]);
         } else {
