@@ -2,6 +2,10 @@
 
 @section('content')
     <article class="content dashboard-page">
+        <div class="title-block">
+            <h3 class="title"> Publications </h3>
+            <p class="title-description"> {{ $sub_title }} </p>
+        </div>
         <section class="section">
             <div class="row sameheight-container">
                 <div class="row">

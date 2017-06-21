@@ -6,7 +6,7 @@
                 @if ($paginator->onFirstPage())
                     <span class="page-link" href=""> Prev </span>
                 @else
-                    <a class="page-link" href="{{ $paginator->previousPageUrl() }}"> Prev </a>
+                    <a class="page-link" href="#" onclick="pageToSurcharge('{{ $paginator->previousPageUrl() }}');"> Prev </a>
                 @endif
             </li>
 
@@ -28,7 +28,7 @@
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $url }}"> {{ $page }} </a>
+                                <a class="page-link" href="#" onclick="pageToSurcharge('{{ $url }}');"> {{ $page }} </a>
                             </li>
                         @endif
                     @endforeach
@@ -38,7 +38,7 @@
             {{-- Next Page Link --}}
             <li class="page-item">
                 @if ($paginator->hasMorePages())
-                    <a class="page-link" href="{{ $paginator->nextPageUrl() }}"> Next </a>
+                    <a class="page-link" href="#" onclick="pageToSurcharge('{{ $paginator->nextPageUrl() }}');"> Next </a>
                 @else
                     <span class="page-link" href=""> Next </span>
                 @endif

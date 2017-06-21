@@ -51,4 +51,9 @@ Route::group(["middleware" => ["api"],"prefix" => "api"], function () {
         // Publications
         Route::get("/publication/liste", "ApiPublicationsController@liste");
     });
+
+    // Liste des status.
+    Route::get("status/sexe", "ApiStatusController@listeSexe");
+    Route::get("status/encours", "ApiStatusController@listeAboEnCours");
+    Route::get("status/paye", "ApiStatusController@listeAboPaye");
 });
