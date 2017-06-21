@@ -37,7 +37,7 @@ class ConfirmAdress extends Mailable
             ->with([
                 'nom' => $this->user->nom,
                 'prenom' => $this->user->prenom,
-                'email' => $this->user->email,
+                'id' => $this->user->id,
             ]);
     }
 }

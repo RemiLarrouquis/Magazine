@@ -62,6 +62,7 @@ class Init extends Migration
         $userRemi->email = "remi@mag.fr";
         $userRemi->password = bcrypt('remimag');
         $userRemi->save();
+
         $userLudo = new \App\User();
         $userLudo->nom = "Ludovic G";
         $userLudo->email = "ludovic@mag.fr";
@@ -75,6 +76,7 @@ class Init extends Migration
         $client1->prenom = "premier";
         $client1->email = "client1@test.fr";
         $client1->password = bcrypt('client1');
+        $client1->is_client = true;
         $client1->date_naissance = Carbon::createFromDate("2000", "02", "05", "0");
         $client1->lieu_naissance = "Bordeaux";
         $client1->adresse = "une adresse au numéro 5";

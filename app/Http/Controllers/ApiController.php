@@ -15,6 +15,8 @@ class APIController extends Controller
     {
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+        // On confirme qu'il s'agit d'un client
+        $input['is_client'] = true;
         $newUser = User::create($input);
 
         // Envoie d'un mail de confirmation
@@ -28,8 +30,17 @@ class APIController extends Controller
     {
         $input = $request->all();
         if (!$token = JWTAuth::attempt($input)) {
-            return response()->json(['result' => 'wrong email or password.']);
+            return response()->json(['result' => "Erreur d'identifiant ou mot de passe."]);
         }
         return response()->json(['result' => $token]);
+    }
+
+    public function confirm(Request $request)
+    {
+        $input = $request->all();
+        $user = User::find($input['to_confirm']);
+        $user->mail_confirm=true;
+        $user->save();
+        return response()->json(['result' => 'success', 'status' => 200]);
     }
 }

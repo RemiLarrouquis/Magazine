@@ -34,8 +34,10 @@ Route::post("/publication/addPicture","PublicationController@upload");
 // API routes
 Route::group(["middleware" => ["api"],"prefix" => "api"], function () {
 
-    Route::get("register", "APIController@register");
     Route::get("login", "APIController@login");
+
+    Route::get("register", "APIController@register");
+    Route::get("confirm", "APIController@confirm");
 
     Route::group(["middleware" => "jwt-auth"], function () {
 

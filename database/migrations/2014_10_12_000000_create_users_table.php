@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('nom');
+            $table->boolean('mail_confirm')->default(false);
+            $table->boolean('is_client')->default(false);
 
             // Défini uniquemant sur le client
             $table->integer('sexe_id')->nullable();
