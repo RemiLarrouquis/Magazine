@@ -17,12 +17,11 @@ Route::get("/", function () {
     } else {
         return redirect("home");
     }
-});
+})->name("/");
 
 Auth::routes();
 
 Route::get("/home", "HomeController@index")->name("home");
-
 
 //Routage publication
 Route::get("/publication/new","PublicationController@newPublication");
