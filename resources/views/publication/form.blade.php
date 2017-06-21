@@ -11,7 +11,6 @@
                 <div class="row">
                     <div @if($publication->id != null) class="col-md-10" @else class="col-lg-12" @endif>
                         <div class="panel panel-default">
-                            <div class="panel-heading">Ajout d'une publication</div>
                             <div class="panel-body">
                                 <form class="form-horizontal" role="form" method="POST"
                                       action="{{ url('/publication/save') }}"

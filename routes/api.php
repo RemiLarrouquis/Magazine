@@ -13,6 +13,28 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Connexion à l'application
+Route::post("login", "APIController@login");
+
+// Inscription et validation par mail
+Route::post("register", "APIController@register");
+Route::get("confirm", "APIController@confirm");
+
+Route::group(["middleware" => "jwt-auth"], function () {
+
+    // Clients
+    Route::get("/user/details", "ApiUserController@details");
+    Route::get("/user/exist", "ApiUserController@userExist");
+    Route::post("/user/edit", "ApiUserController@update");
+
+    // Abonnements
+    Route::get("/abonnement/liste", "AbonnementController@getAbonnements");
+
+    // Publications
+    Route::get("/publication/liste", "ApiPublicationsController@liste");
 });
+
+// Liste des status.
+Route::get("status/sexe", "ApiStatusController@listeSexe");
+Route::get("status/encours", "ApiStatusController@listeAboEnCours");
+Route::get("status/paye", "ApiStatusController@listeAboPaye");
