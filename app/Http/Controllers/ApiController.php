@@ -5,6 +5,9 @@ use Illuminate\Http\Request;
 use App\User;
 use Hash;
 use JWTAuth;
+use App\Mail\ConfirmAdress;
+use Illuminate\Support\Facades\Mail;
+
 class APIController extends Controller
 {
 
@@ -12,7 +15,12 @@ class APIController extends Controller
     {
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-        User::create($input);
+        $newUser = User::create($input);
+
+        // Envoie d'un mail de confirmation
+        Mail::to($newUser->email)
+            ->send(new ConfirmAdress($newUser));
+
         return response()->json(['result'=>true]);
     }
 
