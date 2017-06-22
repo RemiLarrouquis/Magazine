@@ -29,4 +29,15 @@ class ApiPublicationsController extends Controller
         ));
     }
 
+    public function detail(Request $request)
+    {
+        $input = $request->all();
+        $pubs = Publication::where('id', $input['id'])->get();
+        return response()->json(array(
+            'error' => false,
+            'result' => $pubs,
+            'status_code' => 200
+        ));
+    }
+
 }

@@ -35,6 +35,7 @@ Route::group(["middleware" => "jwt-auth"], function () {
 
 // Publications
 Route::get("/publication/liste", "ApiPublicationsController@liste");
+Route::get("/publication/detail", "ApiPublicationsController@detail");
 // Liste des status.
 Route::get("status/sexe", "ApiStatusController@listeSexe");
 Route::get("status/encours", "ApiStatusController@listeAboEnCours");
