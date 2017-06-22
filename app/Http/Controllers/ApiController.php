@@ -20,8 +20,8 @@ class APIController extends Controller
         $newUser = User::create($input);
 
         // Envoie d'un mail de confirmation
-        Mail::to($newUser->email)
-            ->send(new ConfirmAdress($newUser));
+//        Mail::to($newUser->email)
+//            ->send(new ConfirmAdress($newUser));
 
         return response()->json(['result'=>true]);
     }

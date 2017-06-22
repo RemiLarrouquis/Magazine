@@ -19,12 +19,13 @@ Route::post("login", "APIController@login");
 // Inscription et validation par mail
 Route::post("register", "APIController@register");
 Route::get("confirm", "APIController@confirm");
+Route::post("/user/exist", "ApiUserController@userExist");
+
 
 Route::group(["middleware" => "jwt-auth"], function () {
 
     // Clients
     Route::get("/user/details", "ApiUserController@details");
-    Route::get("/user/exist", "ApiUserController@userExist");
     Route::post("/user/edit", "ApiUserController@update");
 
     // Abonnements
