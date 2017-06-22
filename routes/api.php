@@ -18,8 +18,9 @@ Route::post("login", "APIController@login");
 
 // Inscription et validation par mail
 Route::post("register", "APIController@register");
-Route::get("confirm", "APIController@confirm");
 Route::post("/user/exist", "ApiUserController@userExist");
+
+Route::get("confirm", "APIController@confirm");
 
 
 Route::group(["middleware" => "jwt-auth"], function () {
@@ -30,11 +31,10 @@ Route::group(["middleware" => "jwt-auth"], function () {
 
     // Abonnements
     Route::get("/abonnement/liste", "AbonnementController@getAbonnements");
-
-    // Publications
-    Route::get("/publication/liste", "ApiPublicationsController@liste");
 });
 
+// Publications
+Route::get("/publication/liste", "ApiPublicationsController@liste");
 // Liste des status.
 Route::get("status/sexe", "ApiStatusController@listeSexe");
 Route::get("status/encours", "ApiStatusController@listeAboEnCours");

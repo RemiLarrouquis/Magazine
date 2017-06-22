@@ -22,7 +22,7 @@ class ApiPublicationsController extends Controller
     public function liste(Request $request)
     {
         $pubs = \App\Publication::All();
-        return Response::json(array(
+        return response()->json(array(
             'error' => false,
             'result' => $pubs,
             'status_code' => 200
