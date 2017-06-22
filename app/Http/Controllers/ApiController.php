@@ -7,23 +7,50 @@ use Hash;
 use JWTAuth;
 use App\Mail\ConfirmAdress;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class APIController extends Controller
 {
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'email'         => 'required|string|email|max:255|unique:users',
+            'password'      => 'required|string|min:6',
+            'nom'           => 'required|string|max:255',
+            'prenom'        => 'required|string|max:255',
+            'sexe_id'       => 'required|numeric',
+            'date_naissance'=> 'required|date',
+            'lieu_naissance'=> 'required|string|max:255',
+            'adresse'       => 'required|string|max:255',
+            'code_postal'   => 'required|numeric',
+            'telephone'     => 'required|numeric',
+        ]);
+    }
+
     public function register(Request $request)
     {
         $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-        // On confirme qu'il s'agit d'un client
-        $input['is_client'] = true;
-        $newUser = User::create($input);
+        // Valide le formulaire
+        $valid = $this->validator($input);
 
-        // Envoie d'un mail de confirmation
-        Mail::to($newUser->email)
-            ->send(new ConfirmAdress($newUser));
+        if ($valid->fails()) {
+            return response()->json(['errors' => true, 'result'=>$valid->errors()]);
+        } else {
+            // Hash le mot de passe avant sauvegarde
+            $input['password'] = Hash::make($input['password']);
+            // On indique qu'il s'agit d'un client
+            $input['is_client'] = true;
+            $newUser = User::create($input);
 
-        return response()->json(['result'=>true]);
+            // Envoie d'un mail de confirmation
+            // Mail::to($newUser->email)
+            //  ->send(new ConfirmAdress($newUser));
+
+            return response()->json(['errors' => false, 'result' => "Utilisateur créé."]);
+
+        }
+
     }
 
     public function login(Request $request)

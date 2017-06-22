@@ -12,11 +12,11 @@ class authJWT
             $user = JWTAuth::toUser($request->input('token'));
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
-                return response()->json(['error'=>'Token is Invalid']);
+                return response()->json(['error'=>true, 'result'=>'Erreur de connexion']);
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
-                return response()->json(['error'=>'Token is Expired']);
+                return response()->json(['error'=>true, 'result'=>'Connexion perdue']);
             }else{
-                return response()->json(['error'=>'Something is wrong']);
+                return response()->json(['error'=>true, 'result'=>"Erreur d'authentification"]);
             }
         }
         return $next($request);
