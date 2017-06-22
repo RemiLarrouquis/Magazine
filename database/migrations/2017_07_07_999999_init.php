@@ -86,7 +86,7 @@ class Init extends Migration
         $client1->save();
 
         $publication1 = new \App\Publication();
-        $publication1->image = "tout_sur_lhistoire_viking.jpg";
+        $publication1->image = $this->getBase64FromPath("tout_sur_lhistoire_viking.jpg");
         $publication1->titre = "Tout sur l'Histoire";
         $publication1->nb_an = 6;
         $publication1->prix_an = 34;
@@ -95,7 +95,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication1->save();
 
         $publication2 = new \App\Publication();
-        $publication2->image = "gq.JPG";
+        $publication2->image = $this->getBase64FromPath("gq.JPG");
         $publication2->titre = "GQ";
         $publication2->nb_an = 11;
         $publication2->prix_an = 26;
@@ -106,7 +106,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication2->save();
 
         $publication3 = new \App\Publication();
-        $publication3->image = "spirou.JPG";
+        $publication3->image = $this->getBase64FromPath("spirou.JPG");
         $publication3->titre = "Spirou";
         $publication3->nb_an = 12;
         $publication3->prix_an = 36;
@@ -114,7 +114,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication3->save();
 
         $publication4 = new \App\Publication();
-        $publication4->image = "animal.JPG";
+        $publication4->image = $this->getBase64FromPath("animal.JPG");
         $publication4->titre = "60 millions de consommateurs";
         $publication4->nb_an = 12;
         $publication4->prix_an = 41;
@@ -122,7 +122,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication4->save();
 
         $publication5 = new \App\Publication();
-        $publication5->image = "parismatch.JPG";
+        $publication5->image = $this->getBase64FromPath("parismatch.JPG");
         $publication5->titre = "Paris match";
         $publication5->nb_an = 10;
         $publication5->prix_an = 80;
@@ -130,7 +130,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication5->save();
 
         $publication6 = new \App\Publication();
-        $publication6->image = "telerama.JPG";
+        $publication6->image = $this->getBase64FromPath("telerama.JPG");
         $publication6->titre = "Télérama";
         $publication6->nb_an = 11;
         $publication6->prix_an = 99;
@@ -138,7 +138,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication6->save();
 
         $publication7 = new \App\Publication();
-        $publication7->image = "empty.JPG";
+        $publication7->image = $this->getBase64FromPath("empty.JPG");
         $publication7->titre = "Magazine";
         $publication7->nb_an = 6;
         $publication7->prix_an = 35;
@@ -146,7 +146,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication7->save();
 
         $publication8 = new \App\Publication();
-        $publication8->image = "psycho.JPG";
+        $publication8->image = $this->getBase64FromPath("psycho.JPG");
         $publication8->titre = "Psychologies";
         $publication8->nb_an = 11;
         $publication8->prix_an = 26;
@@ -154,7 +154,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication8->save();
 
         $publication9 = new \App\Publication();
-        $publication9->image = "premiere.JPG";
+        $publication9->image = $this->getBase64FromPath("premiere.JPG");
         $publication9->titre = "Première";
         $publication9->nb_an = 6;
         $publication9->prix_an = 23;
@@ -162,7 +162,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication9->save();
 
         $publication10 = new \App\Publication();
-        $publication10->image = "tele7.JPG";
+        $publication10->image = $this->getBase64FromPath("tele7.JPG");
         $publication10->titre = "Télé 7 Jours";
         $publication10->nb_an = 52;
         $publication10->prix_an = 41;
@@ -170,7 +170,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication10->save();
 
         $publication11 = new \App\Publication();
-        $publication11->image = "camping.JPG";
+        $publication11->image = $this->getBase64FromPath("camping.JPG");
         $publication11->titre = "Camping Car Magazine";
         $publication11->nb_an = 1;
         $publication11->prix_an = 35;
@@ -178,7 +178,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication11->save();
 
         $publication12 = new \App\Publication();
-        $publication12->image = "cheval.JPG";
+        $publication12->image = $this->getBase64FromPath("cheval.JPG");
         $publication12->titre = "Cheval Pratique";
         $publication12->nb_an = 12;
         $publication12->prix_an = 56;
@@ -186,7 +186,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication12->save();
 
         $publication13 = new \App\Publication();
-        $publication13->image = "jeux.JPG";
+        $publication13->image = $this->getBase64FromPath("jeux.JPG");
         $publication13->titre = "Jeux Vidéo Magazine";
         $publication13->nb_an = 12;
         $publication13->prix_an = 31;
@@ -194,7 +194,7 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication13->save();
 
         $publication14 = new \App\Publication();
-        $publication14->image = "minou.JPG";
+        $publication14->image = $this->getBase64FromPath("minou.JPG");
         $publication14->titre = "Terre Sauvage";
         $publication14->nb_an = 12;
         $publication14->prix_an = 55;
@@ -210,6 +210,15 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $abonnement1->paye_id = $statusAboImpaye->id;
         $abonnement1->date_fin = Carbon::createFromDate("2018", "02", "05", "0");
         $abonnement1->save();
+
+    }
+
+    private function getBase64FromPath($img) {
+        $image = 'C:\laragon\www\Magazine\public\uploads\\'.$img;
+        $type = pathinfo($image, PATHINFO_EXTENSION);
+        $data = file_get_contents($image);
+        $dataUri = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        return $dataUri;
     }
 
     /**

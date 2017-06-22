@@ -126,7 +126,7 @@
                             <div class="panel-heading">Prévisualitation</div>
                             <div class="card">
                                 <img class="card-img-top" id="blah"
-                                     src="{{url('uploads/'.$publication->image)}}"
+                                     src="{{ $publication->image}}"
                                      alt="Image de présentations" height="300" width="225">
                                 <div class="card-block">
                                     <h4 class="card-title text-left" id="titreCard">{{ $publication->titre }}</h4>

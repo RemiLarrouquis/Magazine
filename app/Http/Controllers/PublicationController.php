@@ -70,22 +70,31 @@ class PublicationController extends Controller
     {
         $destinationPath = 'uploads';
         $fileName = '';
+        $dataUri = '';
         if (Input::file('photo') != null) {
-            $dateNow = Carbon::now()->format('Ymd_His');
-            $extension = Input::file('photo')->getClientOriginalExtension();
-            $fileName = $dateNow . '.' . $extension; // renameing image
-            Input::file('photo')->move($destinationPath, $fileName);
+            // $dateNow = Carbon::now()->format('Ymd_His');
+            // $extension = Input::file('photo')->getClientOriginalExtension();
+            // $fileName = $dateNow . '.' . $extension; // renameing image
+            // Input::file('photo')->move($destinationPath, $fileName);
+
+            $image = Input::file('photo');
+            $type = pathinfo($image, PATHINFO_EXTENSION);
+            $data = file_get_contents($image);
+            $dataUri = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
         } else {
             if ($request->id == NULL) {
-                $fileName = 'empty.JPG';
+                $image = 'uploads\empty.JPG';
+                $type = pathinfo($image, PATHINFO_EXTENSION);
+                $data = file_get_contents($image);
+                $dataUri = 'data:image/' . $type . ';base64,' . base64_encode($data);
             }
         }
 
         if ($request->id == NULL) {
 
             Publication::Create([
-                'image' => $fileName,
+                'image' => $dataUri,
                 'titre' => trim($request->titre),
                 'nb_an' => $request->nb_an,
                 'prix_an' => $request->prix_an,
@@ -95,12 +104,12 @@ class PublicationController extends Controller
 
             $publication = Publication::find($request->id);
 
-            if ($fileName == '') {
-                $fileName = $publication->image;
+            if ($dataUri == '') {
+                $dataUri = $publication->image;
             }
 
             $toUpdate = $request->request->all();
-            $toUpdate['image'] = $fileName;
+            $toUpdate['image'] = $dataUri;
 
             $publication->update($toUpdate);
         }
