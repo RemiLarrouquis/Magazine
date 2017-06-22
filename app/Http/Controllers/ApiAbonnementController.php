@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
+use JWTAuth;
 use App\Abonnement;
 use Carbon\Carbon;
 use App\Fichier;
@@ -19,14 +21,13 @@ class ApiAbonnementController extends Controller
     {
         $input = $request->all();
         $user = JWTAuth::toUser($input['token']);
+        $abonnements = Abonnement::where('client_id', $user->id)->get();
 
-        $abonnements = Abonnement::where('client_id', $user->id);
-
-        return Response::json(array(
+        return response()->json([
             'error' => false,
             'abonnements' => $abonnements,
             'status_code' => 200
-        ));
+        ]);
     }
 
     public function create(Request $request)
@@ -34,12 +35,19 @@ class ApiAbonnementController extends Controller
         $input = $request->all();
         $user = JWTAuth::toUser($input['token']);
 
-        $abonnements = Abonnement::where('client_id', $user->id);
+        $abo = Abonnement::Create([
+            'publication_id' => $input['publication_id'],
+            'client_id' => $user->id,
+            'etat_id' => $input['etat_id'],
+            'paye_id' => $input['paye_id'],
+            'date_fin' => $input['date_fin'],
+            'date_pause' => $input['date_pause'],
+        ]);
 
-        return Response::json(array(
+        return response()->json([
             'error' => false,
-            'abonnements' => $abonnements,
+            'abonnements' => $abo,
             'status_code' => 200
-        ));
+        ]);
     }
 }

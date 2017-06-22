@@ -77,6 +77,7 @@ class Init extends Migration
         $client1->email = "client1@test.fr";
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
+        $client1->mail_confirm = true;
         $client1->date_naissance = Carbon::createFromDate("2000", "02", "05", "0");
         $client1->lieu_naissance = "Bordeaux";
         $client1->adresse = "une adresse au numéro 5";
