@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Hash;
 use JWTAuth;
 use App\Abonnement;
+use App\Publication;
 use App\User;
 use Carbon\Carbon;
-use App\Fichier;
 use Illuminate\Http\Request;
-use App\Publication;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use App\Services\AbonnementServices;
 
 class ApiPublicationsController extends Controller
 {
@@ -33,9 +33,19 @@ class ApiPublicationsController extends Controller
     {
         $input = $request->all();
         $pubs = Publication::where('id', $input['id'])->get();
+
+        $est_abonnee = false;
+        if (array_key_exists('token', $input)) {
+            $user = JWTAuth::toUser($input['token']);
+            $abo = AbonnementServices::getAbonnement($input['id'], $user->id);
+            if ($abo) {
+                $est_abonnee = true;
+            }
+        }
         return response()->json(array(
             'error' => false,
             'result' => $pubs,
+            'user_est_abonnee' => $est_abonnee,
             'status_code' => 200
         ));
     }

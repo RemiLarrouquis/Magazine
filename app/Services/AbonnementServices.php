@@ -25,7 +25,7 @@ class AbonnementServices {
      */
     public static function newAbonnement($idPub, $idUser) {
 
-        $abo = Abonnement::where('publication_id', $idPub)->where('client_id' , $idUser)->first();
+        $abo = self::getAbonnement($idPub, $idUser);
 
         if ($abo) {
             if ($abo->etat_id == self::EN_COURS) {
@@ -43,5 +43,9 @@ class AbonnementServices {
                 'date_fin' => Carbon::now()->addYear(),
             ]);
         }
+    }
+
+    public static function getAbonnement($idPub, $idUser) {
+        return Abonnement::where('publication_id', $idPub)->where('client_id' , $idUser)->first();
     }
 }
