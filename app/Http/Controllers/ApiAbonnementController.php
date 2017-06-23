@@ -6,7 +6,6 @@ use Hash;
 use JWTAuth;
 use App\Abonnement;
 use Carbon\Carbon;
-use App\Fichier;
 use Illuminate\Http\Request;
 use App\Publication;
 use Illuminate\Support\Facades\Input;
@@ -14,9 +13,19 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use App\Services\AbonnementServices;
 
 class ApiAbonnementController extends Controller
 {
+
+    const EN_COURS = 4;
+    const STOP = 5;
+    const TERMINE = 6;
+
+    const PAYE = 7;
+    const IMPAYE = 8;
+    const REMBOURSE = 9;
+
     public function liste(Request $request)
     {
         $input = $request->all();
@@ -34,20 +43,15 @@ class ApiAbonnementController extends Controller
     {
         $input = $request->all();
         $user = JWTAuth::toUser($input['token']);
+        $idPub = array_key_exists ( 'publication_id' , $input ) ? $input['publication_id'] : null;
+        if (!$idPub) {
+            return response()->json([ 'error' => true, 'status_code' => 200,
+                'result' => "Veuillez renseigner l'id de la publication",
+            ]);
+        }
 
-        $abo = Abonnement::Create([
-            'publication_id' => $input['publication_id'],
-            'client_id' => $user->id,
-            'etat_id' => $input['etat_id'],
-            'paye_id' => $input['paye_id'],
-            'date_fin' => $input['date_fin'],
-            'date_pause' => $input['date_pause'],
-        ]);
+        AbonnementServices::newAbonnement($idPub, $user->id);
 
-        return response()->json([
-            'error' => false,
-            'abonnements' => $abo,
-            'status_code' => 200
-        ]);
+        return response()->json(['error' => false, 'result' => 'Success', 'status_code' => 200 ]);
     }
 }
