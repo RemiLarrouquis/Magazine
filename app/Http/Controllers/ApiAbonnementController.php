@@ -42,7 +42,7 @@ class ApiAbonnementController extends Controller
     public function detail(Request $request)
     {
         $input = $request->all();
-        $ab = Abonnement::where('id', $input['id'])->get();
+        $ab = Abonnement::where('abonnements.id', $input['id'])->join('publications', 'publications.id', 'publication_id')->get();
 
 
         return response()->json(array(
