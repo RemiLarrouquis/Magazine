@@ -57,6 +57,9 @@ Route::group(["middleware" => "jwt-auth"], function () {
     // ------- Abonnements ------- //
     /**
      * Retourne la liste des abonnements de l'utilisateur connecté.
+     * params : filterEtat -> l'id de l'état (encours, stop,...) à filtrer
+     * params : filterPaye -> l'id de l'état de paiement à filtrer
+     * params : filterEnCours -> true pour les abonnements en cours, false pour les ancients
      * return : list json du model 'Abonnement'
      */
     Route::get("/abonnement/liste", "ApiAbonnementController@liste");

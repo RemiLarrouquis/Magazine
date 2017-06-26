@@ -53,7 +53,52 @@ class AbonnementServices {
         $abo->save();
     }
 
+    /**
+     * Récupère un abonnement en fonction d'un utilisateur et une publication
+     * @param $idPub
+     * @param $idUser
+     * @return mixed
+     */
     public static function getAbonnement($idPub, $idUser) {
         return Abonnement::where('publication_id', $idPub)->where('client_id' , $idUser)->first();
+    }
+
+    /**
+     * Récupère la liste des abonnements en fonction de filtres
+     * @param $filters
+     * @param $isUser
+     * @return list d'abonnements
+     */
+    public static function listAbonnements($filters, $IdUser) {
+
+        $query = Abonnement::query();
+
+        $query->where('client_id', $IdUser);
+        $query->join('publications', 'publications.id', 'publication_id');
+
+        // Etat (encours, stop, pause
+        if (array_key_exists('filterEtat', $filters)) {
+            $query->where('etat_id', $filters['filterEtat']);
+        }
+        // Status (payé, ompayé, remboursé
+        if (array_key_exists('filterPaye', $filters)) {
+            $query->where('paye_id', $filters['filterPaye']);
+        }
+        // En cours  -  Ancients
+        if (array_key_exists('filterEnCours', $filters)) {
+            if ($filters['filterEnCours'] == "true") {
+                $query->whereDate('date_fin', ">", Carbon::today()->toDateString());
+            } else {
+                $query->whereDate('date_fin', "<", Carbon::today()->toDateString());
+            }
+
+        }
+
+        $orderBy = 'abonnements.updated_at';
+        $orderAsc = 'desc';
+
+        $query->orderBy($orderBy, $orderAsc);
+
+        return $query->get();
     }
 }
