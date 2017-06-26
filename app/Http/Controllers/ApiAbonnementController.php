@@ -39,19 +39,32 @@ class ApiAbonnementController extends Controller
         ]);
     }
 
+    public function detail(Request $request)
+    {
+        $input = $request->all();
+        $ab = Abonnement::where('id', $input['id'])->get();
+
+
+        return response()->json(array(
+            'error' => false,
+            'result' => $ab,
+            'status_code' => 200
+        ));
+    }
+
     public function create(Request $request)
     {
         $input = $request->all();
         $user = JWTAuth::toUser($input['token']);
-        $idPub = array_key_exists ( 'publication_id' , $input ) ? $input['publication_id'] : null;
+        $idPub = array_key_exists('publication_id', $input) ? $input['publication_id'] : null;
         if (!$idPub) {
-            return response()->json([ 'error' => true, 'status_code' => 200,
+            return response()->json(['error' => true, 'status_code' => 200,
                 'result' => "Veuillez renseigner l'id de la publication",
             ]);
         }
 
         AbonnementServices::newAbonnement($idPub, $user->id);
 
-        return response()->json(['error' => false, 'result' => 'Success', 'status_code' => 200 ]);
+        return response()->json(['error' => false, 'result' => 'Success', 'status_code' => 200]);
     }
 }

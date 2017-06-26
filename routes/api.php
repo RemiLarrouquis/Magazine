@@ -31,6 +31,7 @@ Route::group(["middleware" => "jwt-auth"], function () {
 
     // Abonnements
     Route::get("/abonnement/liste", "ApiAbonnementController@liste");
+    Route::get("/abonnement/detail", "ApiAbonnementController@detail");
     Route::post("/abonnement/new", "ApiAbonnementController@create");
 });
 
