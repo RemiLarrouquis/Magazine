@@ -21,7 +21,20 @@ class ApiPublicationsController extends Controller
 
     public function liste(Request $request)
     {
+        $input = $request->all();
         $pubs = \App\Publication::All();
+
+        if (array_key_exists('token', $input)) {
+            $user = JWTAuth::toUser($input['token']);
+            foreach ($pubs as $pub) {
+                $abo = AbonnementServices::getAbonnement($pub->id, $user->id);
+                if ($abo) {
+                    $pub->est_abonnee = true;
+                } else {
+                    $pub->est_abonnee = false;
+                }
+            }
+        }
         return response()->json(array(
             'error' => false,
             'result' => $pubs,

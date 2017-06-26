@@ -30,11 +30,12 @@ class ApiAbonnementController extends Controller
     {
         $input = $request->all();
         $user = JWTAuth::toUser($input['token']);
-        $abonnements = Abonnement::where('client_id', $user->id)->join('publications', 'publications.id', 'publication_id')->get();
+
+        $abos = AbonnementServices::listAbonnements($input, $user->id);
 
         return response()->json([
             'error' => false,
-            'abonnements' => $abonnements,
+            'abonnements' => $abos,
             'status_code' => 200
         ]);
     }
