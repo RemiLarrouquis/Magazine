@@ -44,7 +44,6 @@ class ApiAbonnementController extends Controller
         $input = $request->all();
         $ab = Abonnement::where('id', $input['id'])->get();
 
-
         return response()->json(array(
             'error' => false,
             'result' => $ab,
@@ -56,7 +55,7 @@ class ApiAbonnementController extends Controller
     {
         $input = $request->all();
         $user = JWTAuth::toUser($input['token']);
-        $idPub = array_key_exists('publication_id', $input) ? $input['publication_id'] : null;
+        $idPub = array_key_exists('id', $input) ? $input['id'] : null;
         if (!$idPub) {
             return response()->json(['error' => true, 'status_code' => 200,
                 'result' => "Veuillez renseigner l'id de la publication",
@@ -64,6 +63,21 @@ class ApiAbonnementController extends Controller
         }
 
         AbonnementServices::newAbonnement($idPub, $user->id);
+
+        return response()->json(['error' => false, 'result' => 'Success', 'status_code' => 200]);
+    }
+
+    public function relance(Request $request)
+    {
+        $input = $request->all();
+        $idAbo = array_key_exists('id', $input) ? $input['id'] : null;
+
+        if (!$idAbo) {
+            return response()->json(['error' => true, 'status_code' => 200,
+                'result' => "Veuillez renseigner l'id de l'abonnement",
+            ]);
+        }
+        AbonnementServices::relance($idAbo);
 
         return response()->json(['error' => false, 'result' => 'Success', 'status_code' => 200]);
     }

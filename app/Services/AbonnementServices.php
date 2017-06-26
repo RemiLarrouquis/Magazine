@@ -50,6 +50,7 @@ class AbonnementServices {
         $abo->date_fin = $abo->date_fin->addYear();
         $abo->paye_id = self::IMPAYE;
         $abo->etat_id = self::EN_COURS;
+        $abo->save();
     }
 
     public static function getAbonnement($idPub, $idUser) {

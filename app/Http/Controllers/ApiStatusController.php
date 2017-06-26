@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Status;
 use Hash;
 use JWTAuth;
 use App\Abonnement;
@@ -26,7 +27,13 @@ class ApiStatusController extends Controller
 
     public function listeSexe(Request $request)
     {
-        $res = StatusServices::getStatusByType(self::TYPE_SEXE);
+        $input = $request->all();
+        $res = '';
+        if (array_key_exists('id', $input)) {
+            $res = Status::find($input['id']);
+        } else {
+            $res = StatusServices::getStatusByType(self::TYPE_SEXE);
+        }
 
         return Response::json(array(
             'error' => false,
@@ -37,7 +44,13 @@ class ApiStatusController extends Controller
 
     public function listeAboEnCours(Request $request)
     {
-        $res = StatusServices::getStatusByType(self::TYPE_ABO_ENCOURS);
+        $input = $request->all();
+        $res = '';
+        if (array_key_exists('id', $input)) {
+            $res = Status::find($input['id']);
+        } else {
+            $res = StatusServices::getStatusByType(self::TYPE_ABO_ENCOURS);
+        }
 
         return Response::json(array(
             'error' => false,
@@ -48,7 +61,13 @@ class ApiStatusController extends Controller
 
     public function listeAboPaye(Request $request)
     {
-        $res = StatusServices::getStatusByType(self::TYPE_ABO_PAYE);
+        $input = $request->all();
+        $res = '';
+        if (array_key_exists('id', $input)) {
+            $res = Status::find($input['id']);
+        } else {
+            $res = StatusServices::getStatusByType(self::TYPE_ABO_PAYE);
+        }
 
         return Response::json(array(
             'error' => false,
