@@ -9,19 +9,23 @@
         <li class="active">
             <a href="{{ url('/home') }}"> <i class="fa fa-home"></i> Publications </a>
         </li>
-        <!-- Hors scope -->
-        <!--
+
         <li>
             <a href="#"> <i class="fa fa-users"></i> Clients <i class="fa arrow"></i> </a>
             <ul>
-                <li> <a href="#">
+                <li>
+                    <a href="{{ url('/client/list') }}">
                         Liste des clients
-                    </a> </li>
+                    </a>
+                </li>
                 <li> <a href="#">
                         Abonnements
-                    </a> </li>
+                    </a>
+                </li>
             </ul>
         </li>
+
+        <!-- Hors scope
         <li>
             <a href="#"> <i class="fa fa-envelope"></i> Historiques des relations</a>
         </li>
@@ -29,5 +33,6 @@
             <a href="#"> <i class="fa fa-bar-chart"></i> Statistiques </a>
         </li>
         -->
+
     </ul>
 </nav>

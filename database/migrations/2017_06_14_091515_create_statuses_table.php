@@ -17,6 +17,7 @@ class CreateStatusesTable extends Migration
             $table->increments('id');
             $table->integer('type');
             $table->string('libelle');
+            $table->string('libelle_short')->nullable();
             $table->timestamps();
         });
     }

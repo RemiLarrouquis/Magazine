@@ -31,8 +31,6 @@ Route::get("/publication/list","PublicationController@liste");
 Route::post("/publication/save","PublicationController@savePublication");
 Route::post("/publication/addPicture","PublicationController@upload");
 
-// API routes
-//Route::group(["middleware" => ["api"],"prefix" => "api"], function () {
-
-
-//});
+// Routage Clients
+Route::get("/client/list","ClientController@liste");
+Route::get("/client/detail","ClientController@detail");
