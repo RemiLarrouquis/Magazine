@@ -45,6 +45,14 @@ class AbonnementServices {
         }
     }
 
+    public static function relance($idAbo) {
+        $abo = Abonnement::find($idAbo);
+        $abo->date_fin = $abo->date_fin->addYear();
+        $abo->paye_id = self::IMPAYE;
+        $abo->etat_id = self::EN_COURS;
+        $abo->save();
+    }
+
     public static function getAbonnement($idPub, $idUser) {
         return Abonnement::where('publication_id', $idPub)->where('client_id' , $idUser)->first();
     }

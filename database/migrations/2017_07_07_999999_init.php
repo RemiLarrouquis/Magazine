@@ -18,14 +18,17 @@ class Init extends Migration
         $statusSexeH = new \App\Status();
         $statusSexeH->type = 1;
         $statusSexeH->libelle = "Homme";
+        $statusSexeH->libelle_short = "Mr";
         $statusSexeH->save();
         $statusSexeF = new \App\Status();
         $statusSexeF->type = 1;
         $statusSexeF->libelle = "Femme";
+        $statusSexeF->libelle_short = "Mme";
         $statusSexeF->save();
         $statusSexeN = new \App\Status();
         $statusSexeN->type = 1;
-        $statusSexeN->libelle = "Neutre";
+        $statusSexeN->libelle = "Autre";
+        $statusSexeN->libelle_short = "";
         $statusSexeN->save();
 
         // Type 2 -------------------------------------------
