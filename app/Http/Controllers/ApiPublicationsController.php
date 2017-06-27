@@ -47,18 +47,20 @@ class ApiPublicationsController extends Controller
         $input = $request->all();
         $pubs = Publication::where('id', $input['id'])->get();
 
-        $est_abonnee = false;
         if (array_key_exists('token', $input)) {
             $user = JWTAuth::toUser($input['token']);
-            $abo = AbonnementServices::getAbonnement($input['id'], $user->id);
-            if ($abo) {
-                $est_abonnee = true;
+            foreach ($pubs as $pub) {
+                $abo = AbonnementServices::getAbonnement($input['id'], $user->id);
+                if ($abo) {
+                    $pub->est_abonnee = true;
+                } else {
+                    $pub->est_abonnee = false;
+                }
             }
         }
         return response()->json(array(
             'error' => false,
             'result' => $pubs,
-            'user_est_abonnee' => $est_abonnee,
             'status_code' => 200
         ));
     }
