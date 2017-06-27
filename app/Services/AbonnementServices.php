@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Services;
 
 use App\Abonnement;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class AbonnementServices {
+class AbonnementServices
+{
 
     const EN_COURS = 4;
     const STOP = 5;
@@ -23,7 +25,8 @@ class AbonnementServices {
      * @param $filters
      * @return Un tableau contenant un message d'erreur avec code
      */
-    public static function newAbonnement($idPub, $idUser) {
+    public static function newAbonnement($idPub, $idUser)
+    {
 
         $abo = self::getAbonnement($idPub, $idUser);
 
@@ -45,9 +48,10 @@ class AbonnementServices {
         }
     }
 
-    public static function relance($idAbo) {
+    public static function relance($idAbo)
+    {
         $abo = Abonnement::find($idAbo);
-        $abo->date_fin = $abo->date_fin->addYear();
+        $abo->date_fin = Carbon::parse($abo->date_fin)->addYear();
         $abo->paye_id = self::IMPAYE;
         $abo->etat_id = self::EN_COURS;
         $abo->save();
@@ -59,8 +63,9 @@ class AbonnementServices {
      * @param $idUser
      * @return mixed
      */
-    public static function getAbonnement($idPub, $idUser) {
-        return Abonnement::where('publication_id', $idPub)->where('client_id' , $idUser)->first();
+    public static function getAbonnement($idPub, $idUser)
+    {
+        return Abonnement::where('publication_id', $idPub)->where('client_id', $idUser)->first();
     }
 
     /**
@@ -69,7 +74,8 @@ class AbonnementServices {
      * @param $isUser
      * @return list d'abonnements
      */
-    public static function listAbonnements($filters, $IdUser) {
+    public static function listAbonnements($filters, $IdUser)
+    {
 
         $query = Abonnement::query();
 
