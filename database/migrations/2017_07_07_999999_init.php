@@ -34,15 +34,15 @@ class Init extends Migration
         // Type 2 -------------------------------------------
         $statusAboEnCours = new \App\Status();
         $statusAboEnCours->type = 2;
-        $statusAboEnCours->libelle = "En cours";
+        $statusAboEnCours->libelle = "Actif";
         $statusAboEnCours->save();
         $statusAboStop = new \App\Status();
         $statusAboStop->type = 2;
-        $statusAboStop->libelle = "Stoppé";
+        $statusAboStop->libelle = "En pause";
         $statusAboStop->save();
         $statusAboTermine = new \App\Status();
         $statusAboTermine->type = 2;
-        $statusAboTermine->libelle = "Terminé";
+        $statusAboTermine->libelle = "Arrêté";
         $statusAboTermine->save();
 
         // Type 3 -------------------------------------------
