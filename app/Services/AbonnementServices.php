@@ -72,9 +72,9 @@ class AbonnementServices {
     public static function listAbonnements($filters, $IdUser) {
 
         $query = Abonnement::query();
-
         $query->where('client_id', $IdUser);
         $query->join('publications', 'publications.id', 'publication_id');
+        $query->select('abonnements.*', 'publications.titre', 'publications.description', 'publications.image', 'publications.nb_an', 'publications.prix_an');
 
         // Etat (encours, stop, pause
         if (array_key_exists('filterEtat', $filters)) {
