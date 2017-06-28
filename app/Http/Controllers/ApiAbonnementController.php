@@ -35,6 +35,7 @@ class ApiAbonnementController extends Controller
 
         return response()->json([
             'error' => false,
+            'msg' => '',
             'abonnements' => $abos,
             'status_code' => 200
         ]);
@@ -47,6 +48,7 @@ class ApiAbonnementController extends Controller
 
         return response()->json(array(
             'error' => false,
+            'msg' => '',
             'result' => $ab,
             'status_code' => 200
         ));
@@ -58,14 +60,14 @@ class ApiAbonnementController extends Controller
         $user = JWTAuth::toUser($input['token']);
         $idPub = array_key_exists('id', $input) ? $input['id'] : null;
         if (!$idPub) {
-            return response()->json(['error' => true, 'status_code' => 200,
-                'result' => "Veuillez renseigner l'id de la publication",
+            return response()->json(['error' => true, 'msg' => "Veuillez renseigner l'id de la publication", 'status_code' => 200,
+                'result' => "",
             ]);
         }
 
         AbonnementServices::newAbonnement($idPub, $user->id);
 
-        return response()->json(['error' => false, 'result' => 'Success', 'status_code' => 200]);
+        return response()->json(['error' => false, 'msg' => 'Abonnement effectué.', 'result' => '', 'status_code' => 200]);
     }
 
     public function relance(Request $request)
@@ -75,11 +77,11 @@ class ApiAbonnementController extends Controller
 
         if (!$idAbo) {
             return response()->json(['error' => true, 'status_code' => 200,
-                'result' => "Veuillez renseigner l'id de l'abonnement",
+                'msg' => "Veuillez renseigner l'id de l'abonnement", 'result' => '',
             ]);
         }
         AbonnementServices::relance($idAbo);
 
-        return response()->json(['error' => false, 'result' => 'Success', 'status_code' => 200]);
+        return response()->json(['error' => false, 'msg' => "Relance de l'abonnement effectué.", 'result' => 'Success', 'status_code' => 200]);
     }
 }

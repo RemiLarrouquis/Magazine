@@ -25,6 +25,7 @@ class ApiUserController extends Controller
         $user = JWTAuth::toUser($input['token']);
         return Response::json(array(
             'error' => false,
+            'msg' => '',
             'result' => $user,
             'status_code' => 200
         ));
@@ -38,12 +39,14 @@ class ApiUserController extends Controller
         if ($user->isEmpty()) {
             return Response::json(array(
                 'error' => false,
+                'msg' => '',
                 'exist' => false,
                 'status_code' => 200
             ));
         }
         return Response::json(array(
             'error' => false,
+            'msg' => 'Cette adresse mail est déjà utilisé',
             'exist' => true,
             'status_code' => 200
         ));
@@ -58,6 +61,9 @@ class ApiUserController extends Controller
             $user->update($input);
         }
         $token = JWTAuth::refresh($input['token']);
-        return response()->json(['result' => $token]);
+        return response()->json(['error' => false,
+            'msg' => 'Utilisateur mis à jour avec success',
+            'result' => $token
+        ]);
     }
 }

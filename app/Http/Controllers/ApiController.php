@@ -35,7 +35,7 @@ class APIController extends Controller
         $valid = $this->validator($input);
 
         if ($valid->fails()) {
-            return response()->json(['errors' => true, 'result'=>$valid->errors()]);
+            return response()->json(['errors' => true, 'msg' => $valid->errors(), 'result'=> '']);
         } else {
             // Hash le mot de passe avant sauvegarde
             $input['password'] = Hash::make($input['password']);
@@ -47,7 +47,7 @@ class APIController extends Controller
             Mail::to($newUser->email)
               ->send(new ConfirmAdress($newUser));
 
-            return response()->json(['errors' => false, 'result' => "Utilisateur créé."]);
+            return response()->json(['errors' => false, 'msg' => 'Utilisateur créé.','result' => ""]);
 
         }
 
@@ -57,13 +57,13 @@ class APIController extends Controller
     {
         $input = $request->all();
         if (!$token = JWTAuth::attempt($input)) {
-            return response()->json(['error' => true, 'result' => "Erreur d'identifiant ou mot de passe."]);
+            return response()->json(['error' => true, 'msg' => "Erreur d'identifiant ou mot de passe.", 'result' => ""]);
         }
         $user = JWTAuth::toUser($token);
         if ($user->mail_confirm == true) {
-            return response()->json(['error' => false, 'result' => $token]);
+            return response()->json(['error' => false, 'msg' => '', 'result' => $token]);
         } else {
-            return response()->json(['error' => true, 'result' => "Veuillez confirmer votre inscription par mail."]);
+            return response()->json(['error' => true, 'msg' => "Veuillez confirmer votre inscription par mail.", 'result' => ""]);
         }
     }
 
@@ -73,6 +73,6 @@ class APIController extends Controller
         $user = User::find($input['to_confirm']);
         $user->mail_confirm=true;
         $user->save();
-        return response()->json(['result' => 'success', 'status' => 200]);
+        return response()->json(['error' => false, 'msg' => 'Inscription confimé avec success', 'result' => "", 'status' => 200]);
     }
 }

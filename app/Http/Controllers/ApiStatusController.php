@@ -37,6 +37,7 @@ class ApiStatusController extends Controller
 
         return Response::json(array(
             'error' => false,
+            'msg' => '',
             'result' => $res,
             'status_code' => 200
         ));
@@ -54,6 +55,7 @@ class ApiStatusController extends Controller
 
         return Response::json(array(
             'error' => false,
+            'msg' => '',
             'result' => $res,
             'status_code' => 200
         ));
@@ -71,6 +73,7 @@ class ApiStatusController extends Controller
 
         return Response::json(array(
             'error' => false,
+            'msg' => '',
             'result' => $res,
             'status_code' => 200
         ));

@@ -37,6 +37,7 @@ class ApiPublicationsController extends Controller
         }
         return response()->json(array(
             'error' => false,
+            'msg' => '',
             'result' => $pubs,
             'status_code' => 200
         ));
@@ -65,6 +66,7 @@ class ApiPublicationsController extends Controller
         }
         return response()->json(array(
             'error' => false,
+            'msg' => '',
             'result' => $pubs,
             'status_code' => 200
         ));
