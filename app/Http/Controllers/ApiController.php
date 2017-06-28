@@ -44,8 +44,8 @@ class APIController extends Controller
             $newUser = User::create($input);
 
             // Envoie d'un mail de confirmation
-            // Mail::to($newUser->email)
-            //  ->send(new ConfirmAdress($newUser));
+            Mail::to($newUser->email)
+              ->send(new ConfirmAdress($newUser));
 
             return response()->json(['errors' => false, 'result' => "Utilisateur créé."]);
 
@@ -57,9 +57,14 @@ class APIController extends Controller
     {
         $input = $request->all();
         if (!$token = JWTAuth::attempt($input)) {
-            return response()->json(['result' => "Erreur d'identifiant ou mot de passe."]);
+            return response()->json(['error' => true, 'result' => "Erreur d'identifiant ou mot de passe."]);
         }
-        return response()->json(['result' => $token]);
+        $user = JWTAuth::toUser($token);
+        if ($user->mail_confirm == true) {
+            return response()->json(['error' => false, 'result' => $token]);
+        } else {
+            return response()->json(['error' => true, 'result' => "Veuillez confirmer votre inscription par mail."]);
+        }
     }
 
     public function confirm(Request $request)
