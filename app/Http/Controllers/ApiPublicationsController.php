@@ -53,6 +53,11 @@ class ApiPublicationsController extends Controller
                 $abo = AbonnementServices::getAbonnement($input['id'], $user->id);
                 if ($abo) {
                     $pub->est_abonnee = true;
+                    if ($abo->etat_id == 4) {
+                        $pub->pause_abo = false;
+                    } else {
+                        $pub->pause_abo = true;
+                    }
                 } else {
                     $pub->est_abonnee = false;
                 }

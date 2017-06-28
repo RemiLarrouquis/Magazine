@@ -10,8 +10,8 @@ class AbonnementServices
 {
 
     const EN_COURS = 4;
-    const STOP = 5;
-    const TERMINE = 6;
+    const PAUSE = 5;
+    const ARRETER = 6;
 
     const PAYE = 7;
     const IMPAYE = 8;
@@ -32,7 +32,7 @@ class AbonnementServices
 
         if ($abo) {
             if ($abo->etat_id == self::EN_COURS) {
-                $abo->etat_id = self::STOP;
+                $abo->etat_id = self::PAUSE;
             } else {
                 $abo->etat_id = self::EN_COURS;
             }
