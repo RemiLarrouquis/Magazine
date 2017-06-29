@@ -36,6 +36,8 @@ class AbonnementServices
                 $msg = "Abonnement arreté";
             } else {
                 $abo->etat_id = self::EN_COURS;
+                $abo->paye_id = self::IMPAYE;
+                $abo->date_fin = Carbon::now()->addYear();
                 $msg = "Abonnement en cours";
             }
             $abo->save();
@@ -45,7 +47,7 @@ class AbonnementServices
                 'publication_id' => $idPub,
                 'client_id' => $idUser,
                 'etat_id' => self::EN_COURS,
-                'paye_id' => self::PAYE,
+                'paye_id' => self::IMPAYE,
                 'date_fin' => Carbon::now()->addYear(),
             ]);
         }
@@ -118,7 +120,7 @@ class AbonnementServices
         $query->orderBy($orderBy, $orderAsc);
 
         if ($paging) {
-            return $query->paginate(10);
+            return $query->paginate($paging);
         } else {
             return $query->get();
         }

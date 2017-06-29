@@ -27,8 +27,24 @@ class AbonnementController extends Controller
     {
         $req = $request->request->all();
 
+        $abos = AbonnementServices::listAbonnements($req, null, 10);
+        // Attention toujours inclure dans un tableau les résultats
+        $data = array(
+            'abos' => $abos,
+        );
+
+        if (!empty($req)) {
+            return view('abonnement.list', $data)->render();
+        }
+        return view('abonnement.view', $data);
+    }
+
+    public function listeAllForClient(Request $request)
+    {
+        $req = $request->request->all();
+
         // unset($req['page']); //On retire la pagination du tableau
-        $abos = AbonnementServices::listAbonnements($req, null, true);
+        $abos = AbonnementServices::listAbonnements($req, $req['client_id'], 10);
         // Attention toujours inclure dans un tableau les résultats
         $data = array(
             'abos' => $abos,
