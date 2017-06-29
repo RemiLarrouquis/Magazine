@@ -112,8 +112,8 @@ class AbonnementServices
 
         }
 
-        $orderBy = 'abonnements.updated_at';
-        $orderAsc = 'desc';
+        $orderBy = 'abonnements.date_fin';
+        $orderAsc = 'asc';
 
         $query->orderBy($orderBy, $orderAsc);
 
