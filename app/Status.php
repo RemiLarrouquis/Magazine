@@ -8,6 +8,10 @@ class Status extends Model
 {
     //
     protected $fillable = [
-        'type', 'libelle',
+        'type', 'libelle', 'libelle_short',
     ];
+
+    public function user() {
+        $this->hasMany('\App\User');
+    }
 }

@@ -15,6 +15,77 @@ class Init extends Migration
     {
         // Création des status
         // Type 1 -------------------------------------------
+        $this->statusSexe();
+
+        // Type 2 -------------------------------------------
+        $this->statusAboEtat();
+
+        // Type 3 -------------------------------------------
+        $this->statusAboPaye();
+
+        // Création des utilisateurs
+        $this->createEmployees();
+
+        // Création de clients
+        $this->createClients();
+
+        // Création des publications
+        $this->createPublications();
+
+        // Création d'abonnements
+        for ($i = 0; $i < 50; $i++) {
+            $this->createAbonnement(rand(1, 14), rand(1, 31), $this->randEven(4,6), $this->randOdd(7,9));
+        }
+
+    }
+
+    private function getBase64FromPath($img) {
+        $image = 'C:\laragon\www\Magazine\public\uploads\\'.$img;
+        $type = pathinfo($image, PATHINFO_EXTENSION);
+        $data = file_get_contents($image);
+        $dataUri = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        return $dataUri;
+    }
+    private function randomDate() {
+        // Convert to timetamps
+        $min = strtotime("01 January 2016");
+        $max = strtotime("27 December 2018");
+
+        // Generate random number using above bounds
+        $val = rand($min, $max);
+
+        // Convert back to desired date format
+        return date('Y-m-d', $val);
+    }
+    private function randEven($min, $max) {
+        $rand = rand($min, $max);
+        if ($rand % 2 == 0) {
+            return $rand;
+        } else {
+            return $rand - 1;
+        }
+    }
+    private function randOdd($min, $max) {
+        $rand = rand($min, $max);
+        if ($rand % 2 == 1) {
+            return $rand;
+        } else {
+            return $rand - 1;
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        //
+    }
+
+    public function statusSexe()
+    {
         $statusSexeH = new \App\Status();
         $statusSexeH->type = 1;
         $statusSexeH->libelle = "Homme";
@@ -30,22 +101,24 @@ class Init extends Migration
         $statusSexeN->libelle = "Autre";
         $statusSexeN->libelle_short = "";
         $statusSexeN->save();
-
-        // Type 2 -------------------------------------------
+    }
+    public function statusAboEtat()
+    {
         $statusAboEnCours = new \App\Status();
         $statusAboEnCours->type = 2;
         $statusAboEnCours->libelle = "Actif";
         $statusAboEnCours->save();
-        $statusAboStop = new \App\Status();
-        $statusAboStop->type = 2;
-        $statusAboStop->libelle = "En pause";
-        $statusAboStop->save();
+        $statusAboPause = new \App\Status();
+        $statusAboPause->type = 2;
+        $statusAboPause->libelle = "En pause";
+        $statusAboPause->save();
         $statusAboTermine = new \App\Status();
         $statusAboTermine->type = 2;
         $statusAboTermine->libelle = "Arrêté";
         $statusAboTermine->save();
-
-        // Type 3 -------------------------------------------
+    }
+    public function statusAboPaye()
+    {
         $statusAboPaye = new \App\Status();
         $statusAboPaye->type = 3;
         $statusAboPaye->libelle = "Payé";
@@ -58,8 +131,10 @@ class Init extends Migration
         $statusAboRemb->type = 3;
         $statusAboRemb->libelle = "Remboursé";
         $statusAboRemb->save();
+    }
 
-        // Création des utilisateurs
+    public function createEmployees()
+    {
         $userRemi = new \App\User();
         $userRemi->nom = "Remi L";
         $userRemi->email = "remi@mag.fr";
@@ -71,10 +146,12 @@ class Init extends Migration
         $userLudo->email = "ludovic@mag.fr";
         $userLudo->password = bcrypt('ludovicmag');
         $userLudo->save();
+    }
 
-        // Création d'un client
+    public function createClients()
+    {
         $client1 = new \App\User();
-        $client1->sexe_id = $statusSexeH->id;
+        $client1->sexe_id = rand(1,3);
         $client1->nom = "Client";
         $client1->prenom = "premier";
         $client1->email = "client1@test.fr";
@@ -85,9 +162,484 @@ class Init extends Migration
         $client1->lieu_naissance = "Bordeaux";
         $client1->adresse = "une adresse au numéro 5";
         $client1->code_postal = "33000";
-        $client1->telephone = "0705252625";
+        $client1->telephone = "07 05 25 26 25";
         $client1->save();
 
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Herve";
+        $client1->prenom = "Malo";
+        $client1->email = "maloherve@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = false;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Les Salles-Lavauguyon";
+        $client1->adresse = "166 Cité Beaurepaire";
+        $client1->code_postal = "87440";
+        $client1->telephone = "06 07 15 43 61";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Bayle";
+        $client1->prenom = "Maéva";
+        $client1->email = "maevabayle@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Saint-Genis-les-Ollières";
+        $client1->adresse = "182 Rue Bellart";
+        $client1->code_postal = "69290";
+        $client1->telephone = "06 14 14 35 06";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Simon";
+        $client1->prenom = "Nolan";
+        $client1->email = "nolansimon@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Châtenay-Malabry";
+        $client1->adresse = "101 Rue Gustave-Flaubert";
+        $client1->code_postal = "92290";
+        $client1->telephone = "06 00 20 43 29";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Girault";
+        $client1->prenom = "Gilbert";
+        $client1->email = "gilbertgirault@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Rignac";
+        $client1->adresse = "96 Rue Baudricourt";
+        $client1->code_postal = "12390";
+        $client1->telephone = "06 78 36 39 91";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Lucas";
+        $client1->prenom = "Léonie";
+        $client1->email = "leonielucas@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = false;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Villeneuve-de-la-Raho";
+        $client1->adresse = "168 Rue Doudeauville";
+        $client1->code_postal = "66180";
+        $client1->telephone = "06 53 15 99 28";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Wagner";
+        $client1->prenom = "Émilie";
+        $client1->email = "emiliewagner@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Gervans";
+        $client1->adresse = "176 Rue Gaston-Boissier";
+        $client1->code_postal = "26600";
+        $client1->telephone = "06 91 26 38 11";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Joubert";
+        $client1->prenom = "Marwane";
+        $client1->email = "marwanejoubert@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Saint-Germain-la-Blanche-Herbe";
+        $client1->adresse = "50 Villa Daumesnil";
+        $client1->code_postal = "14280";
+        $client1->telephone = "06 58 93 29 89";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Antoine";
+        $client1->prenom = "Titouan";
+        $client1->email = "titouanantoine@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Vicq";
+        $client1->adresse = "22 Rue du Figuier";
+        $client1->code_postal = "59970";
+        $client1->telephone = "06 57 39 39 45";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Besnard";
+        $client1->prenom = "Carla";
+        $client1->email = "carlabesnard@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Valay";
+        $client1->adresse = "22 Rue Duranton";
+        $client1->code_postal = "70140";
+        $client1->telephone = "06 63 97 11 83";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Combes";
+        $client1->prenom = "Esteban";
+        $client1->email = "estebancombes@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Luneray";
+        $client1->adresse = "183 Rue Gaston-Tessier";
+        $client1->code_postal = "76810";
+        $client1->telephone = "06 99 65 72 32";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Marquet";
+        $client1->prenom = "Thibault";
+        $client1->email = "thibaultmarquet@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = false;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Villers-aux-Érables";
+        $client1->adresse = "167 Rue de l'Industrie";
+        $client1->code_postal = "80110";
+        $client1->telephone = "06 79 41 47 81";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Le corre";
+        $client1->prenom = "Lilian";
+        $client1->email = "lilianle.corre@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Vendin-lès-Béthune";
+        $client1->adresse = "137 Rue Caillié";
+        $client1->code_postal = "62232";
+        $client1->telephone = "06 32 96 04 65";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Simon";
+        $client1->prenom = "Capucine";
+        $client1->email = "capucinesimon@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "La Ferrière-sur-Risle";
+        $client1->adresse = "23 Rue de l'Adjudant-Réau";
+        $client1->code_postal = "27760";
+        $client1->telephone = "06 09 88 84 48";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Merle";
+        $client1->prenom = "Syrine";
+        $client1->email = "syrinemerle@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Les Vans";
+        $client1->adresse = "89 Rue de Longchamp";
+        $client1->code_postal = "07140";
+        $client1->telephone = "06 29 55 98 72";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Blondel";
+        $client1->prenom = "Julie";
+        $client1->email = "julieblondel@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Vennezey";
+        $client1->adresse = "24 Rue Gustave-Goublier";
+        $client1->code_postal = "54830";
+        $client1->telephone = "06 31 78 53 04";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Guyot";
+        $client1->prenom = "Benjamin";
+        $client1->email = "benjaminguyot@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Saint-Quentin-de-Baron";
+        $client1->adresse = "150 Rue de Chablis";
+        $client1->code_postal = "33750";
+        $client1->telephone = "06 67 20 35 54";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Delorme";
+        $client1->prenom = "Julien";
+        $client1->email = "juliendelorme@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = false;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Murol";
+        $client1->adresse = "168 Rue Cadet";
+        $client1->code_postal = "63790";
+        $client1->telephone = "06 21 79 92 91";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Morvan";
+        $client1->prenom = "Maëlle";
+        $client1->email = "maellemorvan@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Novalaise";
+        $client1->adresse = "14 Rue de l'Abbé-Rousselot";
+        $client1->code_postal = "73470";
+        $client1->telephone = "06 48 82 11 72";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Moreno";
+        $client1->prenom = "Noémie";
+        $client1->email = "noemiemoreno@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Sailly-lez-Lannoy";
+        $client1->adresse = "91 Rue du Docteur-Tuffier";
+        $client1->code_postal = "59390";
+        $client1->telephone = "06 11 66 37 01";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Fischer";
+        $client1->prenom = "Angelina";
+        $client1->email = "angelinafischer@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Juvisy-sur-Orge";
+        $client1->adresse = "1 Rue Guillaume-Bertrand";
+        $client1->code_postal = "91260";
+        $client1->telephone = "06 90 30 72 65";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Bodin";
+        $client1->prenom = "Lisa";
+        $client1->email = "lisabodin@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Saint-Étienne-de-Tulmont";
+        $client1->adresse = "181 Rue Dufrenoy";
+        $client1->code_postal = "82410";
+        $client1->telephone = "06 83 65 98 99";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Poisson";
+        $client1->prenom = "Anna";
+        $client1->email = "annapoisson@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Le Pin";
+        $client1->adresse = "144 Rue du Docteur-Victor-Hutinel";
+        $client1->code_postal = "14590";
+        $client1->telephone = "06 55 74 82 02";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Neveu";
+        $client1->prenom = "Killian";
+        $client1->email = "killianneveu@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Vouzeron";
+        $client1->adresse = "61 Boulevard d'Algérie";
+        $client1->code_postal = "18330";
+        $client1->telephone = "06 35 12 39 66";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Langlois";
+        $client1->prenom = "Mélanie";
+        $client1->email = "melanielanglois@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Les Trois Pierres";
+        $client1->adresse = "186 Impasse Cels";
+        $client1->code_postal = "76430";
+        $client1->telephone = "06 05 82 57 84";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Godin";
+        $client1->prenom = "Célia";
+        $client1->email = "celiagodin@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Salouël";
+        $client1->adresse = "7 Passage Gauthier";
+        $client1->code_postal = "80480";
+        $client1->telephone = "06 94 07 02 87";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Lombard";
+        $client1->prenom = "Constant";
+        $client1->email = "constantlombard@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Vieux-Boucau-les-Bains";
+        $client1->adresse = "55 Rue Gazan";
+        $client1->code_postal = "40480";
+        $client1->telephone = "06 08 36 98 61";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Verdier";
+        $client1->prenom = "Dorian";
+        $client1->email = "dorianverdier@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Sains-du-Nord";
+        $client1->adresse = "12 Rue des Fermiers";
+        $client1->code_postal = "59177";
+        $client1->telephone = "06 65 63 20 02";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Berger";
+        $client1->prenom = "Juliette";
+        $client1->email = "julietteberger@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "La Vancelle";
+        $client1->adresse = "34 Rue Henri-Dubouillon";
+        $client1->code_postal = "67730";
+        $client1->telephone = "06 60 32 51 11";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Allard";
+        $client1->prenom = "Victor";
+        $client1->email = "victorallard@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = false;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Toulouse";
+        $client1->adresse = "78 Square Henri-Duparc";
+        $client1->code_postal = "31400";
+        $client1->telephone = "06 90 47 75 16";
+        $client1->save();
+
+        $client1 = new \App\User();
+        $client1->sexe_id = rand(1,3);
+        $client1->nom = "Meyer";
+        $client1->prenom = "Corentin";
+        $client1->email = "corentinmeyer@test.fr";
+        $client1->password = bcrypt('client1');
+        $client1->is_client = true;
+        $client1->mail_confirm = true;
+        $client1->date_naissance = $this->randomDate();
+        $client1->lieu_naissance = "Le Vaulmier";
+        $client1->adresse = "48 Rue Ernest-Cresson";
+        $client1->code_postal = "15380";
+        $client1->telephone = "06 56 99 31 57";
+        $client1->save();
+
+
+    }
+
+    /**
+     * @param $publication1
+     * @param $client1
+     * @param $statusAboEtat
+     * @param $statusAboPaye
+     */
+    public function createAbonnement($publicationId, $clientId, $statusAboEtatId, $statusAboPayeId)
+    {
+        $abonnement1 = new \App\Abonnement();
+        $abonnement1->publication_id = $publicationId;
+        $abonnement1->client_id = $clientId;
+        $abonnement1->etat_id = $statusAboEtatId;
+        $abonnement1->paye_id = $statusAboPayeId;
+        $abonnement1->date_fin = $this->randomDate();
+        $abonnement1->save();
+    }
+
+    /**
+     * @return \App\Publication
+     */
+    public function createPublications()
+    {
         $publication1 = new \App\Publication();
         $publication1->image = $this->getBase64FromPath("tout_sur_lhistoire_viking.jpg");
         $publication1->titre = "Tout sur l'Histoire";
@@ -203,34 +755,5 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication14->prix_an = 55;
         $publication14->description = "Avec [Terre Sauvage], partez à la découverte de notre planète dans ce qu’elle a de plus authentique, de plus fragile, de plus vivant : sa nature sauvage !Rencontres étonnantes entre les hommes et les animaux, récits d’aventuriers hors du commun, exploration sportive des terres extrêmes";
         $publication14->save();
-
-
-        // Création d'un abonnement
-        $abonnement1 = new \App\Abonnement();
-        $abonnement1->publication_id = $publication1->id;
-        $abonnement1->client_id = $client1->id;
-        $abonnement1->etat_id = $statusAboEnCours->id;
-        $abonnement1->paye_id = $statusAboImpaye->id;
-        $abonnement1->date_fin = Carbon::createFromDate("2018", "02", "05", "0");
-        $abonnement1->save();
-
-    }
-
-    private function getBase64FromPath($img) {
-        $image = 'C:\laragon\www\Magazine\public\uploads\\'.$img;
-        $type = pathinfo($image, PATHINFO_EXTENSION);
-        $data = file_get_contents($image);
-        $dataUri = 'data:image/' . $type . ';base64,' . base64_encode($data);
-        return $dataUri;
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
     }
 }

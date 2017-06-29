@@ -33,4 +33,4 @@ Route::post("/publication/addPicture","PublicationController@upload");
 
 // Routage Clients
 Route::get("/client/list","ClientController@liste");
-Route::get("/client/detail","ClientController@detail");
+Route::get("/client/detail/{id}","ClientController@detail");

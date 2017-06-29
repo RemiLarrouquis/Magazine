@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nom', 'email', 'password', 'prenom', 'mail_confirm', 'is_client','sexe_id', 'date_naissance', 'lieu_naissance', 'adresse', 'code_postal', 'telephone',
+        'nom', 'email', 'password', 'prenom', 'mail_confirm', 'is_client', 'sexe_id', 'date_naissance', 'lieu_naissance', 'adresse', 'code_postal', 'telephone',
     ];
 
     /**
@@ -30,4 +30,9 @@ class User extends Authenticatable
     public function abonnements() {
         $this->hasMany('\App\Abonnement');
     }
+
+    public function sexe() {
+        $this->belongsTo('\App\Status', 'sexe_id');
+    }
+
 }

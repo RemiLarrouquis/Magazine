@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Publication;
 use Illuminate\Support\Facades\Input;
@@ -37,7 +38,15 @@ class ClientController extends Controller
         return view('client.view', $data);
     }
 
-    public function detail(Request $request) {
-        return view('client.detail');
+    public function detail($id) {
+        $query = User::query();
+        $query->where('users.id', $id);
+        $query->join('statuses', 'users.sexe_id', 'statuses.id');
+        $query->select('users.*', 'statuses.id as idSexe', 'statuses.libelle');
+        $client = $query->first();
+        if ($client->is_client) {
+            return view('client.detail', array('client' => $client));
+        }
+        return view('errors.404');
     }
 }

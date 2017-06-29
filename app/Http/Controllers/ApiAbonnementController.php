@@ -65,9 +65,9 @@ class ApiAbonnementController extends Controller
             ]);
         }
 
-        AbonnementServices::newAbonnement($idPub, $user->id);
+        $msg = AbonnementServices::newAbonnement($idPub, $user->id);
 
-        return response()->json(['error' => false, 'msg' => 'Abonnement effectué.', 'result' => '', 'status_code' => 200]);
+        return response()->json(['error' => false, 'msg' => $msg, 'result' => '', 'status_code' => 200]);
     }
 
     public function relance(Request $request)
