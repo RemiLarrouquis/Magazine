@@ -17,30 +17,29 @@ class ClientServices {
 
         $orderBy = 'created_at';
         $orderAsc = 'desc';
-        // if (array_key_exists('filterPrix', $filters)) {
-        //    $orderBy = 'prix_an';
-        //    if ($filters['filterPrix'] == "true") {
-        //        $orderAsc = 'asc';
-        //    } else {
-        //        $orderAsc = 'desc';
-        //    }
-        //}
-        // Filtres de titre
+        if (array_key_exists('filtreConfirm', $filters)) {
+            $orderBy = 'mail_confirm';
+            if ($filters['filtreConfirm'] == "true") {
+                $orderAsc = 'asc';
+            } else {
+                $orderAsc = 'desc';
+            }
+        }
+        // Filtres de nom
         if(array_key_exists('filterNom', $filters)) {
             $clients = DB::table('users')
                 ->where('is_client', true)
-                ->where('nom', 'like', '%'.$filters['filterTitre'].'%')
-                ->orWhere('nom', 'like', '%'.strtoupper($filters['filterTitre']).'%')
-                ->orWhere('nom', 'like', '%'.ucfirst($filters['filterTitre']).'%')
+                ->where('nom', 'like', '%'.$filters['filterNom'].'%')
+                ->orWhere('nom', 'like', '%'.strtoupper($filters['filterNom']).'%')
+                ->orWhere('nom', 'like', '%'.ucfirst($filters['filterNom']).'%')
                 ->orderBy($orderBy, $orderAsc)
-                ->paginate(6);
+                ->paginate(12);
 
         } else {
-
             $clients = DB::table('users')
                 ->where('is_client', true)
                 ->orderBy($orderBy, $orderAsc)
-                ->paginate(6);
+                ->paginate(12);
 
         }
 

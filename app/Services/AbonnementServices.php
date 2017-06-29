@@ -27,17 +27,20 @@ class AbonnementServices
      */
     public static function newAbonnement($idPub, $idUser)
     {
-
+        $msg = '';
         $abo = self::getAbonnement($idPub, $idUser);
 
         if ($abo) {
             if ($abo->etat_id == self::EN_COURS) {
-                $abo->etat_id = self::PAUSE;
+                $abo->etat_id = self::ARRETER;
+                $msg = "Abonnement arreté";
             } else {
                 $abo->etat_id = self::EN_COURS;
+                $msg = "Abonnement en cours";
             }
             $abo->save();
         } else {
+            $msg = "Abonnement créé";
             Abonnement::Create([
                 'publication_id' => $idPub,
                 'client_id' => $idUser,
@@ -46,6 +49,7 @@ class AbonnementServices
                 'date_fin' => Carbon::now()->addYear(),
             ]);
         }
+        return $msg;
     }
 
     public static function relance($idAbo)
