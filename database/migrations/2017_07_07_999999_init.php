@@ -32,9 +32,17 @@ class Init extends Migration
         // Création des publications
         $this->createPublications();
 
+        // Pour Client "Client1"
+        $this->createAbonnement(2, 3, 4, 7, date('Y-m-d', strtotime("15 July 2017")));
+        $this->createAbonnement(4, 3, 4, 7, date('Y-m-d', strtotime("02 August 2017")));
+        $this->createAbonnement(5, 3, 4, 7, $this->randomDate());
+        $this->createAbonnement(7, 3, 4, 9, $this->randomDate());
+        $this->createAbonnement(10, 3, 6, 7, $this->randomDate());
+        $this->createAbonnement(13, 3, 6, 9, $this->randomDate());
+
         // Création d'abonnements
         for ($i = 0; $i < 50; $i++) {
-            $this->createAbonnement(rand(1, 14), rand(1, 31), $this->randEven(4,6), $this->randOdd(7,9));
+            $this->createAbonnement(rand(1, 14), rand(1, 31), $this->randEven(4,6), $this->randOdd(7,9), $this->randomDate());
         }
 
     }
@@ -624,14 +632,14 @@ class Init extends Migration
      * @param $statusAboEtat
      * @param $statusAboPaye
      */
-    public function createAbonnement($publicationId, $clientId, $statusAboEtatId, $statusAboPayeId)
+    public function createAbonnement($publicationId, $clientId, $statusAboEtatId, $statusAboPayeId, $dateFin)
     {
         $abonnement1 = new \App\Abonnement();
         $abonnement1->publication_id = $publicationId;
         $abonnement1->client_id = $clientId;
         $abonnement1->etat_id = $statusAboEtatId;
         $abonnement1->paye_id = $statusAboPayeId;
-        $abonnement1->date_fin = $this->randomDate();
+        $abonnement1->date_fin = $dateFin;
         $abonnement1->save();
     }
 

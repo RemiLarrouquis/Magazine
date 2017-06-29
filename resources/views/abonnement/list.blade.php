@@ -5,74 +5,62 @@
         <li class="item item-list-header hidden-sm-down">
             <div class="item-row">
                 <div class="item-col item-col-header item-col-title">
-                    <div> <span>Nom</span> </div>
+                    <div> <span>Titre de la publication</span> </div>
                 </div>
                 <div class="item-col item-col-header item-col-title">
-                    <div> <span>Adresse mail</span> </div>
+                    <div> <span>Nom du client</span> </div>
                 </div>
                 <div class="item-col item-col-header item-col-title">
-                    <div> <span>Adresse</span> </div>
+                    <div> <span>Date de fin</span> </div>
                 </div>
                 <div class="item-col item-col-header item-col-stats">
-                    <div class="no-overflow"><span>Code postal</span> </div>
+                    <div class="no-overflow"><span>Etat</span> </div>
                 </div>
                 <div class="item-col item-col-header item-col-stats">
-                    <div class="no-overflow"> <span>Téléphone</span> </div>
-                </div>
-                <div class="item-col item-col-header item-col-stats">
-                    <div class="no-overflow"> <span>Email confirmé</span> </div>
+                    <div class="no-overflow"> <span>Status</span> </div>
                 </div>
                 <div class="item-col item-col-header fixed item-col-actions-dropdown"> </div>
             </div>
         </li>
         <!-- Fin header list -->
         <!-- Début liste dynamique -->
-        @foreach ($clients as $client)
+        @foreach ($abos as $abo)
             <li class="item">
                 <div class="item-row">
                     <div class="item-col fixed pull-left item-col-title">
-                        <div class="item-heading">Nom</div>
+                        <div class="item-heading">Titre de la publication</div>
                         <div>
-                            <h4 class="item-title"> {{ $client->nom.' '.$client->prenom}} </h4>
+                            <h4 class="item-title"> {{$abo->titre}}  </h4>
                         </div>
                     </div>
                     <div class="item-col fixed pull-left item-col-title">
-                        <div class="item-heading">Adresse mail</div>
+                        <div class="item-heading">Nom du client</div>
                         <div>
                             <h4 class="item-title">
-                                {{ $client->email }}
+                                {{$abo->sexe_libelle}} {{$abo->nom}} {{$abo->prenom}}
                             </h4>
                         </div>
                     </div>
                     <div class="item-col fixed pull-left item-col-title">
-                        <div class="item-heading">Adresse</div>
+                        <div class="item-heading">Date de fin</div>
                         <div>
                             <h4 class="item-title">
-                                {{ $client->adresse }}
+                                {{$abo->date_fin}}
                             </h4>
                         </div>
                     </div>
                     <div class="item-col item-col-stats no-overflow">
-                        <div class="item-heading">Code postal</div>
-                        <div> {{ $client->code_postal }} </div>
+                        <div class="item-heading">Etat</div>
+                        <div>  {{$abo->etat_libelle}} </div>
                     </div>
                     <div class="item-col item-col-stats no-overflow">
-                        <div class="item-heading">Téléphone</div>
-                        <div> {{ $client->telephone }} </div>
-                    </div>
-                    <div class="item-col item-col-stats no-overflow">
-                        <div class="item-heading">Email confirmé</div>
-                        @if($client->mail_confirm)
-                            <div> <i class="fa fa-check-circle-o"></i> </div>
-                        @else
-                            <div> <i class="fa fa-circle-o"></i> </div>
-                        @endif
-
+                        <div class="item-heading">Status</div>
+                        <div>  {{$abo->paye_libelle}} </div>
                     </div>
                     <div class="item-col fixed item-col-actions-dropdown">
                         <div class="item-actions-dropdown">
                             <a class="edit"
-                               href="{{ url('/client/detail/') . '/' . $client->id }}">
+                               href="#">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -84,4 +72,4 @@
     </ul>
 </div>
 {{-- Pagination de la page (surcharge dans ressources/vendor/pagination/default.blade.php --}}
-{{ $clients->links() }}
+{{ $abos->links() }}

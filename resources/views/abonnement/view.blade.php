@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h3 class="title">
-                            Liste des clients
+                            Liste des abonnements
                         </h3>
                     </div>
                 </div>
@@ -31,9 +31,9 @@
 
 
         <div id="list-view">
-            @include('client.list')
+            @include('abonnement.list')
 
-            <script src="{{ asset('js/clients.js') }}"></script>
+            <script src="{{ asset('js/abonnements.js') }}"></script>
         </div>
 
     </article>

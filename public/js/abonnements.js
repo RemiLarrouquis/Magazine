@@ -3,7 +3,7 @@ $(function() {
 
     $("#search-nom").on('input', function() {
         filtreNom = $('#search-nom').val();
-        $.get( "/client/list?"+filters(), function( data ) {
+        $.get( "/abonnement/list?"+filters(), function( data ) {
             $( "#list-view" ).html( data );
         });
     });
@@ -13,7 +13,7 @@ $(function() {
         } else {
             filtreConfirm = 'true';
         }
-        $.get( "/client/list?"+filters(), function( data ) {
+        $.get( "/abonnement/list?"+filters(), function( data ) {
             $( "#list-view" ).html( data );
         });
     });

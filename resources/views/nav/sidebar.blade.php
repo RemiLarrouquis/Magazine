@@ -11,14 +11,14 @@
         </li>
 
         <li>
-            <a href="#"> <i class="fa fa-users"></i> Clients <i class="fa arrow"></i> </a>
+            <a href=""> <i class="fa fa-users"></i> Clients <i class="fa arrow"></i> </a>
             <ul>
                 <li>
                     <a href="{{ url('/client/list') }}">
                         Liste des clients
                     </a>
                 </li>
-                <li> <a href="#">
+                <li> <a href="{{ url('/abonnement/list') }}">
                         Abonnements
                     </a>
                 </li>

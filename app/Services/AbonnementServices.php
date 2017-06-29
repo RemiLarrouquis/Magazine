@@ -78,13 +78,21 @@ class AbonnementServices
      * @param $isUser
      * @return list d'abonnements
      */
-    public static function listAbonnements($filters, $IdUser)
+    public static function listAbonnements($filters, $IdUser, $paging)
     {
 
         $query = Abonnement::query();
-        $query->where('client_id', $IdUser);
+        if ($IdUser) {
+            $query->where('client_id', $IdUser);
+        }
         $query->join('publications', 'publications.id', 'publication_id');
-        $query->select('abonnements.*', 'publications.titre', 'publications.description', 'publications.image', 'publications.nb_an', 'publications.prix_an');
+        $query->join('users', 'users.id', 'client_id');
+        $query->join('statuses as etat', 'etat.id', 'etat_id');
+        $query->join('statuses as paye', 'paye.id', 'paye_id');
+        $query->join('statuses as sexe', 'sexe.id', 'sexe_id');
+        $query->select('abonnements.*', 'publications.titre', 'publications.description', 'publications.image',
+            'publications.nb_an', 'publications.prix_an', 'users.nom', 'users.prenom',
+            'sexe.libelle_short as sexe_libelle', 'paye.libelle as paye_libelle', 'etat.libelle as etat_libelle');
 
         // Etat (encours, stop, pause
         if (array_key_exists('filterEtat', $filters)) {
@@ -109,6 +117,10 @@ class AbonnementServices
 
         $query->orderBy($orderBy, $orderAsc);
 
-        return $query->get();
+        if ($paging) {
+            return $query->paginate(10);
+        } else {
+            return $query->get();
+        }
     }
 }
