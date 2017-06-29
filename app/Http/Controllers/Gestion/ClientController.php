@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Gestion;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
@@ -9,6 +9,7 @@ use App\Publication;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\Services\ClientServices;
+use App\Http\Controllers\Controller;
 
 class ClientController extends Controller
 {

@@ -21,16 +21,16 @@ Route::get("/", function () {
 
 Auth::routes();
 
-Route::get("/home", "HomeController@index")->name("home");
+Route::get("/home", "Gestion\\HomeController@index")->name("home");
 
 //Routage publication
-Route::get("/publication/new","PublicationController@newPublication");
-Route::get("/publication/edit/{id}","PublicationController@editForm");
-Route::get("/publication/list","PublicationController@liste");
+Route::get("/publication/new","Gestion\\PublicationController@newPublication");
+Route::get("/publication/edit/{id}","Gestion\\PublicationController@editForm");
+Route::get("/publication/list","Gestion\\PublicationController@liste");
 
-Route::post("/publication/save","PublicationController@savePublication");
-Route::post("/publication/addPicture","PublicationController@upload");
+Route::post("/publication/save","Gestion\\PublicationController@savePublication");
+Route::post("/publication/addPicture","Gestion\\PublicationController@upload");
 
 // Routage Clients
-Route::get("/client/list","ClientController@liste");
-Route::get("/client/detail/{id}","ClientController@detail");
+Route::get("/client/list","Gestion\\ClientController@liste");
+Route::get("/client/detail/{id}","Gestion\\ClientController@detail");

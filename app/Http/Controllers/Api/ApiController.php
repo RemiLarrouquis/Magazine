@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\User;
 use Hash;
@@ -8,6 +8,7 @@ use JWTAuth;
 use App\Mail\ConfirmAdress;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 
 class APIController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Hash;
 use JWTAuth;
@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Services\AbonnementServices;
+use App\Http\Controllers\Controller;
 
 class ApiAbonnementController extends Controller
 {

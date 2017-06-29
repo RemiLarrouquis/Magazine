@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Gestion;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -8,6 +8,7 @@ use App\Publication;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use App\Services\PublicationServices;
+use App\Http\Controllers\Controller;
 
 class PublicationController extends Controller
 {

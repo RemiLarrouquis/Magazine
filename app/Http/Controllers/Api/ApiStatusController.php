@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Status;
 use Hash;
@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Services\StatusServices;
+use App\Http\Controllers\Controller;
 
 class ApiStatusController extends Controller
 {
