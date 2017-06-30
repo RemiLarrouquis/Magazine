@@ -24,16 +24,19 @@ Auth::routes();
 Route::get("/home", "Gestion\\HomeController@index")->name("home");
 
 //Routage publication
-Route::get("/publication/new","Gestion\\PublicationController@newPublication");
-Route::get("/publication/edit/{id}","Gestion\\PublicationController@editForm");
-Route::get("/publication/list","Gestion\\PublicationController@liste");
+Route::get("/publication/new", "Gestion\\PublicationController@newPublication");
+Route::get("/publication/edit/{id}", "Gestion\\PublicationController@editForm");
+Route::get("/publication/list", "Gestion\\PublicationController@liste");
 
-Route::post("/publication/save","Gestion\\PublicationController@savePublication");
-Route::post("/publication/addPicture","Gestion\\PublicationController@upload");
+Route::post("/publication/save", "Gestion\\PublicationController@savePublication");
+Route::post("/publication/addPicture", "Gestion\\PublicationController@upload");
 
 // Routage Clients
-Route::get("/client/list","Gestion\\ClientController@liste");
-Route::get("/client/detail/{id}","Gestion\\ClientController@detail");
+Route::get("/client/list", "Gestion\\ClientController@liste");
+Route::get("/client/detail/{id}", "Gestion\\ClientController@detail");
 
 // Routage Abonnements
-Route::get("/abonnement/list","Gestion\\AbonnementController@liste");
+Route::get("/abonnement/list", "Gestion\\AbonnementController@liste");
+
+Route::get("/historique/list", "Gestion\\HistoriqueController@liste");
+Route::get("/historique/detail/{id}", "Gestion\\HistoriqueController@listeClient");
