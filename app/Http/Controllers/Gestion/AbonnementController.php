@@ -4,13 +4,7 @@ namespace App\Http\Controllers\Gestion;
 
 use App\Services\AbonnementServices;
 use App\Services\StatusServices;
-use App\Status;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Publication;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\DB;
-use App\Services\PublicationServices;
 use App\Http\Controllers\Controller;
 
 class AbonnementController extends Controller

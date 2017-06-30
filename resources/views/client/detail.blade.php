@@ -102,8 +102,8 @@
                             </div>
                         </div>
                         <div class="card-block" style="width: auto;">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Voir tous ces abonnements</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Voir l'historique des relations</button>
+                            <a type="button" class="btn btn-secondary btn-lg btn-block">Voir tous ces abonnements</a>
+                            <a type="button" class="btn btn-secondary btn-lg btn-block" href="{{ url('/historique/detail/') . '/' . $client->id }}">Voir l'historique des relations</a>
                         </div>
                     </div>
                 </div>

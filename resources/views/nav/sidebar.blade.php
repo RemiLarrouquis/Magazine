@@ -25,6 +25,10 @@
             </ul>
         </li>
 
+        <li class="active">
+            <a href="{{ url('/historique/list') }}"> <i class="fa fa-list"></i> Historiques </a>
+        </li>
+
         <!-- Hors scope
         <li>
             <a href="#"> <i class="fa fa-envelope"></i> Historiques des relations</a>

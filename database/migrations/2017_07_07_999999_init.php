@@ -23,6 +23,9 @@ class Init extends Migration
         // Type 3 -------------------------------------------
         $this->statusAboPaye();
 
+        // Type 4 -------------------------------------------
+        $this->statusHistorique();
+
         // Création des utilisateurs
         $this->createEmployees();
 
@@ -42,19 +45,27 @@ class Init extends Migration
 
         // Création d'abonnements
         for ($i = 0; $i < 50; $i++) {
-            $this->createAbonnement(rand(1, 14), rand(1, 31), $this->randEven(4,6), $this->randOdd(7,9), $this->randomDate());
+            $this->createAbonnement(rand(1, 14), rand(1, 31), $this->randEven(4, 6), $this->randOdd(7, 9), $this->randomDate());
         }
 
+
+        //Création d'historique
+        for ($i = 0; $i < 150; $i++) {
+            $this->createHistorique(rand(1, 50), rand(1, 50),rand(10, 13), 'Echange avec le client', $this->randomDate());
+        }
     }
 
-    private function getBase64FromPath($img) {
-        $image = 'C:\laragon\www\Magazine\public\uploads\\'.$img;
+    private function getBase64FromPath($img)
+    {
+        $image = 'C:\laragon\www\Magazine\public\uploads\\' . $img;
         $type = pathinfo($image, PATHINFO_EXTENSION);
         $data = file_get_contents($image);
         $dataUri = 'data:image/' . $type . ';base64,' . base64_encode($data);
         return $dataUri;
     }
-    private function randomDate() {
+
+    private function randomDate()
+    {
         // Convert to timetamps
         $min = strtotime("01 January 2016");
         $max = strtotime("27 December 2018");
@@ -65,7 +76,9 @@ class Init extends Migration
         // Convert back to desired date format
         return date('Y-m-d', $val);
     }
-    private function randEven($min, $max) {
+
+    private function randEven($min, $max)
+    {
         $rand = rand($min, $max);
         if ($rand % 2 == 0) {
             return $rand;
@@ -73,7 +86,9 @@ class Init extends Migration
             return $rand - 1;
         }
     }
-    private function randOdd($min, $max) {
+
+    private function randOdd($min, $max)
+    {
         $rand = rand($min, $max);
         if ($rand % 2 == 1) {
             return $rand;
@@ -91,6 +106,7 @@ class Init extends Migration
     {
         //
     }
+
 
     public function statusSexe()
     {
@@ -110,6 +126,7 @@ class Init extends Migration
         $statusSexeN->libelle_short = "";
         $statusSexeN->save();
     }
+
     public function statusAboEtat()
     {
         $statusAboEnCours = new \App\Status();
@@ -125,6 +142,7 @@ class Init extends Migration
         $statusAboTermine->libelle = "Arrêté";
         $statusAboTermine->save();
     }
+
     public function statusAboPaye()
     {
         $statusAboPaye = new \App\Status();
@@ -140,6 +158,27 @@ class Init extends Migration
         $statusAboRemb->libelle = "Remboursé";
         $statusAboRemb->save();
     }
+
+    public function statusHistorique()
+    {
+        $statusAboPaye = new \App\Status();
+        $statusAboPaye->type = 4;
+        $statusAboPaye->libelle = "Email";
+        $statusAboPaye->save();
+        $statusAboImpaye = new \App\Status();
+        $statusAboImpaye->type = 4;
+        $statusAboImpaye->libelle = "Téléphone";
+        $statusAboImpaye->save();
+        $statusAboRemb = new \App\Status();
+        $statusAboRemb->type = 4;
+        $statusAboRemb->libelle = "Messagerie";
+        $statusAboRemb->save();
+        $statusAboRemb = new \App\Status();
+        $statusAboRemb->type = 4;
+        $statusAboRemb->libelle = "Autre";
+        $statusAboRemb->save();
+    }
+
 
     public function createEmployees()
     {
@@ -159,7 +198,7 @@ class Init extends Migration
     public function createClients()
     {
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Client";
         $client1->prenom = "premier";
         $client1->email = "client1@test.fr";
@@ -174,7 +213,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Herve";
         $client1->prenom = "Malo";
         $client1->email = "maloherve@test.fr";
@@ -189,7 +228,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Bayle";
         $client1->prenom = "Maéva";
         $client1->email = "maevabayle@test.fr";
@@ -204,7 +243,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Simon";
         $client1->prenom = "Nolan";
         $client1->email = "nolansimon@test.fr";
@@ -219,7 +258,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Girault";
         $client1->prenom = "Gilbert";
         $client1->email = "gilbertgirault@test.fr";
@@ -234,7 +273,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Lucas";
         $client1->prenom = "Léonie";
         $client1->email = "leonielucas@test.fr";
@@ -249,7 +288,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Wagner";
         $client1->prenom = "Émilie";
         $client1->email = "emiliewagner@test.fr";
@@ -264,7 +303,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Joubert";
         $client1->prenom = "Marwane";
         $client1->email = "marwanejoubert@test.fr";
@@ -279,7 +318,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Antoine";
         $client1->prenom = "Titouan";
         $client1->email = "titouanantoine@test.fr";
@@ -294,7 +333,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Besnard";
         $client1->prenom = "Carla";
         $client1->email = "carlabesnard@test.fr";
@@ -309,7 +348,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Combes";
         $client1->prenom = "Esteban";
         $client1->email = "estebancombes@test.fr";
@@ -324,7 +363,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Marquet";
         $client1->prenom = "Thibault";
         $client1->email = "thibaultmarquet@test.fr";
@@ -339,7 +378,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Le corre";
         $client1->prenom = "Lilian";
         $client1->email = "lilianle.corre@test.fr";
@@ -354,7 +393,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Simon";
         $client1->prenom = "Capucine";
         $client1->email = "capucinesimon@test.fr";
@@ -369,7 +408,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Merle";
         $client1->prenom = "Syrine";
         $client1->email = "syrinemerle@test.fr";
@@ -384,7 +423,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Blondel";
         $client1->prenom = "Julie";
         $client1->email = "julieblondel@test.fr";
@@ -399,7 +438,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Guyot";
         $client1->prenom = "Benjamin";
         $client1->email = "benjaminguyot@test.fr";
@@ -414,7 +453,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Delorme";
         $client1->prenom = "Julien";
         $client1->email = "juliendelorme@test.fr";
@@ -429,7 +468,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Morvan";
         $client1->prenom = "Maëlle";
         $client1->email = "maellemorvan@test.fr";
@@ -444,7 +483,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Moreno";
         $client1->prenom = "Noémie";
         $client1->email = "noemiemoreno@test.fr";
@@ -459,7 +498,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Fischer";
         $client1->prenom = "Angelina";
         $client1->email = "angelinafischer@test.fr";
@@ -474,7 +513,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Bodin";
         $client1->prenom = "Lisa";
         $client1->email = "lisabodin@test.fr";
@@ -489,7 +528,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Poisson";
         $client1->prenom = "Anna";
         $client1->email = "annapoisson@test.fr";
@@ -504,7 +543,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Neveu";
         $client1->prenom = "Killian";
         $client1->email = "killianneveu@test.fr";
@@ -519,7 +558,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Langlois";
         $client1->prenom = "Mélanie";
         $client1->email = "melanielanglois@test.fr";
@@ -534,7 +573,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Godin";
         $client1->prenom = "Célia";
         $client1->email = "celiagodin@test.fr";
@@ -549,7 +588,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Lombard";
         $client1->prenom = "Constant";
         $client1->email = "constantlombard@test.fr";
@@ -564,7 +603,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Verdier";
         $client1->prenom = "Dorian";
         $client1->email = "dorianverdier@test.fr";
@@ -579,7 +618,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Berger";
         $client1->prenom = "Juliette";
         $client1->email = "julietteberger@test.fr";
@@ -594,7 +633,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Allard";
         $client1->prenom = "Victor";
         $client1->email = "victorallard@test.fr";
@@ -609,7 +648,7 @@ class Init extends Migration
         $client1->save();
 
         $client1 = new \App\User();
-        $client1->sexe_id = rand(1,3);
+        $client1->sexe_id = rand(1, 3);
         $client1->nom = "Meyer";
         $client1->prenom = "Corentin";
         $client1->email = "corentinmeyer@test.fr";
@@ -641,6 +680,17 @@ class Init extends Migration
         $abonnement1->paye_id = $statusAboPayeId;
         $abonnement1->date_fin = $dateFin;
         $abonnement1->save();
+    }
+
+    public function createHistorique($client_id, $employe_id, $status_id, $description, $date)
+    {
+        $historique1 = new \App\Historique();
+        $historique1->client_id = $client_id;
+        $historique1->employe_id = $employe_id;
+        $historique1->status_id = $status_id;
+        $historique1->description = $description;
+        $historique1->date = $date;
+        $historique1->save();
     }
 
     /**
