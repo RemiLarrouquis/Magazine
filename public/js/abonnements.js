@@ -3,9 +3,7 @@ $(function() {
 
     $("#search-titre").on('input', function() {
         filtreTitre = $('#search-titre').val();
-        $.get( "/abonnement/list?"+filters(), function( data ) {
-            $( "#list-view" ).html( data );
-        });
+        reloadList();
     });
     $("#buttonDateFin").on('click', function() {
         if (filtreDateFin == 'false') {

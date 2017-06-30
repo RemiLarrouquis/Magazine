@@ -20,7 +20,7 @@
 </head>
 <body>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
@@ -30,6 +30,22 @@
     <script src="{{ asset('js/vendor.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/dropzone.js') }}"></script>
+
+    <script>
+        $(function () {
+            $('#sidebar-menu, #customize-menu').metisMenu({
+                activeClass: 'open'
+            });
+            $('#sidebar-collapse-btn').on('click', function(event){
+                event.preventDefault();
+
+                $("#app").toggleClass("sidebar-open");
+            });
+            $("#sidebar-overlay").on('click', function() {
+                $("#app").removeClass("sidebar-open");
+            });
+        });
+    </script>
 </body>
 
 </html>
