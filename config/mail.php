@@ -64,8 +64,9 @@ return [
      * Dev only
      */
     'to' => [
-        'address' => 'remidu40@yahoo.fr',
-        'name' => 'yahoo'
+        // 'address' => 'remidu40@yahoo.fr',
+        'address' => 'ludovicgirard@gmail.com',
+        'name' => 'Ludovic'
     ],
 
     /*

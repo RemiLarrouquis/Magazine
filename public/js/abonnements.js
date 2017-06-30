@@ -1,36 +1,59 @@
 
 $(function() {
 
-    $("#search-nom").on('input', function() {
-        filtreNom = $('#search-nom').val();
+    $("#search-titre").on('input', function() {
+        filtreTitre = $('#search-titre').val();
         $.get( "/abonnement/list?"+filters(), function( data ) {
             $( "#list-view" ).html( data );
         });
     });
-    $("#buttonConfirmMailSort").on('click', function() {
-        if (filtreConfirm == 'true') {
-            filtreConfirm = 'false';
+    $("#buttonDateFin").on('click', function() {
+        if (filtreDateFin == 'false') {
+            filtreDateFin = 'true';
         } else {
-            filtreConfirm = 'true';
+            filtreDateFin = 'false';
         }
-        $.get( "/abonnement/list?"+filters(), function( data ) {
-            $( "#list-view" ).html( data );
-        });
+        reloadList();
     });
 });
 
+function filterEtat(id, libelle) {
+    filtreEtat = id;
+    $("#etatBtn").html(libelle);
+    reloadList();
+}
+function filterStatus(id, libelle) {
+    filtreStatus = id;
+    $("#statusBtn").html(libelle);
+    reloadList();
+}
+
 // Recherche dynamique des publications
-var filtreNom = '';
-var filtreConfirm = '';
+var filtreTitre = '';
+var filtreDateFin = '';
+var filtreEtat = '';
+var filtreStatus = '';
 function filters() {
-    var filtres = ''
-    if (filtreNom != '') {
-        filtres += "filterNom=" + filtreNom + "&";
+    var filtres = '';
+    if (filtreTitre != '') {
+        filtres += "filtreTitre=" + filtreTitre + "&";
     }
-    if (filtreConfirm != '') {
-        filtres += "filtreConfirm=" + filtreConfirm + "&";
+    if (filtreDateFin != '') {
+        filtres += "orderByDateFin=" + filtreDateFin + "&";
+    }
+    if (filtreEtat != '') {
+        filtres += "filterEtat=" + filtreEtat + "&";
+    }
+    if (filtreStatus != '') {
+        filtres += "filterPaye=" + filtreStatus + "&";
     }
     return filtres;
+}
+
+function reloadList() {
+    $.get( "/abonnement/list?"+filters(), function( data ) {
+        $( "#list-view" ).html( data );
+    });
 }
 
 //Pagination dynamique (fonction à surcharger pour chaque modules "publications, abonnement, clients")

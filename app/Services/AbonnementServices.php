@@ -82,7 +82,6 @@ class AbonnementServices
      */
     public static function listAbonnements($filters, $IdUser, $paging)
     {
-
         $query = Abonnement::query();
         if ($IdUser) {
             $query->where('client_id', $IdUser);
@@ -96,7 +95,7 @@ class AbonnementServices
             'publications.nb_an', 'publications.prix_an', 'users.nom', 'users.prenom',
             'sexe.libelle_short as sexe_libelle', 'paye.libelle as paye_libelle', 'etat.libelle as etat_libelle');
 
-        // Etat (encours, stop, pause
+        // Etat (encours, stop, pause)
         if (array_key_exists('filterEtat', $filters)) {
             $query->where('etat_id', $filters['filterEtat']);
         }
@@ -114,15 +113,34 @@ class AbonnementServices
 
         }
 
-        $orderBy = 'abonnements.date_fin';
-        $orderAsc = 'asc';
+        $orders = self::orderByMultiple($filters);
 
-        $query->orderBy($orderBy, $orderAsc);
+        $query->orderBy($orders['orderBy'], $orders['orderAsc']);
 
         if ($paging) {
             return $query->paginate($paging);
         } else {
             return $query->get();
         }
+    }
+
+    /**
+     * @param $filters
+     * @return array
+     */
+    public static function orderByMultiple($filters)
+    {
+        $orderBy = 'abonnements.date_fin';
+        $orderAsc = 'asc';
+
+        if (array_key_exists('orderByDateFin', $filters)) {
+            $orderBy = 'date_fin';
+            if ($filters['orderByDateFin'] == "true") {
+                $orderAsc = 'asc';
+            } else {
+                $orderAsc = 'desc';
+            }
+        }
+        return array('orderBy' => $orderBy, 'orderAsc' => $orderAsc);
     }
 }

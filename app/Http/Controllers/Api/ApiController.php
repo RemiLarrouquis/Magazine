@@ -36,7 +36,7 @@ class APIController extends Controller
         $valid = $this->validator($input);
 
         if ($valid->fails()) {
-            return response()->json(['errors' => true, 'msg' => $valid->errors(), 'result'=> '']);
+            return response()->json(['errors' => true, 'msg' => $valid->errors()->all(), 'result'=> '']);
         } else {
             // Hash le mot de passe avant sauvegarde
             $input['password'] = Hash::make($input['password']);

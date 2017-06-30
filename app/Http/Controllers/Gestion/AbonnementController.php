@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Gestion;
 
 use App\Services\AbonnementServices;
+use App\Services\StatusServices;
+use App\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Publication;
@@ -13,6 +15,10 @@ use App\Http\Controllers\Controller;
 
 class AbonnementController extends Controller
 {
+    const TYPE_SEXE = 1;
+    const TYPE_ABO_ENCOURS = 2;
+    const TYPE_ABO_PAYE = 3;
+
     /**
      * Create a new controller instance.
      *
@@ -28,9 +34,14 @@ class AbonnementController extends Controller
         $req = $request->request->all();
 
         $abos = AbonnementServices::listAbonnements($req, null, 10);
+        $statuses = StatusServices::getStatusByType(self::TYPE_ABO_PAYE);
+        $etats = StatusServices::getStatusByType(self::TYPE_ABO_ENCOURS);
+
         // Attention toujours inclure dans un tableau les résultats
         $data = array(
             'abos' => $abos,
+            'statuses' => $statuses,
+            'etats' => $etats,
         );
 
         if (!empty($req)) {
