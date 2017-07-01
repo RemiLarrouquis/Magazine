@@ -18,7 +18,8 @@
                         Liste des clients
                     </a>
                 </li>
-                <li> <a href="{{ url('/abonnement/list') }}">
+                <li>
+                    <a id="list-abonnement" href="{{ url('/abonnement/list') }}">
                         Abonnements
                     </a>
                 </li>

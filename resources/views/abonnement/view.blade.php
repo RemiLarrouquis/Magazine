@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <article class="content items-list-page">
+    <article id="list-abonnement-article" class="content items-list-page">
         <div class="title-search-block">
             <div class="title-block">
                 <div class="row">
