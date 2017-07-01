@@ -13,6 +13,14 @@ $(function() {
         }
         reloadList();
     });
+
+    // Pour les impyées sulement
+    if (getURLParameter('filterPaye') != undefined) {
+        $("#btnStatus").hide();
+        $("article").removeClass("liste-abonnement").addClass("liste-abonnement-impaye");
+        $("article").addClass("liste-abonnement-impaye");
+        setMenus();
+    }
 });
 
 function filterEtat(id, libelle) {
@@ -30,7 +38,7 @@ function filterStatus(id, libelle) {
 var filtreTitre = '';
 var filtreDateFin = '';
 var filtreEtat = '';
-var filtreStatus = '';
+var filtreStatus = getURLParameter('filterPaye');
 function filters() {
     var filtres = '';
     if (filtreTitre != '') {
@@ -49,14 +57,14 @@ function filters() {
 }
 
 function reloadList() {
-    $.get( "/abonnement/list?"+filters(), function( data ) {
+    $.get( "/abonnement/list?full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
 }
 
 //Pagination dynamique (fonction à surcharger pour chaque modules "publications, abonnement, clients")
 function pageToSurcharge(url) {
-    $.get( url+"&"+filters(), function( data ) {
+    $.get( url+"&full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
 }

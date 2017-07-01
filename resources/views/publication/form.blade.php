@@ -1,7 +1,7 @@
 @extends('layouts.home')
 
 @section('content')
-    <article class="content dashboard-page liste-publication">
+    <article class="content dashboard-page fiche-publication">
         <div class="title-block">
             <h3 class="title"> Publications </h3>
             <p class="title-description"> {{ $sub_title }} </p>

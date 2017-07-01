@@ -38,7 +38,7 @@ class AbonnementController extends Controller
             'etats' => $etats,
         );
 
-        if (!empty($req)) {
+        if (array_key_exists('full', $req) && $req['full'] == "false") {
             return view('abonnement.list', $data)->render();
         }
         return view('abonnement.view', $data);
@@ -55,7 +55,7 @@ class AbonnementController extends Controller
             'abos' => $abos,
         );
 
-        if (!empty($req)) {
+        if (array_key_exists('full', $req) && $req['full'] == "false") {
             return view('abonnement.list', $data)->render();
         }
         return view('abonnement.view', $data);

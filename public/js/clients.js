@@ -3,9 +3,7 @@ $(function() {
 
     $("#search-nom").on('input', function() {
         filtreNom = $('#search-nom').val();
-        $.get( "/client/list?"+filters(), function( data ) {
-            $( "#list-view" ).html( data );
-        });
+        reloadList();
     });
     $("#buttonConfirmMailSort").on('click', function() {
         if (filtreConfirm == 'true') {
@@ -13,9 +11,7 @@ $(function() {
         } else {
             filtreConfirm = 'true';
         }
-        $.get( "/client/list?"+filters(), function( data ) {
-            $( "#list-view" ).html( data );
-        });
+        reloadList();
     });
 });
 
@@ -33,9 +29,15 @@ function filters() {
     return filtres;
 }
 
+function reloadList() {
+    $.get( "/client/list?full=false&"+filters(), function( data ) {
+        $( "#list-view" ).html( data );
+    });
+}
+
 //Pagination dynamique (fonction à surcharger pour chaque modules "publications, abonnement, clients")
 function pageToSurcharge(url) {
-    $.get( url+"&"+filters(), function( data ) {
+    $.get( url+"&full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
 }

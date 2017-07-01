@@ -7,24 +7,40 @@
 <nav class="menu">
     <ul class="nav metismenu" id="sidebar-menu">
         <li>
-            <a id="liste-publication" href="{{ url('/home') }}">
-                <i class="fa fa-home"></i> Publications
-            </a>
-        </li>
-
-        <li>
             <a href="">
-                <i class="fa fa-users"></i> Clients <i class="fa arrow"></i>
+                <i class="fa fa-home"></i> Publication <i class="fa arrow"></i>
             </a>
             <ul>
                 <li>
-                    <a id="liste-client" href="{{ url('/client/list') }}">
-                        Liste des clients
+                    <a id="fiche-publication" href="{{ url('/publication/new') }}">
+                        Fiche
                     </a>
                 </li>
                 <li>
+                    <a id="liste-publication" href="{{ url('/publication/list') }}">
+                        Liste
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a id="liste-client" href="{{ url('/client/list') }}">
+                <i class="fa fa-users"></i> Clients
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-users"></i> Abonnements <i class="fa arrow"></i>
+            </a>
+            <ul>
+                <li>
                     <a id="liste-abonnement" href="{{ url('/abonnement/list') }}">
-                        Abonnements
+                        Tous
+                    </a>
+                </li>
+                <li>
+                    <a id="liste-abonnement-impaye" href="{{ url('/abonnement/list?full=true&filterPaye=8') }}">
+                        Impayées
                     </a>
                 </li>
             </ul>

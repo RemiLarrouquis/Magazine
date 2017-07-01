@@ -3,9 +3,7 @@ $(function() {
 
     $("#search-titre").on('input', function() {
         filtreTitre = $('#search-titre').val();
-        $.get( "/publication/list?"+filters(), function( data ) {
-            $( "#list-view" ).html( data );
-        });
+        reloadList();
     });
     $("#buttonPrixSort").on('click', function() {
         if (filtrePrix == 'true') {
@@ -13,9 +11,7 @@ $(function() {
         } else {
             filtrePrix = 'true';
         }
-        $.get( "/publication/list?"+filters(), function( data ) {
-            $( "#list-view" ).html( data );
-        });
+        reloadList();
     });
 });
 
@@ -33,9 +29,15 @@ function filters() {
     return filtres;
 }
 
+function reloadList() {
+    $.get( "/publication/list?full=false&"+filters(), function( data ) {
+        $( "#list-view" ).html( data );
+    });
+}
+
 //Pagination dynamique (fonction à surcharger pour chaque modules "publications, abonnement, clients")
 function pageToSurcharge(url) {
-    $.get( url+"&"+filters(), function( data ) {
+    $.get( url+"&full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
 }
