@@ -13,9 +13,9 @@ $(function() {
         }
         reloadList();
     });
+    getLastsAbonnements();
 });
 
-// Recherche dynamique des publications
 var filtreNom = '';
 var filtreConfirm = '';
 function filters() {
@@ -40,4 +40,14 @@ function pageToSurcharge(url) {
     $.get( url+"&full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
+}
+
+// Affichage des derniers abonnements du client
+function getLastsAbonnements() {
+    if ($("article").hasClass('details')) {
+        var idClient = $("#idClient").val();
+        $.get( "/abonnement/listClient?full=false&count=6&client_id="+idClient, function( data ) {
+            $(data).insertAfter($( "#listAbonnement" ));
+        });
+    }
 }

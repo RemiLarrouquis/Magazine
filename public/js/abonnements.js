@@ -50,7 +50,7 @@ function filters() {
     if (filtreEtat != '') {
         filtres += "filterEtat=" + filtreEtat + "&";
     }
-    if (filtreStatus != '') {
+    if (filtreStatus != '' && filtreStatus != undefined) {
         filtres += "filterPaye=" + filtreStatus + "&";
     }
     return filtres;

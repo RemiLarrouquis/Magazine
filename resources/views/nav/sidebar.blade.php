@@ -12,13 +12,13 @@
             </a>
             <ul>
                 <li>
-                    <a id="fiche-publication" href="{{ url('/publication/new') }}">
-                        Fiche
+                    <a id="liste-publication" href="{{ url('/publication/list') }}">
+                        Liste
                     </a>
                 </li>
                 <li>
-                    <a id="liste-publication" href="{{ url('/publication/list') }}">
-                        Liste
+                    <a id="fiche-publication" href="{{ url('/publication/new') }}">
+                        Fiche
                     </a>
                 </li>
             </ul>

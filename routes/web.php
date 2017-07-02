@@ -37,6 +37,7 @@ Route::get("/client/detail/{id}", "Gestion\\ClientController@detail");
 
 // Routage Abonnements
 Route::get("/abonnement/list", "Gestion\\AbonnementController@liste");
+Route::get("/abonnement/listClient", "Gestion\\AbonnementController@listeClient");
 
 Route::get("/historique/list", "Gestion\\HistoriqueController@liste");
 Route::get("/historique/detail/{id}", "Gestion\\HistoriqueController@listeClient");
