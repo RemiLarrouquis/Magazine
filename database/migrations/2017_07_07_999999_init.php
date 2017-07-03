@@ -49,8 +49,8 @@ class Init extends Migration
         }
 
         //Création d'historique
-        for ($i = 0; $i < 50; $i++) {
-            $this->createHistorique(rand(3, 31), rand(1, 2),rand(10, 13), 'Echange avec le client', $this->randomDate());
+        for ($i = 0; $i < 150; $i++) {
+            $this->createHistorique(rand(3, 31), rand(3, 31),rand(10, 13), 'Echange avec le client', $this->randomDate());
         }
     }
 

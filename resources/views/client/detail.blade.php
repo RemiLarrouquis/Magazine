@@ -13,7 +13,8 @@
                 <div class="col col-xs-12 col-sm-12 col-md-8 col-xl-8 stats-col">
                     <div class="card sameheight-item stats" data-exclude="xs" style="height: 323px;">
                         <div class="card-block" style="width: auto;">
-                            <form>
+                            <form id="editForm" action="{{ url('/client/edit') }}" method="POST" >
+                                {{ csrf_field() }}
                                 <input type="hidden" id="idClient" name="id" value="{{$client->id}}">
                                 <div class="form-group row" style="margin-top: 16px;">
                                     <div class="col-sm-6" >
@@ -61,7 +62,7 @@
                                     <div class="col-sm-6" >
                                         <label for="code_postal" class="col-sm-3 form-control-label">Code postal</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control editable"
+                                            <input type="number" readonly="readonly" class="form-control editable"
                                                    id="code_postal" name="code_postal" value="{{$client->code_postal}}">
                                         </div>
                                     </div>
@@ -70,8 +71,8 @@
                                     <div class="col-sm-6" >
                                         <label for="email" class="col-sm-3 form-control-label">Email</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control" id="email"
-                                                   value="{{$client->email}}">
+                                            <input type="email" readonly="readonly" disabled="disabled" class="form-control"
+                                                   id="email" value="{{$client->email}}">
                                         </div>
                                     </div>
                                     <div class="col-sm-6" >
@@ -86,7 +87,7 @@
                                     <div class="col-sm-6" >
                                         <label for="date_naissance" class="col-sm-3 form-control-label">Date de naissance</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control editable"
+                                            <input type="date" readonly="readonly" class="form-control editable"
                                                    id="date_naissance" name="date_naissance" value="{{$client->date_naissance}}">
                                         </div>
                                     </div>
@@ -117,7 +118,7 @@
                                 Voir tous ces abonnements
                             </a>
                             <a type="button" class="btn btn-secondary btn-lg btn-block"
-                               href="{{ url('/historique/detail/') . '/' . $client->id }}">
+                               href="{{ url('/historique/listClient')."?client_id=".$client->id }}">
                                 Voir l'historique de ces relations
                             </a>
                         </div>

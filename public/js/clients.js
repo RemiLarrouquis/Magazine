@@ -47,7 +47,7 @@ function pageToSurcharge(url) {
 function getLastsAbonnements() {
     if ($("article").hasClass('details')) {
         var idClient = $("#idClient").val();
-        $.get( "/abonnement/listClient?full=false&count=6&client_id="+idClient, function( data ) {
+        $.get( "/abonnement/listClient?full=false&count=5&client_id="+idClient, function( data ) {
             $(data).insertAfter($( "#listAbonnement" ));
         });
     }
@@ -57,7 +57,7 @@ function getLastsAbonnements() {
 function getLastsEchanges() {
     if ($("article").hasClass('details')) {
         var idClient = $("#idClient").val();
-        $.get( "/historique/listClient?full=false&count=6&client_id="+idClient, function( data ) {
+        $.get( "/historique/listClient?full=false&count=5&client_id="+idClient, function( data ) {
             $(data).insertAfter($( "#listEchanges" ));
         });
     }
@@ -69,10 +69,27 @@ var texte = $("#editClient").html();
 function editFormClient() {
     if (!edition) {
         changeForm(false, "Enregistrer les modifications");
-        edition = true;
     } else {
-        changeForm(true, texte);
-        edition = false;
+        $.ajax({
+            url: $("#editForm").attr('action'),
+            type: $("#editForm").attr('method'),
+            data: $("#editForm").serialize(),
+            success: function(data) {
+                if (data.errors) {
+                    var html = '<ul>';
+                    for (var key in data.msg) {
+                        html += '<li><strong>' + key + ' : </strong>' + data.msg[key][0] + '</li>';
+                    }
+                    html += '</ul>';
+                    $("#modalErrorBody").html(html);
+                    $("#error-modal").modal('show');
+                } else {
+                    changeForm(true, texte);
+                    $("#modalSuccessBody").html(data.msg);
+                    $("#success-modal").modal('show');
+                }
+            }
+        });
     }
 }
 
@@ -85,5 +102,5 @@ function changeForm(readonly, text) {
         $(this).attr('disabled', readonly);
     });
     $("#editClient").html(text);
-
+    edition = !readonly;
 }

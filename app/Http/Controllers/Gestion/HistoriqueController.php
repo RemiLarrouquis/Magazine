@@ -66,6 +66,10 @@ class HistoriqueController extends Controller
 
         $req = $request->request->all();
 
+        if (!array_key_exists('count', $req)) {
+            $req['count'] = 10;
+        }
+
         $clients = HistoriqueServices::getHistoriques($req, $req['client_id'],$req['count']);
         $statuses = StatusServices::getStatusByType(self::TYPE_HISTORIQUE);
 

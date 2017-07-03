@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Gestion;
 
-use Illuminate\Foundation\Auth\User;
+use App\User;
 use Illuminate\Http\Request;
 use App\Services\ClientServices;
 use App\Http\Controllers\Controller;
 use App\Services\StatusServices;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -20,6 +21,20 @@ class ClientController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'nom'           => 'required|string|max:255',
+            'prenom'        => 'required|string|max:255',
+            'sexe_id'       => 'required|numeric',
+            'date_naissance'=> 'required|date',
+            'lieu_naissance'=> 'required|string|max:255',
+            'adresse'       => 'required|string|max:255',
+            'code_postal'   => 'required|numeric',
+            'telephone'     => 'required',
+        ]);
     }
 
     public function liste(Request $request) {
@@ -52,5 +67,27 @@ class ClientController extends Controller
             return view('client.detail', array('client' => $client, 'statuses' => $statuses));
         }
         return view('errors.404');
+    }
+
+    public function edit(Request $request) {
+
+        $input = $request->all();
+        // Valide le formulaire
+        $valid = $this->validator($input);
+
+        if ($valid->fails()) {
+            return response()->json(['errors' => true, 'msg' => $valid->errors(), 'result'=> '']);
+        } else {
+            $user = User::find($input['id']);
+
+            // Supprime les champs qui ne peuvent être assigné
+            unset($input['_token']);
+            unset($input['id']);
+
+            $user->update($input);
+
+            return response()->json(['errors' => false, 'msg' => "Modification de l'utilisateur.",'result' => ""]);
+
+        }
     }
 }
