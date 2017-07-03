@@ -47,8 +47,9 @@ function pageToSurcharge(url) {
 function getLastsAbonnements() {
     if ($("article").hasClass('details')) {
         var idClient = $("#idClient").val();
-        $.get( "/abonnement/listClient?full=false&count=5&client_id="+idClient, function( data ) {
+        $.get( "/abonnement/list?full=false&count=5&client_id="+idClient, function( data ) {
             $(data).insertAfter($( "#listAbonnement" ));
+            hideUselessElements();
         });
     }
 }
@@ -57,10 +58,18 @@ function getLastsAbonnements() {
 function getLastsEchanges() {
     if ($("article").hasClass('details')) {
         var idClient = $("#idClient").val();
-        $.get( "/historique/listClient?full=false&count=5&client_id="+idClient, function( data ) {
+        $.get( "/historique/list?full=false&count=5&client_id="+idClient, function( data ) {
             $(data).insertAfter($( "#listEchanges" ));
+            hideUselessElements();
         });
     }
+}
+
+function hideUselessElements() {
+    // Masque la pagination
+    $("nav[class='text-xs-right paginate']").hide();
+    // Cache la colonne client
+    $(".clientToHide").hide();
 }
 
 // Edition de la fiche client

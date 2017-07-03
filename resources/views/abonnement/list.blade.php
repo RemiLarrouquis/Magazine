@@ -7,7 +7,7 @@
                 <div class="item-col item-col-header item-col-title">
                     <div> <span>Titre de la publication</span> </div>
                 </div>
-                <div class="item-col item-col-header item-col-title">
+                <div class="item-col item-col-header item-col-title clientToHide">
                     <div> <span>Nom du client</span> </div>
                 </div>
                 <div class="item-col item-col-header item-col-title">
@@ -33,7 +33,7 @@
                             <h4 class="item-title"> {{$abo->titre}}  </h4>
                         </div>
                     </div>
-                    <div class="item-col fixed pull-left item-col-title">
+                    <div class="item-col fixed pull-left item-col-title clientToHide">
                         <div class="item-heading">Nom du client</div>
                         <div>
                             <h4 class="item-title">

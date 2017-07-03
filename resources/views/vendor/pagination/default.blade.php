@@ -1,5 +1,5 @@
 @if ($paginator->hasPages())
-    <nav class="text-xs-right">
+    <nav class="text-xs-right paginate">
         <ul class="pagination">
             {{-- Previous Page Link --}}
             <li class="page-item">

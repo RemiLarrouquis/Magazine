@@ -114,11 +114,12 @@
                             <a type="button" id="editClient" onclick="editFormClient()" class="btn btn-secondary btn-lg btn-block">
                                 Modifier le client
                             </a>
-                            <a type="button" class="btn btn-secondary btn-lg btn-block">
+                            <a type="button" class="btn btn-secondary btn-lg btn-block"
+                               href="{{ url('/abonnement/list')."?client_id=".$client->id }}">
                                 Voir tous ces abonnements
                             </a>
                             <a type="button" class="btn btn-secondary btn-lg btn-block"
-                               href="{{ url('/historique/listClient')."?client_id=".$client->id }}">
+                               href="{{ url('/historique/list')."?client_id=".$client->id }}">
                                 Voir l'historique de ces relations
                             </a>
                         </div>
