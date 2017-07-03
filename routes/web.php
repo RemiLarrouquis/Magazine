@@ -38,6 +38,8 @@ Route::post("/client/edit", "Gestion\\ClientController@edit");
 
 // Routage Abonnements
 Route::get("/abonnement/list", "Gestion\\AbonnementController@liste");
+Route::get("/abonnement/pause/{id}", "Gestion\\AbonnementController@pause");
+Route::get("/abonnement/reprise/{id}", "Gestion\\AbonnementController@reprise");
 
 Route::get("/historique/list", "Gestion\\HistoriqueController@liste");
 Route::get("/historique/new", "Gestion\\HistoriqueController@newHistorique");

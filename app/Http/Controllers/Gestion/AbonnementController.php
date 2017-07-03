@@ -50,4 +50,23 @@ class AbonnementController extends Controller
         }
         return view('abonnement.view', $data);
     }
+
+    /**
+     * Pour AJAX request
+     * @param $id
+     * @return Objet Json
+     */
+    public function pause($id) {
+        AbonnementServices::pause($id);
+        return redirect('/abonnement/list');
+    }
+    /**
+     * Pour AJAX request
+     * @param $id
+     * @return Objet Json
+     */
+    public function reprise($id) {
+        AbonnementServices::repriseApresPause($id);
+        return redirect('/abonnement/list');
+    }
 }
