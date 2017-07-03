@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Gestion;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
-use App\Publication;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\DB;
 use App\Services\ClientServices;
 use App\Http\Controllers\Controller;
+use App\Services\StatusServices;
 
 class ClientController extends Controller
 {
+    const TYPE_SEXE = 1;
+
     /**
      * Create a new controller instance.
      *
@@ -45,8 +44,12 @@ class ClientController extends Controller
         $query->join('statuses', 'users.sexe_id', 'statuses.id');
         $query->select('users.*', 'statuses.id as idSexe', 'statuses.libelle');
         $client = $query->first();
+
+        // Récupérarion de la civilité
+        $statuses = StatusServices::getStatusByType(self::TYPE_SEXE);
+
         if ($client->is_client) {
-            return view('client.detail', array('client' => $client));
+            return view('client.detail', array('client' => $client, 'statuses' => $statuses));
         }
         return view('errors.404');
     }

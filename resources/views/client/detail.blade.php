@@ -19,8 +19,18 @@
                                     <div class="col-sm-6" >
                                         <label for="sexe" class="col-sm-3 form-control-label">Civilité</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control" id="sexe"
-                                                   value="{{$client->libelle}}">
+                                            <select id="sexe" name="sexe_id" readonly="readonly" disabled="disabled"
+                                                    class="form-control editable">
+                                                @foreach($statuses as $status)
+                                                    @if($status->id == $client->sexe_id)
+                                                        <option value="{{$status->id}}" selected="selected">
+                                                    @else
+                                                        <option value="{{$status->id}}">
+                                                    @endif
+                                                        {{$status->libelle}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -28,15 +38,15 @@
                                     <div class="col-sm-6" >
                                         <label for="nom" class="col-sm-3 form-control-label">Nom</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control" id="nom"
-                                                   value="{{$client->nom}}">
+                                            <input type="text" readonly="readonly" class="form-control editable" id="nom"
+                                                   name="nom" value="{{$client->nom}}">
                                         </div>
                                     </div>
                                     <div class="col-sm-6" >
                                         <label for="adresse" class="col-sm-3 form-control-label">Adresse</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control"
-                                                   id="adresse" value="{{$client->adresse}}">
+                                            <input type="text" readonly="readonly" class="form-control editable"
+                                                   id="adresse" name="adresse" value="{{$client->adresse}}">
                                         </div>
                                     </div>
                                 </div>
@@ -44,15 +54,15 @@
                                     <div class="col-sm-6" >
                                         <label for="prenom" class="col-sm-3 form-control-label">Prenom</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control" id="prenom"
-                                                   value="{{$client->prenom}}">
+                                            <input type="text" readonly="readonly" class="form-control editable"
+                                                   id="prenom" name="prenom" value="{{$client->prenom}}">
                                         </div>
                                     </div>
                                     <div class="col-sm-6" >
                                         <label for="code_postal" class="col-sm-3 form-control-label">Code postal</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control"
-                                                   id="code_postal" value="{{$client->code_postal}}">
+                                            <input type="text" readonly="readonly" class="form-control editable"
+                                                   id="code_postal" name="code_postal" value="{{$client->code_postal}}">
                                         </div>
                                     </div>
                                 </div>
@@ -67,8 +77,8 @@
                                     <div class="col-sm-6" >
                                         <label for="telephone" class="col-sm-3 form-control-label">Téléphone</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control"
-                                                   id="telephone" value="{{$client->telephone}}">
+                                            <input type="text" readonly="readonly" class="form-control editable"
+                                                   id="telephone" name="telephone" value="{{$client->telephone}}">
                                         </div>
                                     </div>
                                 </div>
@@ -76,15 +86,15 @@
                                     <div class="col-sm-6" >
                                         <label for="date_naissance" class="col-sm-3 form-control-label">Date de naissance</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control"
-                                                   id="date_naissance" value="{{$client->date_naissance}}">
+                                            <input type="text" readonly="readonly" class="form-control editable"
+                                                   id="date_naissance" name="date_naissance" value="{{$client->date_naissance}}">
                                         </div>
                                     </div>
                                     <div class="col-sm-6" >
                                         <label for="lieu_naissance" class="col-sm-3 form-control-label">Lieu de naissance</label>
                                         <div class="col-sm-8">
-                                            <input type="text" readonly="readonly" class="form-control"
-                                                   id="lieu_naissance" value="{{$client->lieu_naissance}}">
+                                            <input type="text" readonly="readonly" class="form-control editable"
+                                                   id="lieu_naissance" name="lieu_naissance" value="{{$client->lieu_naissance}}">
                                         </div>
                                     </div>
                                 </div>
@@ -100,9 +110,16 @@
                             </div>
                         </div>
                         <div class="card-block" style="width: auto;">
-                            <a type="button" class="btn btn-secondary btn-lg btn-block">Voir tous ces abonnements</a>
+                            <a type="button" id="editClient" onclick="editFormClient()" class="btn btn-secondary btn-lg btn-block">
+                                Modifier le client
+                            </a>
+                            <a type="button" class="btn btn-secondary btn-lg btn-block">
+                                Voir tous ces abonnements
+                            </a>
                             <a type="button" class="btn btn-secondary btn-lg btn-block"
-                               href="{{ url('/historique/detail/') . '/' . $client->id }}">Voir l'historique des relations</a>
+                               href="{{ url('/historique/detail/') . '/' . $client->id }}">
+                                Voir l'historique de ces relations
+                            </a>
                         </div>
                     </div>
                 </div>

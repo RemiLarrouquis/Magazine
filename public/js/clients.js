@@ -62,3 +62,28 @@ function getLastsEchanges() {
         });
     }
 }
+
+// Edition de la fiche client
+var edition = false;
+var texte = $("#editClient").html();
+function editFormClient() {
+    if (!edition) {
+        changeForm(false, "Enregistrer les modifications");
+        edition = true;
+    } else {
+        changeForm(true, texte);
+        edition = false;
+    }
+}
+
+function changeForm(readonly, text) {
+    $("input[class='form-control editable']").each(function() {
+        $(this).attr('readonly', readonly);
+    });
+    $("select[class='form-control editable']").each(function() {
+        $(this).attr('readonly', readonly);
+        $(this).attr('disabled', readonly);
+    });
+    $("#editClient").html(text);
+
+}
