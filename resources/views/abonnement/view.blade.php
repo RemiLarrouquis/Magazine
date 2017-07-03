@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <article class="content items-list-page">
+    <article class="content items-list-page liste-abonnement">
         <div class="title-search-block">
             <div class="title-block">
                 <div class="row">
@@ -30,7 +30,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="action dropdown">
+                        <div id="btnStatus" class="action dropdown">
                             <button class="btn rounded-s btn-secondary dropdown-toggle" type="button" id="statusBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Status
                             </button>

@@ -6,33 +6,52 @@
 </div>
 <nav class="menu">
     <ul class="nav metismenu" id="sidebar-menu">
-        <li class="active">
-            <a href="{{ url('/home') }}"> <i class="fa fa-home"></i> Publications </a>
-        </li>
-
         <li>
-            <a href=""> <i class="fa fa-users"></i> Clients <i class="fa arrow"></i> </a>
+            <a href="">
+                <i class="fa fa-home"></i> Publication <i class="fa arrow"></i>
+            </a>
             <ul>
                 <li>
-                    <a href="{{ url('/client/list') }}">
-                        Liste des clients
+                    <a id="liste-publication" href="{{ url('/publication/list') }}">
+                        Liste
                     </a>
                 </li>
-                <li> <a href="{{ url('/abonnement/list') }}">
-                        Abonnements
+                <li>
+                    <a id="fiche-publication" href="{{ url('/publication/new') }}">
+                        Nouvelle
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a id="liste-client" href="{{ url('/client/list') }}">
+                <i class="fa fa-users"></i> Clients
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="fa fa-users"></i> Abonnements <i class="fa arrow"></i>
+            </a>
+            <ul>
+                <li>
+                    <a id="liste-abonnement" href="{{ url('/abonnement/list') }}">
+                        Tous
+                    </a>
+                </li>
+                <li>
+                    <a id="liste-abonnement-impaye" href="{{ url('/abonnement/list?full=true&filterPaye=8') }}">
+                        Impayées
                     </a>
                 </li>
             </ul>
         </li>
 
-        <li class="active">
-            <a href="{{ url('/historique/list') }}"> <i class="fa fa-list"></i> Historiques </a>
+        <li>
+            <a id="liste-historique" href="{{ url('/historique/list') }}">
+                <i class="fa fa-list"></i> Historiques </a>
         </li>
 
         <!-- Hors scope
-        <li>
-            <a href="#"> <i class="fa fa-envelope"></i> Historiques des relations</a>
-        </li>
         <li>
             <a href="#"> <i class="fa fa-bar-chart"></i> Statistiques </a>
         </li>

@@ -33,7 +33,7 @@ class ClientController extends Controller
             'clients' => $clients,
         );
 
-        if(!empty($req)) {
+        if(array_key_exists('full', $req) && $req['full'] == "false") {
             return view('client.list', $data)->render();
         }
         return view('client.view', $data);

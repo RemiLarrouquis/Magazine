@@ -61,7 +61,7 @@ class PublicationController extends Controller
         );
 
         // if(array_key_exists('filterTitre', $req) || array_key_exists('filterPrix', $req)) {
-        if(!empty($req)) {
+        if(array_key_exists('full', $req) && $req['full'] == "false") {
             return view('publication.list', $data)->render();
         }
         return view('publication.view', $data);

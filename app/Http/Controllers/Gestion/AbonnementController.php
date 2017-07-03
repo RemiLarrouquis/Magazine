@@ -38,24 +38,23 @@ class AbonnementController extends Controller
             'etats' => $etats,
         );
 
-        if (!empty($req)) {
+        if (array_key_exists('full', $req) && $req['full'] == "false") {
             return view('abonnement.list', $data)->render();
         }
         return view('abonnement.view', $data);
     }
 
-    public function listeAllForClient(Request $request)
+    public function listeClient(Request $request)
     {
         $req = $request->request->all();
 
-        // unset($req['page']); //On retire la pagination du tableau
-        $abos = AbonnementServices::listAbonnements($req, $req['client_id'], 10);
+        $abos = AbonnementServices::listAbonnements($req, $req['client_id'], $req['count']);
         // Attention toujours inclure dans un tableau les résultats
         $data = array(
             'abos' => $abos,
         );
 
-        if (!empty($req)) {
+        if (array_key_exists('full', $req) && $req['full'] == "false") {
             return view('abonnement.list', $data)->render();
         }
         return view('abonnement.view', $data);

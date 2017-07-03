@@ -1,7 +1,7 @@
 @extends('layouts.home')
 
 @section('content')
-    <article class="content cards-page">
+    <article class="content cards-page liste-abonnement">
         <div class="title-block">
             <h3 class="title"> Fiche client </h3>
         </div>

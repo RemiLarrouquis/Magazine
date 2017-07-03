@@ -54,7 +54,7 @@ class HistoriqueController extends Controller
             'statuses' => $statuses,
         );
 
-        if(!empty($req)) {
+        if(array_key_exists('full', $req) && $req['full'] == "false") {
             return view('historique.list', $data)->render();
         }
         return view('historique.view', $data);
@@ -75,7 +75,7 @@ class HistoriqueController extends Controller
             'statuses' => $statuses,
         );
 
-        if(!empty($req)) {
+        if(array_key_exists('full', $req) && $req['full'] == "false") {
             return view('historique.list', $data)->render();
         }
         return view('historique.view', $data);

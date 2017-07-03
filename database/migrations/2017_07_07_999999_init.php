@@ -44,14 +44,13 @@ class Init extends Migration
         $this->createAbonnement(13, 3, 6, 9, $this->randomDate());
 
         // Création d'abonnements
-        for ($i = 0; $i < 50; $i++) {
-            $this->createAbonnement(rand(1, 14), rand(1, 31), $this->randEven(4, 6), $this->randOdd(7, 9), $this->randomDate());
+        for ($i = 0; $i < 60; $i++) {
+            $this->createAbonnement(rand(1, 14), rand(4, 31), $this->randEven(4, 6), $this->randOdd(7, 9), $this->randomDate());
         }
-
 
         //Création d'historique
         for ($i = 0; $i < 150; $i++) {
-            $this->createHistorique(rand(1, 50), rand(1, 50),rand(10, 13), 'Echange avec le client', $this->randomDate());
+            $this->createHistorique(rand(3, 31), rand(3, 31),rand(10, 13), 'Echange avec le client', $this->randomDate());
         }
     }
 
@@ -106,7 +105,6 @@ class Init extends Migration
     {
         //
     }
-
 
     public function statusSexe()
     {
@@ -179,7 +177,6 @@ class Init extends Migration
         $statusAboRemb->save();
     }
 
-
     public function createEmployees()
     {
         $userRemi = new \App\User();
@@ -195,6 +192,9 @@ class Init extends Migration
         $userLudo->save();
     }
 
+    /**
+     * Création de 31 clients
+     */
     public function createClients()
     {
         $client1 = new \App\User();

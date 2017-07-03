@@ -13,7 +13,7 @@
                 <div class="item-col item-col-header item-col-title">
                     <div><span>Type d'échange</span></div>
                 </div>
-                <div class="item-col item-col-header item-col-sales">
+                <div class="item-col item-col-header item-col-title">
                     <div><span>Description</span></div>
                 </div>
                 <div class="item-col item-col-header item-col-stats">
