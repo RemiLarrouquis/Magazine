@@ -112,7 +112,7 @@
             <div class="row sameheight-container">
                 <div class="col-xl-6">
                     <div class="card sameheight-item items" data-exclude="xs,sm,lg" style="height: 400px;">
-                        <div id="listClient" class="card-header bordered">
+                        <div id="listEchanges" class="card-header bordered">
                             <div class="header-block">
                                 <h3 class="title"> Dernières relations </h3>
                             </div>

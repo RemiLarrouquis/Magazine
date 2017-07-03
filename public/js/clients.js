@@ -13,6 +13,7 @@ $(function() {
         }
         reloadList();
     });
+    getLastsEchanges();
     getLastsAbonnements();
 });
 
@@ -48,6 +49,16 @@ function getLastsAbonnements() {
         var idClient = $("#idClient").val();
         $.get( "/abonnement/listClient?full=false&count=6&client_id="+idClient, function( data ) {
             $(data).insertAfter($( "#listAbonnement" ));
+        });
+    }
+}
+
+// Affichage des derniers échanges du client
+function getLastsEchanges() {
+    if ($("article").hasClass('details')) {
+        var idClient = $("#idClient").val();
+        $.get( "/historique/listClient?full=false&count=6&client_id="+idClient, function( data ) {
+            $(data).insertAfter($( "#listEchanges" ));
         });
     }
 }
