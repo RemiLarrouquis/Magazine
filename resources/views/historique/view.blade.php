@@ -10,6 +10,11 @@
                         <h3 class="title">
                             Historiques client
                         </h3>
+                        <p class="title-description">
+                            <a href="{{ url('/historique/new') }}" class="btn btn-primary btn-sm rounded-s">
+                                Nouvelle relation
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -18,12 +23,7 @@
             <div class="items-search">
                 <form class="form-inline" action="#" type="POST">
                     <div class="input-group">
-                        <span class="input-group-btn">
-                            <button id="buttonConfirmMailSort" class="btn btn-secondary rounded-s" type="button">
-                                Confirmés <i class="fa fa-sort"></i>
-                            </button>
-                        </span>
-                        <input id="search-nom" type="text" class="form-control boxed rounded-s" placeholder="Nom contient...">
+                        <input id="search-nom" type="text" class="form-control boxed rounded-s" placeholder="Client">
                     </div>
                 </form>
             </div>
