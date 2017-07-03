@@ -18,7 +18,7 @@
                 </li>
                 <li>
                     <a id="fiche-publication" href="{{ url('/publication/new') }}">
-                        Fiche
+                        Nouvelle
                     </a>
                 </li>
             </ul>

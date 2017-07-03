@@ -14,7 +14,7 @@
             @foreach ($elements as $element)
                 {{-- "Three Dots" Separator --}}
                 @if (is_string($element))
-                    <li class="page-item active">
+                    <li class="page-item">
                         <a class="page-link" href=""> {{ $element }} </a>
                     </li>
                 @endif
