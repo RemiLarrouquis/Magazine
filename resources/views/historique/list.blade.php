@@ -19,7 +19,6 @@
                 <div class="item-col item-col-header item-col-stats">
                     <div class="no-overflow"><span>Date</span></div>
                 </div>
-                <div class="item-col item-col-header fixed item-col-actions-dropdown"></div>
             </div>
         </li>
         <!-- Fin header list -->
@@ -54,15 +53,6 @@
                     <div class="item-col item-col-stats no-overflow">
                         <div class="item-heading">Date</div>
                         <div> {{ $histo->date }} </div>
-                    </div>
-
-                    <div class="item-col fixed item-col-actions-dropdown">
-                        <div class="item-actions-dropdown">
-                            <a class="edit"
-                               href="{{ url('/historique/detail/') . '/' . $histo->id }}">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </li>

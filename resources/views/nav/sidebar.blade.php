@@ -30,7 +30,7 @@
         </li>
         <li>
             <a href="">
-                <i class="fa fa-users"></i> Abonnements <i class="fa arrow"></i>
+                <i class="fa fa-rss"></i> Abonnements <i class="fa arrow"></i>
             </a>
             <ul>
                 <li>
