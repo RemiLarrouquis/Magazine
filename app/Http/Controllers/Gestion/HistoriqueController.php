@@ -46,28 +46,14 @@ class HistoriqueController extends Controller
 
         $req = $request->request->all();
 
-        $clients = HistoriqueServices::getHistoriques($req,null,12);
-        $statuses = StatusServices::getStatusByType(self::TYPE_HISTORIQUE);
-
-        // Attention toujours inclure dans un tableau les résultats
-        $data = array(
-            'clients' => $clients,
-            'statuses' => $statuses,
-        );
-
-        if(array_key_exists('full', $req) && $req['full'] == "false") {
-            return view('historique.list', $data)->render();
+        if (!array_key_exists('count', $req)) {
+            $req['count'] = 12;
         }
-        return view('historique.view', $data);
+        if (!array_key_exists('client_id', $req)) {
+            $req['client_id'] = null;
+        }
 
-    }
-
-
-    public function listeClient(Request $request,$id) {
-
-        $req = $request->request->all();
-
-        $clients = HistoriqueServices::getHistoriques($req,$id,12);
+        $clients = HistoriqueServices::getHistoriques($req, $req['client_id'], $req['count']);
         $statuses = StatusServices::getStatusByType(self::TYPE_HISTORIQUE);
 
         // Attention toujours inclure dans un tableau les résultats

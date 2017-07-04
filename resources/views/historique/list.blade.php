@@ -7,7 +7,7 @@
                 <div class="item-col item-col-header item-col-title">
                     <div><span>Employé</span></div>
                 </div>
-                <div class="item-col item-col-header item-col-title">
+                <div class="item-col item-col-header item-col-title clientToHide">
                     <div><span>Client</span></div>
                 </div>
                 <div class="item-col item-col-header item-col-title">
@@ -33,7 +33,7 @@
                             {{$client->employe_nom}}  {{$client->employe_prenom}}
                         </div>
                     </div>
-                    <div class="item-col fixed pull-left item-col-title">
+                    <div class="item-col fixed pull-left item-col-title clientToHide">
                         <div class="item-heading">Client</div>
                         <div>
                             {{$client->client_nom}}  {{$client->client_prenom}}

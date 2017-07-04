@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 class ClientServices {
 
@@ -13,7 +14,9 @@ class ClientServices {
      */
     public static function getClients($filters) {
 
-        $clients = '';
+        $query = User::query();
+        $query->join('statuses', 'users.sexe_id', 'statuses.id');
+        $query->select('users.*', 'statuses.id as idSexe', 'statuses.libelle_short as sexe');
 
         $orderBy = 'created_at';
         $orderAsc = 'desc';
@@ -27,22 +30,15 @@ class ClientServices {
         }
         // Filtres de nom
         if(array_key_exists('filterNom', $filters)) {
-            $clients = DB::table('users')
-                ->where('is_client', true)
-                ->where('nom', 'like', '%'.$filters['filterNom'].'%')
-                ->orWhere('nom', 'like', '%'.strtoupper($filters['filterNom']).'%')
-                ->orWhere('nom', 'like', '%'.ucfirst($filters['filterNom']).'%')
-                ->orderBy($orderBy, $orderAsc)
-                ->paginate(12);
-
-        } else {
-            $clients = DB::table('users')
-                ->where('is_client', true)
-                ->orderBy($orderBy, $orderAsc)
-                ->paginate(12);
-
+            $query->where('is_client', true);
+            $query->where('nom', 'like', '%' . $filters['filterNom'] . '%');
+            $query->orWhere('nom', 'like', '%' . strtoupper($filters['filterNom']) . '%');
+            $query->orWhere('nom', 'like', '%' . ucfirst($filters['filterNom']) . '%');
         }
 
-        return $clients;
+        $query->orderBy($orderBy, $orderAsc);
+        $query->paginate(12);
+
+        return $query->paginate(12);
     }
 }

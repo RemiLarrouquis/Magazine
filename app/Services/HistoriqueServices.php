@@ -30,13 +30,9 @@ class HistoriqueServices {
 
         // Filtres de nom
         if(array_key_exists('filterNom', $filters)) {
-            $query->orderBy($orderBy, $orderAsc)
-                ->paginate(12);
-
+            $query->orderBy($orderBy, $orderAsc);
         } else {
-            $query->orderBy($orderBy, $orderAsc)
-                ->paginate(12);
-
+            $query->orderBy($orderBy, $orderAsc);
         }
 
         if ($paging) {

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Abonnement;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class AbonnementServices
 {
@@ -54,11 +55,26 @@ class AbonnementServices
         return $msg;
     }
 
-    public static function relance($idAbo)
-    {
+    public static function relance($idAbo) {
         $abo = Abonnement::find($idAbo);
         $abo->date_fin = Carbon::parse($abo->date_fin)->addYear();
         $abo->paye_id = self::IMPAYE;
+        $abo->etat_id = self::EN_COURS;
+        $abo->save();
+    }
+
+    public static function pause($idAbo) {
+        $abo = Abonnement::find($idAbo);
+        $abo->date_pause = Carbon::now();
+        $abo->etat_id = self::PAUSE;
+        $abo->save();
+    }
+
+    public static function repriseApresPause($idAbo) {
+        $abo = Abonnement::find($idAbo);
+        $dureePause = (new DateTime($abo->date_fin))->diff((new DateTime($abo->date_pause)));
+        $abo->date_fin = (new DateTime($abo->date_fin))->add($dureePause);
+        $abo->date_pause = null;
         $abo->etat_id = self::EN_COURS;
         $abo->save();
     }
@@ -93,7 +109,8 @@ class AbonnementServices
         $query->join('statuses as sexe', 'sexe.id', 'sexe_id');
         $query->select('abonnements.*', 'publications.titre', 'publications.description', 'publications.image',
             'publications.nb_an', 'publications.prix_an', 'users.nom', 'users.prenom',
-            'sexe.libelle_short as sexe_libelle', 'paye.libelle as paye_libelle', 'etat.libelle as etat_libelle');
+            'sexe.libelle_short as sexe_libelle', 'paye.libelle as paye_libelle', 'etat.libelle as etat_libelle',
+            'etat.id as idEtat');
 
         // Etat (encours, stop, pause)
         if (array_key_exists('filterEtat', $filters)) {

@@ -33,7 +33,7 @@
                     <div class="item-col fixed pull-left item-col-title">
                         <div class="item-heading">Nom</div>
                         <div>
-                            <h4 class="item-title"> {{ $client->nom.' '.$client->prenom}} </h4>
+                            <h4 class="item-title"> {{$client->sexe.' '.$client->nom.' '.$client->prenom}} </h4>
                         </div>
                     </div>
                     <div class="item-col fixed pull-left item-col-title">
