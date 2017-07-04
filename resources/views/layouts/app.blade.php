@@ -14,8 +14,12 @@
     <link href="{{ asset('css/framework/vendor.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('css/framework/app-purple.css') }}" type="text/css" rel="stylesheet">
 
+    <!-- Plugin autocomplete -->
+    <link href="{{ asset('css/framework/jquery.magicsearch.css') }}" rel="stylesheet">
+
     <!-- Custom styles -->
     <link href="{{ asset('css/app-custom.css') }}" type="text/css" rel="stylesheet">
+
 
 </head>
 <body>
@@ -31,6 +35,7 @@
     <script src="{{ asset('js/framework/vendor.js') }}"></script>
     <script src="{{ asset('js/framework/app.js') }}"></script>
     <script src="{{ asset('js/framework/dropzone.js') }}"></script>
+    <script src="{{ asset('js/framework/jquery.magicsearch.js') }}"></script>
 
 </body>
 

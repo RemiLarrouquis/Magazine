@@ -24,51 +24,51 @@
         </li>
         <!-- Fin header list -->
         <!-- Début liste dynamique -->
-        @foreach ($clients as $client)
+        @foreach ($histos as $histo)
             <li class="item">
                 <div class="item-row">
                     <div class="item-col fixed pull-left item-col-title">
                         <div class="item-heading">Employé</div>
                         <div>
-                            {{$client->employe_nom}}  {{$client->employe_prenom}}
+                            {{$histo->employe_nom}}
                         </div>
                     </div>
                     <div class="item-col fixed pull-left item-col-title clientToHide">
                         <div class="item-heading">Client</div>
                         <div>
-                            {{$client->client_nom}}  {{$client->client_prenom}}
+                            {{$histo->client_nom}}  {{$histo->client_prenom}}
                         </div>
                     </div>
                     <div class="item-col fixed pull-left item-col-title">
                         <div class="item-heading">Type d'échange</div>
                         <div>
-                            {{$client->type_libelle}}
+                            {{$histo->type_libelle}}
                         </div>
                     </div>
                     <div class="item-col fixed pull-left item-col-title">
                         <div class="item-heading">Description</div>
                         <div>
-                            {{ str_limit($client->description, $limit = 150, $end = '...') }}
+                            {{ str_limit($histo->description, $limit = 150, $end = '...') }}
                         </div>
                     </div>
                     <div class="item-col item-col-stats no-overflow">
                         <div class="item-heading">Date</div>
-                        <div> {{ $client->date }} </div>
+                        <div> {{ $histo->date }} </div>
                     </div>
 
                     <div class="item-col fixed item-col-actions-dropdown">
                         <div class="item-actions-dropdown">
                             <a class="edit"
-                               href="{{ url('/client/detail/') . '/' . $client->id }}">
+                               href="{{ url('/historique/detail/') . '/' . $histo->id }}">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
                 </div>
             </li>
-    @endforeach
+        @endforeach
     <!-- Fin liste dynamique -->
     </ul>
 </div>
 {{-- Pagination de la page (surcharge dans ressources/vendor/pagination/default.blade.php --}}
-{{ $clients->links() }}
+{{ $histos->links() }}

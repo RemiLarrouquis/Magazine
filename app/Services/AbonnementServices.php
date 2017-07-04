@@ -130,10 +130,11 @@ class AbonnementServices
 
         }
         if(array_key_exists('filtreTitre', $filters)) {
-            $query->where('publications.titre', 'like', '%'.$filters['filtreTitre'].'%');
-            $query->orWhere('publications.titre', 'like', '%'.strtoupper($filters['filtreTitre']).'%');
-            $query->orWhere('publications.titre', 'like', '%'.ucfirst($filters['filtreTitre']).'%');
-
+            $query->where(function($q) use ($filters) {
+                $q->where('publications.titre', 'like', '%'.$filters['filtreTitre'].'%');
+                $q->orWhere('publications.titre', 'like', '%'.strtoupper($filters['filtreTitre']).'%');
+                $q->orWhere('publications.titre', 'like', '%'.ucfirst($filters['filtreTitre']).'%');
+            });
         }
 
         $orders = self::orderByMultiple($filters);

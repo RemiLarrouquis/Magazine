@@ -9,6 +9,7 @@ use App\Services\HistoriqueServices;
 use App\Http\Controllers\Controller;
 use App\Services\StatusServices;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 
 class HistoriqueController extends Controller
@@ -25,20 +26,23 @@ class HistoriqueController extends Controller
         $this->middleware('auth');
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'type_id'      => 'required|numeric',
+            'description'  => 'required',
+        ]);
+    }
+
     public function newHistorique(Request $request)
     {
-        $historique = new Historique();
         $req = $request->request->all();
-        $clients = ClientServices::getClients($req);
-        $statuses = StatusServices::getStatusByType(self::TYPE_HISTORIQUE);
+        // Ajoute un element qui permet de retourner tous les résultats
+        $req['noPaging'] = true;
 
-        $data = array(
-            'historique' => $historique,
-            'clients' => $clients,
-            'statuses' => $statuses,
-            'sub_title' => "Création d'une nouvelle relation client.",
-        );
+        $historique = new Historique();
 
+        $data = $this->getDataForForm($req, $historique, "Création d'une nouvelle relation client.");
         return view('historique.form', $data);
     }
 
@@ -53,13 +57,13 @@ class HistoriqueController extends Controller
             $req['client_id'] = null;
         }
 
-        $clients = HistoriqueServices::getHistoriques($req, $req['client_id'], $req['count']);
-        $statuses = StatusServices::getStatusByType(self::TYPE_HISTORIQUE);
+        $histos = HistoriqueServices::getHistoriques($req, $req['client_id'], $req['count']);
+        $types = StatusServices::getStatusByType(self::TYPE_HISTORIQUE);
 
         // Attention toujours inclure dans un tableau les résultats
         $data = array(
-            'clients' => $clients,
-            'statuses' => $statuses,
+            'histos' => $histos,
+            'types' => $types,
         );
 
         if(array_key_exists('full', $req) && $req['full'] == "false") {
@@ -71,24 +75,42 @@ class HistoriqueController extends Controller
 
     public function saveHistorique(Request $request)
     {
+        $user = Auth::user();
 
-        if ($request->id == NULL) {
+        // Données communes
+        $toCreate = [];
+        $toCreate['type_id'] = $request['type_id'];
+        $toCreate['description'] = $request['description'];
+        $toCreate['employe_id'] = $user->id;
 
-            Historique::Create([
-                'client_id' => $request->client_id,
-                'status_id' => $request->type_id,
-                'employe_id' => Auth::user()->id,
-                'description' => trim($request->description)
-            ]);
+        $valid = $this->validator($toCreate);
+        if ($valid->fails()) {
+            // Ajoute un element qui permet de retourner tous les résultats
+            $req['noPaging'] = true;
+
+            $data = $this->getDataForForm($req, $toCreate, "Création d'une nouvelle relation client.");
+            return view('historique.form', $data);
         } else {
-
-            $historique = Historique::find($request->id);
-
-            $toUpdate = $request->request->all();
-
-            $historique->update($toUpdate);
+            foreach(explode(',', $request['clients']) as $idClient) {
+                $toCreate['client_id'] = $idClient;
+                HistoriqueServices::newHistorique($toCreate);
+            }
         }
 
-        return redirect('home');
+        return redirect('/historique/list');
+    }
+
+    private function getDataForForm($req, $histo, $title) {
+
+        $clients = ClientServices::getClients($req);
+        $statuses = StatusServices::getStatusByType(self::TYPE_HISTORIQUE);
+
+        $data = array(
+            'historique' => $histo,
+            'clients' => $clients,
+            'statuses' => $statuses,
+            'sub_title' => $title,
+        );
+        return $data;
     }
 }

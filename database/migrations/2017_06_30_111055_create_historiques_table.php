@@ -12,7 +12,7 @@ class CreateHistoriquesTable extends Migration
             $table->increments('id');
             $table->integer('client_id');
             $table->integer('employe_id');
-            $table->integer('status_id');
+            $table->integer('type_id');
             $table->text('description');
             $table->date('date');
             $table->timestamps();

@@ -37,8 +37,11 @@ class ClientServices {
         }
 
         $query->orderBy($orderBy, $orderAsc);
-        $query->paginate(12);
 
+
+        if(array_key_exists('noPaging', $filters)) {
+            return $query->get();
+        }
         return $query->paginate(12);
     }
 }

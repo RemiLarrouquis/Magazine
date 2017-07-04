@@ -18,18 +18,17 @@
                                     {{ csrf_field() }}
 
                                     <div class="form-group">
-
                                         <div class="col-xs-12">
                                             <div class="row form-group{{ $errors->has('titre') ? ' has-error' : '' }}">
-                                                <label for="titre" class="col-md-4 control-label">Choisir un
-                                                    client</label>
-
+                                                <label for="titre" class="col-md-4 control-label">
+                                                    Choisir un client
+                                                </label>
                                                 <div class="col-xs-12 col-md-12 col-lg-12">
-                                                    <select class="form-control">
-                                                        @foreach ($clients as $client)
-                                                            <option value="{{$client->id}}" type="client_id">{{$client->nom}} {{$client->prenom}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <div class="magicsearch-wrapper" data-belong="magicsearch" style="width: 350px; display: inline-block; float: none; margin: 0px; min-width: 101px;" data-index="1">
+                                                        <input class="magicsearch multi" id="basic" name="clients" data-placeholder="search names..." data-id="" style="margin: 0px; box-sizing: border-box; width: 350px; height: 56px; padding-left: 10px; min-width: 101px; padding-top: 5px;" placeholder="search names...">
+                                                        <div class="magicsearch-box all" style="top: 56px; max-height: 248px; display: none;"></div>
+                                                        <div class="multi-items" style="top: 8px; left: 8px; bottom: 8px; right: 8px;"></div>
+                                                    </div>
 
                                                     @if ($errors->has('titre'))
                                                         <span class="help-block">
@@ -46,11 +45,13 @@
 
                                         <div class="col-xs-12">
                                             <div class="row form-group{{ $errors->has('titre') ? ' has-error' : '' }}">
-                                                <label for="titre" class="col-md-4 control-label">Type de
-                                                    relation</label>
+                                                <label for="titre" class="col-md-4 control-label">
+                                                    Type de relation
+                                                </label>
 
                                                 <div class="col-xs-12 col-md-12 col-lg-12">
                                                     <select class="form-control" name="type_id">
+                                                        <option selected disabled>Choisissez le type de relation...</option>
                                                         @foreach ($statuses as $status)
                                                             <option value="{{$status->id}}">{{$status->libelle}}</option>
                                                         @endforeach
@@ -98,4 +99,29 @@
             </div>
         </section>
     </article>
+    <script>
+        $(function () {
+            var dataSource = [
+            @foreach($clients as $client)
+                {id: {{$client->id}}, firstName: '{{$client->prenom}}', lastName: '{{$client->nom}}'},
+            @endforeach
+            ];
+
+            $('#basic').magicsearch({
+                dataSource: dataSource,
+                fields: ['firstName', 'lastName'],
+                id: 'id',
+                format: '%firstName% %lastName%',
+                multiple: true,
+                focusShow: true,
+                hidden: true,
+                multiField: 'firstName',
+                multiStyle: {
+                    space: 5,
+                    width: 80
+                }
+            });
+        });
+    </script>
+    <script src="{{ asset('js/historique.js') }}"></script>
 @endsection

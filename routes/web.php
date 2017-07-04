@@ -43,6 +43,5 @@ Route::get("/abonnement/reprise/{id}", "Gestion\\AbonnementController@reprise");
 
 Route::get("/historique/list", "Gestion\\HistoriqueController@liste");
 Route::get("/historique/new", "Gestion\\HistoriqueController@newHistorique");
-
 Route::post("/historique/save", "Gestion\\HistoriqueController@saveHistorique");
 

@@ -8,7 +8,7 @@ class Historique extends Model
 {
     //
     protected $fillable = [
-        'client_id', 'employe_id', 'status_id', 'description', 'date'
+        'client_id', 'employe_id', 'type_id', 'description', 'date'
     ];
 
     public function client() {
