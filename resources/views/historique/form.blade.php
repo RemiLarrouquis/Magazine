@@ -18,8 +18,8 @@
                                     {{ csrf_field() }}
 
                                     <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <div class="row form-group{{ $errors->has('titre') ? ' has-error' : '' }}">
+                                        <div class="row col-xs-12">
+                                            <div class="form-group{{ $errors->has('titre') ? ' has-error' : '' }} col-lg-4">
                                                 <label for="titre" class="col-md-4 control-label">
                                                     Choisir un client
                                                 </label>
@@ -35,6 +35,14 @@
                                                             <strong>{{ $errors->first('titre') }}</strong>
                                                         </span>
                                                     @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-6">
+                                                <label for="titre" class="col-md-4 control-label">
+                                                    Global pour tous les clients
+                                                </label>
+                                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                                    <input type="checkbox" name="tous" id="checkTous">
                                                 </div>
                                             </div>
                                         </div>

@@ -52,6 +52,15 @@ class Init extends Migration
         for ($i = 0; $i < 100; $i++) {
             $this->createHistorique(rand(3, 31), rand(1, 2),rand(10, 13), 'Echange avec le client', $this->randomDate(true));
         }
+
+        // Création d'un client spécial
+        $clientTous = new \App\User();
+        $clientTous->id = 100;
+        $clientTous->nom = "Tous";
+        $clientTous->email = "tous@tous.fr";
+        $clientTous->password = bcrypt('aqwzsxedc147852963');
+        $clientTous->is_client = false;
+        $clientTous->save();
     }
 
     private function getBase64FromPath($img)

@@ -20,7 +20,7 @@ class HistoriqueServices {
 
         $query = Historique::query();
         if ($IdUser) {
-            $query->where('client_id', $IdUser);
+            $query->whereIn('client_id', array($IdUser, 100));
         }
         $query->join('users', 'users.id', 'client_id');
         $query->join('users as employe', 'employe.id', 'employe_id');
