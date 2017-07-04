@@ -25,9 +25,9 @@
                                                     client</label>
 
                                                 <div class="col-xs-12 col-md-12 col-lg-12">
-                                                    <select class="form-control" type="client_id">
+                                                    <select class="form-control">
                                                         @foreach ($clients as $client)
-                                                            <option value="{{$client->id}}">{{$client->nom}} {{$client->prenom}}</option>
+                                                            <option value="{{$client->id}}" type="client_id">{{$client->nom}} {{$client->prenom}}</option>
                                                         @endforeach
                                                     </select>
 
