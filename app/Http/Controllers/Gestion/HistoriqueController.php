@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Services\HistoriqueServices;
 use App\Http\Controllers\Controller;
 use App\Services\StatusServices;
+use Illuminate\Support\Facades\Auth;
 
 
 class HistoriqueController extends Controller
@@ -87,7 +88,7 @@ class HistoriqueController extends Controller
 
         if ($request->id == NULL) {
 
-            Publication::Create([
+            Historique::Create([
                 'client_id' => $request->client_id,
                 'status_id' => $request->type_id,
                 'employe_id' => Auth::user()->id,
