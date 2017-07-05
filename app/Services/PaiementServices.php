@@ -10,7 +10,7 @@ class PaiementServices
     const IMPAYE = 8;
     const REMBOURSE = 9;
 
-    public static function liste($filters, $idUser, $idPub, $paging)
+    public static function liste($filters, $idUser, $idPub, $idAbo, $paging)
     {
         $query = Paiement::query();
         $query->join('abonnements', 'abonnements.id', 'abonnement_id');
@@ -23,8 +23,10 @@ class PaiementServices
             'paiements.*',
             'publications.titre', 'publications.id as idPub',
             'publications.nb_an', 'publications.prix_an',
-            'users.nom', 'users.prenom', 'sexe.libelle_short as sexe_libelle',
-            'paye.libelle as paye_libelle', 'etat.libelle as etat_libelle', 'etat.id as idEtat');
+            'users.nom', 'users.prenom',
+            'etatPaie.libelle as etatPaie_libelle', 'etatPaie.id as idEtatPaie',
+            'etatAbo.libelle as etatAbo_libelle', 'etatAbo.id as idEtatAbo',
+            'payeAbo.libelle as paye_libelle');
 
 
         if ($idUser) {
@@ -32,6 +34,9 @@ class PaiementServices
         }
         if ($idPub) {
             $query->where('publication_id', $idPub);
+        }
+        if ($idAbo) {
+            $query->where('abonnement_id', $idAbo);
         }
 
         $query->orderBy('paiements.created_at', 'desc');
@@ -48,16 +53,18 @@ class PaiementServices
         $paie->abonnement_id = $abo_id;
         $paie->date_fin = $date_fin;
         $paie->montant = $montant;
-        $paie->etat = self::IMPAYE;
+        $paie->etat_id = self::IMPAYE;
         $paie->cid = $cid;
         $paie->save();
+        return $paie;
     }
 
     public static function sendPaiement($cid) {
         $paie = self::getPaiementByCid($cid);
-        $paie->etat = self::PAYE;
+        $paie->etat_id = self::PAYE;
         $paie->valider = false;
         $paie->save();
+        return $paie;
     }
 
     public static function validePaiement($cid, $transac) {
@@ -65,6 +72,7 @@ class PaiementServices
         $paie->transaction = $transac;
         $paie->valider = true;
         $paie->save();
+        return $paie;
     }
 
     public static function remboursementPaiement($cid, $amount) {
@@ -74,8 +82,9 @@ class PaiementServices
         } else {
             $paie->montant = 0;
         }
-        $paie->etat = self::REMBOURSE;
+        $paie->etat_id = self::REMBOURSE;
         $paie->save();
+        return $paie;
     }
 
     private static function getPaiementByCid($cid) {

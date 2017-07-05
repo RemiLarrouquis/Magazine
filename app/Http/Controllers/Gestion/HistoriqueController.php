@@ -88,9 +88,8 @@ class HistoriqueController extends Controller
         $toCreate['description'] = $request['description'];
         $toCreate['employe_id'] = $user->id;
 
-        if ($request['tous'] == 'true') {
-            $clients = \App\User::where('id', 100)->first()->id;
-        } else {
+        $clients = [100];
+        if ($request['tous'] != 'on') {
             $clients = explode(',', $request['clients']);
         }
 

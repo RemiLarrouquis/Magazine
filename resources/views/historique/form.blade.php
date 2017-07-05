@@ -23,7 +23,7 @@
                                                 <label for="titre" class="col-md-4 control-label">
                                                     Choisir un client
                                                 </label>
-                                                @if($selectedClient)
+                                                @if(isset($selectedClient))
                                                     <input type="text" readonly="readonly" disabled="disabled"
                                                            class="form-control" id="email" value="{{$selectedClient->nom.' '.$selectedClient->prenom}}">
                                                     <input type="hidden" name="clients" value="{{$selectedClient->id}}">

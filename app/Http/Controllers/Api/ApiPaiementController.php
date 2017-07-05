@@ -39,7 +39,7 @@ class ApiPaiementController extends Controller
         return response()->json([
             'error' => false,
             'msg' => '',
-            'abonnements' => $paie,
+            'result' => $paie,
             'status_code' => 200
         ]);
     }

@@ -32,7 +32,8 @@ class ApiAbonnementController extends Controller
         $input = $request->all();
         $user = JWTAuth::toUser($input['token']);
 
-        $abos = AbonnementServices::listAbonnements($input, $user->id, false);
+        // $abos = AbonnementServices::listAbonnements($input, $user->id, false);
+        $abos = AbonnementServices::listAboWithPaiement($input, $user->id);
 
         return response()->json([
             'error' => false,

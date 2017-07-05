@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Abonnement;
 use App\Paiement;
+use App\Publication;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use DateTime;
@@ -40,6 +41,8 @@ class AbonnementServices
                 $abo->etat_id = self::EN_COURS;
                 $abo->paye_id = self::IMPAYE;
                 $abo->date_fin = Carbon::now()->addYear();
+                // On s'abonne de nouveau, on créé donc un nouveau paiement
+                $paie = self::createPaiement($abo);
                 $msg = "Abonnement en cours";
             }
             $abo->save();
@@ -52,9 +55,16 @@ class AbonnementServices
                 'paye_id' => self::IMPAYE,
                 'date_fin' => Carbon::now()->addYear(),
             ]);
-            $paie = PaiementServices::newPaiement();
+            $paie = self::createPaiement($abo);
         }
         return $msg;
+    }
+
+    public static function createPaiement($abo) {
+        $cid = PaiementServices::newCid(null);
+        $pub = Publication::find($abo->publication_id);
+        $paie = PaiementServices::newPaiement($abo->id, $abo->date_fin, $pub->prix_an, $cid);
+        return $paie;
     }
 
     public static function relance($idAbo) {
@@ -63,6 +73,7 @@ class AbonnementServices
         $abo->paye_id = self::IMPAYE;
         $abo->etat_id = self::EN_COURS;
         $abo->save();
+        $paie = self::createPaiement($abo);
     }
 
     public static function pause($idAbo) {
@@ -168,5 +179,20 @@ class AbonnementServices
             }
         }
         return array('orderBy' => $orderBy, 'orderAsc' => $orderAsc);
+    }
+
+    public static function listAboWithPaiement($filters, $idUser) {
+        $abos = self::listAbonnements($filters, $idUser, false);
+
+        foreach($abos as $abo) {
+            $abo->paiement = PaiementServices::liste($filters, $idUser, $abo->publication_id, null, false);
+        }
+        return $abos;
+    }
+
+    public static function checkStatusPaie($abo) {
+        $paie = PaiementServices::liste(null, null, null, $abo->id, false);
+
+
     }
 }

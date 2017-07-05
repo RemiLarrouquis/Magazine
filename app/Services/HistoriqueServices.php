@@ -15,7 +15,7 @@ class HistoriqueServices {
      */
     public static function getHistoriques($filters, $IdUser, $paging) {
 
-        $orderBy = 'date';
+        $orderBy = 'created_at';
         $orderAsc = 'desc';
 
         $query = Historique::query();
