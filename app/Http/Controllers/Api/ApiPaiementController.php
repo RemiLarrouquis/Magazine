@@ -65,4 +65,19 @@ class ApiPaiementController extends Controller
         ]);
     }
 
+    public function detail(Request $request)
+    {
+        $input = $request->all();
+        $ab = Paiement::where('paiements.id', $input['id'])
+            ->select('paiements.*')
+            ->get();
+
+        return response()->json(array(
+            'error' => false,
+            'msg' => '',
+            'result' => $ab,
+            'status_code' => 200
+        ));
+    }
+
 }

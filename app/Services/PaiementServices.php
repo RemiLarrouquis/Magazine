@@ -39,7 +39,7 @@ class PaiementServices
             $query->where('abonnement_id', $idAbo);
         }
 
-        $query->orderBy('paiements.created_at', 'desc');
+        $query->orderBy('paiements.created_at', 'asc');
 
         if ($paging) {
             return $query->paginate($paging);
