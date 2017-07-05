@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Abonnement;
+use App\Paiement;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use DateTime;
@@ -44,13 +45,14 @@ class AbonnementServices
             $abo->save();
         } else {
             $msg = "Abonnement créé";
-            Abonnement::Create([
+            $abo = Abonnement::Create([
                 'publication_id' => $idPub,
                 'client_id' => $idUser,
                 'etat_id' => self::EN_COURS,
                 'paye_id' => self::IMPAYE,
                 'date_fin' => Carbon::now()->addYear(),
             ]);
+            $paie = PaiementServices::newPaiement();
         }
         return $msg;
     }
@@ -154,8 +156,8 @@ class AbonnementServices
      */
     public static function orderByMultiple($filters)
     {
-        $orderBy = 'abonnements.date_fin';
-        $orderAsc = 'asc';
+        $orderBy = 'abonnements.updated_at';
+        $orderAsc = 'desc';
 
         if (array_key_exists('orderByDateFin', $filters)) {
             $orderBy = 'date_fin';

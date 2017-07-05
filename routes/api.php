@@ -83,6 +83,18 @@ Route::group(["middleware" => "jwt-auth"], function () {
     Route::post("/abonnement/relance", "Api\\ApiAbonnementController@relance");
 
     // ----- Fin Abonnements ----- //
+    // ----- Début Paiements ----- //
+    /**
+     * Liste de tous les paiements de l'utilisateur
+     */
+    Route::get("/paiement/listByUser", "Api\\ApiPaiementController@liste");
+    /**
+     * Liste des paiements pour un publication donnée
+     * params: pub_id l'id d'une publication
+     */
+    Route::get("/paiement/listByPub", "Api\\ApiPaiementController@liste");
+
+    // ----- Fin Paiements   ----- //
 });
 
 // ------- Publications ------- //

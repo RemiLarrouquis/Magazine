@@ -20,7 +20,7 @@
                     <div class="no-overflow"> <span>Status</span> </div>
                 </div>
                 <div class="item-col item-col-header fixed item-col-actions-dropdown"> </div>
-                <div class="item-col item-col-header fixed item-col-actions-dropdown"> </div>
+                <!-- <div class="item-col item-col-header fixed item-col-actions-dropdown"> </div> -->
             </div>
         </li>
         <!-- Fin header list -->
@@ -73,6 +73,7 @@
                             @endif
                         </div>
                     </div>
+                    <!--
                     <div class="item-col fixed item-col-actions-dropdown">
                         <div class="item-actions-dropdown">
                             <a class="edit"
@@ -81,6 +82,7 @@
                             </a>
                         </div>
                     </div>
+                    -->
                 </div>
             </li>
             @endforeach
