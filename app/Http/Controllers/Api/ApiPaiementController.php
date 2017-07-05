@@ -34,13 +34,34 @@ class ApiPaiementController extends Controller
             $pub = $input['pub_id'];
         }
 
-        $paie = PaiementServices::liste($input, $user->id, $pub,false);
+        $paie = PaiementServices::liste($input, $user->id, $pub, null, false);
 
         return response()->json([
             'error' => false,
             'msg' => '',
             'result' => $paie,
             'status_code' => 200
+        ]);
+    }
+
+    public function paiement(Request $request) {
+        $input = $request->all();
+        if (!array_key_exists('paie_id', $input)) {
+            return response()->json([
+                'error' => true, 'msg' => "Veuillez renseigner l'id du paiement",
+                'result' => '', 'status_code' => 200
+            ]);
+        }
+        $paie = Paiement::find($input['paie_id']);
+        PaiementServices::sendPaiement($paie->cid);
+
+        // On lance ici la requete vers le ws easypay
+
+        // Puis on s'en va
+        return response()->json([
+            'error' => false,
+            'msg' => "Authorisation en cours. Veuillez rafraichir la page pour voir l'avancé du paiment.",
+            'result' => '', 'status_code' => 200
         ]);
     }
 

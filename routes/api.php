@@ -94,6 +94,12 @@ Route::group(["middleware" => "jwt-auth"], function () {
      */
     Route::get("/paiement/listByPub", "Api\\ApiPaiementController@liste");
 
+    /**
+     * Effectue un paiement
+     * params : paie_id - l'id du paiement
+     */
+    Route::post("/paiement/payer", "Api\\ApiPaiementController@paiement");
+
     // ----- Fin Paiements   ----- //
 });
 
