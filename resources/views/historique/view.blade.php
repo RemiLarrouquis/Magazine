@@ -43,7 +43,6 @@
             </div>
         </div>
 
-
         <div id="list-view">
             @include('historique.list')
 
@@ -51,6 +50,8 @@
         </div>
 
     </article>
+
+    @include('paiement.modal')
 
 @endsection
 

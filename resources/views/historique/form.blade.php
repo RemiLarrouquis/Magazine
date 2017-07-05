@@ -9,7 +9,7 @@
         <section class="section">
             <div class="row sameheight-container">
                 <div class="row">
-                    <div @if($historique->id != null) class="col-md-10" @else class="col-lg-12" @endif>
+                    <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <form class="form-horizontal" role="form" method="POST"
@@ -23,19 +23,25 @@
                                                 <label for="titre" class="col-md-4 control-label">
                                                     Choisir un client
                                                 </label>
-                                                <div class="col-xs-12 col-md-12 col-lg-12">
-                                                    <div class="magicsearch-wrapper" data-belong="magicsearch" style="width: 350px; display: inline-block; float: none; margin: 0px; min-width: 101px;" data-index="1">
-                                                        <input class="magicsearch multi" id="basic" name="clients" data-placeholder="search names..." data-id="" style="margin: 0px; box-sizing: border-box; width: 350px; height: 56px; padding-left: 10px; min-width: 101px; padding-top: 5px;" placeholder="search names...">
-                                                        <div class="magicsearch-box all" style="top: 56px; max-height: 248px; display: none;"></div>
-                                                        <div class="multi-items" style="top: 8px; left: 8px; bottom: 8px; right: 8px;"></div>
-                                                    </div>
+                                                @if($selectedClient)
+                                                    <input type="text" readonly="readonly" disabled="disabled"
+                                                           class="form-control" id="email" value="{{$selectedClient->nom.' '.$selectedClient->prenom}}">
+                                                    <input type="hidden" name="clients" value="{{$selectedClient->id}}">
+                                                @else
+                                                    <div class="col-xs-12 col-md-12 col-lg-12">
+                                                        <div class="magicsearch-wrapper" data-belong="magicsearch" style="width: 350px; display: inline-block; float: none; margin: 0px; min-width: 101px;" data-index="1">
+                                                            <input class="magicsearch multi" id="basic" name="clients" data-placeholder="search names..." data-id="" style="margin: 0px; box-sizing: border-box; width: 350px; height: 56px; padding-left: 10px; min-width: 101px; padding-top: 5px;" placeholder="search names...">
+                                                            <div class="magicsearch-box all" style="top: 56px; max-height: 248px; display: none;"></div>
+                                                            <div class="multi-items" style="top: 8px; left: 8px; bottom: 8px; right: 8px;"></div>
+                                                        </div>
 
-                                                    @if ($errors->has('titre'))
-                                                        <span class="help-block">
-                                                            <strong>{{ $errors->first('titre') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
+                                                        @if ($errors->has('titre'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('titre') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="form-group col-lg-6">
                                                 <label for="titre" class="col-md-4 control-label">

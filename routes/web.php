@@ -45,3 +45,6 @@ Route::get("/historique/list", "Gestion\\HistoriqueController@liste");
 Route::get("/historique/new", "Gestion\\HistoriqueController@newHistorique");
 Route::post("/historique/save", "Gestion\\HistoriqueController@saveHistorique");
 
+// Gestion des paiments
+
+Route::post("/paiement/success", "Gestion\\PaiementController@success"); // Ne pas changer !!!! CallBack methode

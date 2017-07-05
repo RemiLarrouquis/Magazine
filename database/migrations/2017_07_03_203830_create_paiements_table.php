@@ -17,10 +17,11 @@ class CreatePaiementsTable extends Migration
             $table->increments('id');
             $table->integer('abonnement_id');
             $table->date('date_fin'); // -1 an nous donne la période de l'abo pour le paiement
-            $table->boolean('payer')->default(false);
-            // Ajouter transaction id
-            // Date transaction ?
-            // Vérifier besoins autres champs
+            $table->boolean('etat'); // Status de type payer, impaye, rembourse
+            $table->boolean('valider')->default(false);
+            $table->float('montant');
+            $table->text('transaction')->nullable();
+            $table->text('cid');
             $table->timestamps();
         });
     }

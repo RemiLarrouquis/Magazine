@@ -118,9 +118,14 @@
                                href="{{ url('/abonnement/list')."?client_id=".$client->id }}">
                                 Voir tous ces abonnements
                             </a>
+                            <hr>
+                            <a type="button" class="btn btn-secondary btn-lg btn-block"
+                               href="{{ url('/historique/new')."?client_id=".$client->id }}">
+                                Créer un échange
+                            </a>
                             <a type="button" class="btn btn-secondary btn-lg btn-block"
                                href="{{ url('/historique/list')."?client_id=".$client->id }}">
-                                Voir l'historique de ces relations
+                                Voir l'historique de ces échanges
                             </a>
                         </div>
                     </div>

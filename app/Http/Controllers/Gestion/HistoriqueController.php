@@ -43,6 +43,11 @@ class HistoriqueController extends Controller
         $historique = new Historique();
 
         $data = $this->getDataForForm($req, $historique, "Création d'une nouvelle relation client.");
+
+        if(array_key_exists('client_id', $req)) {
+            $data['selectedClient'] = \App\User::where('id', $req['client_id'])->first();
+        }
+
         return view('historique.form', $data);
     }
 
@@ -83,7 +88,7 @@ class HistoriqueController extends Controller
         $toCreate['description'] = $request['description'];
         $toCreate['employe_id'] = $user->id;
 
-        if ($request['tous'] = 'true') {
+        if ($request['tous'] == 'true') {
             $clients = \App\User::where('id', 100)->first()->id;
         } else {
             $clients = explode(',', $request['clients']);
@@ -103,7 +108,7 @@ class HistoriqueController extends Controller
                     HistoriqueServices::newHistorique($toCreate);
                 }
             } else {
-                $toCreate['client_id'] = $clients;
+                $toCreate['client_id'] = $clients[0];
                 HistoriqueServices::newHistorique($toCreate);
             }
         }
