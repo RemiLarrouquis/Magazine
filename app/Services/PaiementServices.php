@@ -10,6 +10,11 @@ class PaiementServices
     const IMPAYE = 8;
     const REMBOURSE = 9;
 
+    const IDENTIFIANT = 'a7111252-62b2-9ff7-5487-9d7c0c6b9b21';
+    const IP = '10.0.0.6';
+    const TCP = '6543';
+    const PROTOCOLE = 'HTTP';
+
     public static function liste($filters, $idUser, $idPub, $idAbo, $paging)
     {
         $query = Paiement::query();
@@ -97,5 +102,9 @@ class PaiementServices
         } else {
             return uniqid();
         }
+    }
+
+    public static function prepareUrlPaye($paie, $cardNumber, $cardMonth, $cardyear) {
+        return self::IP.'/'.self::IDENTIFIANT.'/'.$paie->cid.'/'.$cardNumber.'/'.$cardMonth.'/'.$cardyear.'/'.$paie->montant;
     }
 }
