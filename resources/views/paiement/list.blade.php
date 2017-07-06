@@ -26,10 +26,12 @@
                 <td></td>
             @endif
             <td>
+                @if ($paie->transaction != null)
                 <a href="#" onclick="showRemb({{$paie->numero}});"
                    class="btn btn-primary btn-sm rounded">
                     Rembourser
                 </a>
+                @endif
             </td>
         </tr>
         <tr id="remb{{$paie->numero}}" style="display:none;" class="hideRemb">
