@@ -30,7 +30,7 @@ function filters() {
 }
 
 function reloadList() {
-    $.get( "/publication/list?full=false&"+filters(), function( data ) {
+    $.get( "Magazine/public/publication/list?full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
 }

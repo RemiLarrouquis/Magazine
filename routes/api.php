@@ -103,6 +103,8 @@ Route::group(["middleware" => "jwt-auth"], function () {
      */
     Route::post("/paiement/payer", "Api\\ApiPaiementController@paiement");
 
+    Route::post("/paiement/success", "Api\\ApiPaiementController@success"); // Ne pas changer !!!! CallBack methode
+
     // ----- Fin Paiements   ----- //
 });
 
@@ -134,3 +136,5 @@ Route::get("status/encours", "Api\\ApiStatusController@listeAboEnCours");
 Route::get("status/paye", "Api\\ApiStatusController@listeAboPaye");
 
 // ---- Fin Liste des status ---- //
+
+

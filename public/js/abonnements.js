@@ -57,7 +57,7 @@ function filters() {
 }
 
 function reloadList() {
-    $.get( "/abonnement/list?full=false&"+filters(), function( data ) {
+    $.get( "/Magazine/public/abonnement/list?full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
 }
@@ -71,7 +71,7 @@ function pageToSurcharge(url) {
 
 // Récupération de la liste des paiements
 function openModalPaiement(id) {
-    $.get( "/paiement/list?full=true&abo_id="+id, function( data ) {
+    $.get( "/Magazine/public/paiement/list?full=true&abo_id="+id, function( data ) {
         $( "#modale" ).html( data );
         $("#paiement-modal").modal('show');
     });

@@ -13,7 +13,7 @@ class PaiementServices
 
     const IDENTIFIANT = 'a7111252-62b2-9ff7-5487-9d7c0c6b9b21';
     const IP = '10.0.0.6';
-    const TCP = '6543';
+    const PORT = '6543';
     const PROTOCOLE = 'HTTP';
 
     public static function liste($filters, $idUser, $idPub, $idAbo, $paging)
@@ -116,6 +116,6 @@ class PaiementServices
     }
 
     public static function prepareUrlPaye($paie, $cardNumber, $cardMonth, $cardyear) {
-        return self::IP.'/'.self::IDENTIFIANT.'/'.$paie->cid.'/'.$cardNumber.'/'.$cardMonth.'/'.$cardyear.'/'.$paie->montant;
+        return self::IP.':'.self::PORT.'/cardpay/'.self::IDENTIFIANT.'/'.$paie->cid.'/'.$cardNumber.'/'.$cardMonth.'/'.$cardyear.'/'.$paie->montant;
     }
 }

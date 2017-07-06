@@ -53,15 +53,34 @@ class ApiPaiementController extends Controller
             ]);
         }
         $paie = Paiement::find($input['paie_id']);
+        $url = PaiementServices::prepareUrlPaye($paie, $input['cardnumber'], $input['cardmonth'], $input['cardyear']);
+        // Indique l'envoie d'un paiement
         PaiementServices::sendPaiement($paie->cid);
 
-        // On lance ici la requete vers le ws easypay
+        // Send CURL api request
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        $content = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
 
-        // Puis on s'en va
+        $msg = "";
+        $error = true;
+        if ($content == 400) {
+            $msg = "Un des paramètres de la requête est incorrect.";
+        } else if ($content == 403) {
+            $msg = "l'adresse IP du serveur qui appelle le service n'est pas correcte.";
+        } else if ($content == 500) {
+            $msg = "Erreur de connexion au web service.";
+        } else {
+            $error = false;
+            $msg = "Authorisation en cours. Veuillez rafraichir la page pour voir l'avancé du paiment.";
+        }
         return response()->json([
-            'error' => false,
-            'msg' => "Authorisation en cours. Veuillez rafraichir la page pour voir l'avancé du paiment.",
-            'result' => '', 'status_code' => 200
+            'error' => $error,
+            'msg' => $msg,
+            'result' => '', 'status_code' => $content
         ]);
     }
 
@@ -78,6 +97,17 @@ class ApiPaiementController extends Controller
             'result' => $ab,
             'status_code' => 200
         ));
+    }
+
+    public function success(Request $request)
+    {
+        $input = $request->all();
+        $transac = $input['transaction'];
+        $cid = $input['cid'];
+
+        PaiementServices::validePaiement($cid, $transac);
+
+        return response()->json('ok', 200);
     }
 
 }

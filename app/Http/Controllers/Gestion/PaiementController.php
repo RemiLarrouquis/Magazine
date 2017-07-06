@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Gestion;
 
+use App\Paiement;
 use App\Services\PaiementServices;
 use App\Services\StatusServices;
 use Illuminate\Http\Request;
@@ -45,11 +46,4 @@ class PaiementController extends Controller
         }
         return view('paiement.modal', $data);
     }
-
-    // Reçoit le callback de validation d'un paiement
-    public function success(Request $request)
-    {
-
-    }
-
 }

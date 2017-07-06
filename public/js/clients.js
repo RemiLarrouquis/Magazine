@@ -31,7 +31,7 @@ function filters() {
 }
 
 function reloadList() {
-    $.get( "/client/list?full=false&"+filters(), function( data ) {
+    $.get( "Magazine/public/client/list?full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
 }
@@ -47,7 +47,7 @@ function pageToSurcharge(url) {
 function getLastsAbonnements() {
     if ($("article").hasClass('details')) {
         var idClient = $("#idClient").val();
-        $.get( "/abonnement/list?full=false&count=5&client_id="+idClient, function( data ) {
+        $.get( "Magazine/public/abonnement/list?full=false&count=5&client_id="+idClient, function( data ) {
             $(data).insertAfter($( "#listAbonnement" ));
             hideUselessElements();
         });
@@ -58,7 +58,7 @@ function getLastsAbonnements() {
 function getLastsEchanges() {
     if ($("article").hasClass('details')) {
         var idClient = $("#idClient").val();
-        $.get( "/historique/list?full=false&count=5&client_id="+idClient, function( data ) {
+        $.get( "Magazine/public/historique/list?full=false&count=5&client_id="+idClient, function( data ) {
             $(data).insertAfter($( "#listEchanges" ));
             hideUselessElements();
         });
