@@ -24,7 +24,7 @@
                 <form class="form-inline" action="#" type="POST">
                     <div style="display: inline-flex;vertical-align: top !important;" >
                         <div class="action dropdown">
-                            <button class="btn rounded-s btn-secondary dropdown-toggle" type="button" id="typetBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn rounded-s btn-secondary dropdown-toggle" type="button" id="typeBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Type
                             </button>
                             <div class="dropdown-menu" aria-labelledby="typetBtn">

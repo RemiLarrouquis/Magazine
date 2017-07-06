@@ -15,6 +15,7 @@ function filterType(id, libelle) {
 
 var filtreNom = '';
 var filtreType = '';
+var filtreClient = getURLParameter('client_id');
 function filters() {
     var filtres = ''
     if (filtreNom != '') {
@@ -22,6 +23,9 @@ function filters() {
     }
     if (filtreType != '') {
         filtres += "filterType=" + filtreType + "&";
+    }
+    if (filtreClient != '' && filtreClient != undefined) {
+        filtres += "client_id=" + filtreClient + "&";
     }
     return filtres;
 }
