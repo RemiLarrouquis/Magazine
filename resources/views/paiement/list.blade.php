@@ -35,13 +35,18 @@
         <tr id="remb{{$paie->numero}}" style="display:none;" class="hideRemb">
             <td colspan="5">
                 <label>Montant</label>
-                <input type="number" max="{{$paie->montant}}" step="0.01" id="montantRemb">
+                <input type="number" max="{{$paie->montant}}" step="0.01" id="montantRemb{{$paie->numero}}">
                 <label>ou la totalité</label>
-                <input type="checkbox" id="toutRemb">
-                <a href="#"
+                <input type="checkbox" id="toutRemb{{$paie->numero}}">
+                <input type="hidden" name="cid" id="cidRemb{{$paie->numero}}" value="{{$paie->cid}}">
+                <input type="hidden" id="abo_id_remb{{$paie->numero}}" value="{{$paie->abonnement_id}}">
+                <a href="#" onclick="valideRemb({{$paie->numero}}, {{$paie->montant}});"
                    class="btn btn-primary btn-sm rounded">
                     Valider
                 </a>
+            </td>
+            <td>
+                <label id="errorRemb{{$paie->numero}}"></label>
             </td>
         </tr>
     @endforeach

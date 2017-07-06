@@ -77,6 +77,12 @@ function openModalPaiement(id) {
     });
 }
 
+function updateModalPaiement(id) {
+    $.get( "/Magazine/public/paiement/list?full=false&abo_id="+id, function( data ) {
+        $( "#modalPaiementBody" ).html( data );
+    });
+}
+
 function showRemb(num) {
     if ($("#remb"+num).hasClass('hideRemb')){
         $("#remb"+num).show();
@@ -84,5 +90,34 @@ function showRemb(num) {
     } else {
         $("#remb"+num).hide();
         $("#remb"+num).addClass('hideRemb')
+    }
+}
+
+function valideRemb(num, max) {
+    var montant = $("#montantRemb"+num).val();
+    var cid = $("#cidRemb"+num).val();
+    var tout = $("#toutRemb"+num).is(':checked');
+    if (max < montant) {
+        $("#errorRemb"+num).html('Montant supérieur à ' + max);
+    } else {
+        $.ajax({
+            cache: false,
+            url: "/Magazine/public/api/paiement/remboursement",
+            type: "POST",
+            data: {
+                amount: montant,
+                cid: cid,
+                tout: tout
+            },
+            success: function (data) {
+                var abo = $("#abo_id_remb"+num).val();
+                updateModalPaiement(abo);
+            },
+            error:function (xhr, ajaxOptions, thrownError){
+                if(xhr.status==404) {
+                    $("#errorRemb"+num).html('Erreur veuillez actualiser la page.');
+                }
+            }
+        });
     }
 }

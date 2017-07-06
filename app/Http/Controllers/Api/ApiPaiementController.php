@@ -105,4 +105,27 @@ class ApiPaiementController extends Controller
         return response()->json('ok', 200);
     }
 
+    public function rembourser(Request $request) {
+
+        $cid = null;
+        $amount = null;
+
+        if (request()->has('amount')) {
+            $amount = request('amount');
+        }
+        if (request()->has('tout') && request('amount') == 'true') {
+            $amount = null;
+        }
+        if (request()->has('cid')) {
+            $cid = request('cid');
+        }
+
+        if ($cid != null) {
+            PaiementServices::remboursementPaiement($cid, $amount);
+        } else {
+            return response()->json('Erreur données manquantes', 404);
+        }
+        return response()->json('ok', 200);
+
+    }
 }

@@ -137,3 +137,5 @@ Route::get("status/paye", "Api\\ApiStatusController@listeAboPaye");
 
 // Callback methode sans auth
 Route::post("/paiement/success", "Api\\ApiPaiementController@success"); // Ne pas changer !!!! CallBack methode
+
+Route::post("/paiement/remboursement", "Api\\ApiPaiementController@rembourser");
