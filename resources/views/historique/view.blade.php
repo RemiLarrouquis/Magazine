@@ -50,9 +50,6 @@
         </div>
 
     </article>
-
-    @include('paiement.modal')
-
 @endsection
 
 
