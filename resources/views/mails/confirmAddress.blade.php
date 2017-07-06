@@ -201,7 +201,7 @@
                                 <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
                                     <tr>
                                         <td style="border-radius: 3px; background: #6b396c; text-align: center;" class="button-td">
-                                            <a href="localhost:3333/user/confirm/{{ $id }}" style="background: #6b396c; border: 15px solid #6b396c; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+                                            <a href="{{ url('http://localhost:3333/user/confirm/'.$id) }}" style="background: #6b396c; border: 15px solid #6b396c; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
                                                 <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;Cliquez ici pour valider votre inscription&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             </a>
                                         </td>

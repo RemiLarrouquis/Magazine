@@ -63,11 +63,11 @@ return [
     /*
      * Dev only
      */
-    'to' => [
+    // 'to' => [
         // 'address' => 'remidu40@yahoo.fr',
-        'address' => 'ludovicgirard@gmail.com',
-        'name' => 'Ludovic'
-    ],
+     //   'address' => 'ludovicgirard@gmail.com',
+     //   'name' => 'Ludovic'
+    //],
 
     /*
     |--------------------------------------------------------------------------

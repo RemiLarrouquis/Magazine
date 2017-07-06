@@ -51,12 +51,7 @@ class ApiPaiementController extends Controller
         $paie = PaiementServices::sendPaiement($paie->cid);
 
         // Send CURL api request
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_exec($ch);
-        $content = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        $content = sendCurlRequest($url);
 
         $msg = "";
         $error = true;
@@ -122,10 +117,26 @@ class ApiPaiementController extends Controller
 
         if ($cid != null) {
             PaiementServices::remboursementPaiement($cid, $amount);
+
+            $paie = PaiementServices::getPaiementByCid($cid);
+            // Send CURL api request
+            $url = PaiementServices::prepareUrlRemb($paie, $amount);
+            $content = $this->sendCurlRequest($url);
         } else {
             return response()->json('Erreur données manquantes', 404);
         }
         return response()->json('ok', 200);
 
+    }
+
+    private function sendCurlRequest($url) {
+        // Send CURL api request
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        $content = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return $content;
     }
 }

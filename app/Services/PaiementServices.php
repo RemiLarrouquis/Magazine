@@ -112,7 +112,7 @@ class PaiementServices
         return $paie;
     }
 
-    private static function getPaiementByCid($cid) {
+    public static function getPaiementByCid($cid) {
         return Paiement::where('cid', $cid)->first();
     }
 
@@ -126,5 +126,13 @@ class PaiementServices
 
     public static function prepareUrlPaye($paie, $cardNumber, $cardMonth, $cardyear) {
         return self::IP.':'.self::PORT.'/cardpay/'.self::IDENTIFIANT.'/'.$paie->cid.'/'.$cardNumber.'/'.$cardMonth.'/'.$cardyear.'/'.$paie->montant;
+    }
+
+    public static function prepareUrlRemb($paie, $amount) {
+        if ($amount) {
+            return self::IP.':'.self::PORT.'/carday/'.self::IDENTIFIANT.'/'.$paie->transaction;
+        } else {
+            return self::IP.':'.self::PORT.'/carday/'.self::IDENTIFIANT.'/'.$paie->transaction.'/'.$amount;
+        }
     }
 }
