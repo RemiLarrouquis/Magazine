@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Abonnement;
 use App\Paiement;
 
 class PaiementServices
@@ -77,6 +78,11 @@ class PaiementServices
         $paie->transaction = $transac;
         $paie->valider = true;
         $paie->save();
+
+        // Met à jours le status de l'abonnement
+        $abo = Abonnement::find($paie->abonnement_id);
+        AbonnementServices::checkStatusPaie($abo);
+
         return $paie;
     }
 
@@ -89,6 +95,11 @@ class PaiementServices
         }
         $paie->etat_id = self::REMBOURSE;
         $paie->save();
+
+        // Met à jours le status de l'abonnement
+        $abo = Abonnement::find($paie->abonnement_id);
+        AbonnementServices::checkStatusPaie($abo);
+
         return $paie;
     }
 

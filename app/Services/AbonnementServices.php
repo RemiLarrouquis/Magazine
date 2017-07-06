@@ -196,23 +196,27 @@ class AbonnementServices
         $impaye = false;
         $rembourse = true;
 
-        foreach($paies as $paie) {
-            // Si un paiement est impayé alors l'abonnement l'est aussi
-            if ($paie->etat_id == self::IMPAYE) {
-                $impaye = true;
-                break;
+        if (count($paies) > 1) {
+            foreach($paies as $paie) {
+                // Si un paiement est impayé alors l'abonnement l'est aussi
+                if ($paie->paye_id == self::IMPAYE) {
+                    $impaye = true;
+                    break;
+                }
+                // L'abonnement est remboursé si tous ces paiements le sont.
+                if ($paie->paye_id != self::REMBOURSE) {
+                    $rembourse = false;
+                }
             }
-            // L'abonnement est remboursé si tous ces paiements le sont.
-            if ($paie->etat_id != self::REMBOURSE) {
-                $rembourse = false;
-            }
+        } else {
+            $impaye = true;
         }
         if ($impaye) {
-            $abo->etat_id = self::IMPAYE;
+            $abo->paye_id = self::IMPAYE;
         } else if ($rembourse) {
-            $abo->etat_id = self::REMBOURSE;
+            $abo->paye_id = self::REMBOURSE;
         } else {
-            $abo->etat_id = self::PAYE;
+            $abo->paye_id = self::PAYE;
         }
         $abo->save();
     }

@@ -36,12 +36,20 @@ class Init extends Migration
         $this->createPublications();
 
         // Pour Client "Client1"
-        $this->createAbonnement(2, 3, 4, 7, date('Y-m-d', strtotime("15 July 2017")));
-        $this->createAbonnement(4, 3, 4, 7, date('Y-m-d', strtotime("02 August 2017")));
-        $this->createAbonnement(5, 3, 4, 7, $this->randomDate(false));
-        $this->createAbonnement(7, 3, 4, 9, $this->randomDate(false));
-        $this->createAbonnement(10, 3, 6, 7, $this->randomDate(false));
-        $this->createAbonnement(13, 3, 6, 9, $this->randomDate(false));
+        $abo1 = $this->createAbonnement(2, 3, 4, 7, date('Y-m-d', strtotime("15 July 2017")));
+        $abo2 = $this->createAbonnement(4, 3, 4, 7, date('Y-m-d', strtotime("02 August 2017")));
+        $abo3 = $this->createAbonnement(5, 3, 4, 7, $this->randomDate(false));
+        $abo4 = $this->createAbonnement(7, 3, 4, 9, $this->randomDate(false));
+        $abo5 = $this->createAbonnement(10, 3, 6, 7, $this->randomDate(false));
+        $abo6 = $this->createAbonnement(13, 3, 6, 9, $this->randomDate(false));
+
+        // Paiements
+        $this->createPaiement($abo1->id, $abo1->date_fin, 26, uniqid());
+        $this->createPaiement($abo2->id, $abo2->date_fin, 41, uniqid());
+        $this->createPaiement($abo3->id, $abo3->date_fin, 80, uniqid());
+        $this->createPaiement($abo4->id, $abo4->date_fin, 35, uniqid());
+        $this->createPaiement($abo5->id, $abo5->date_fin, 41, uniqid());
+        $this->createPaiement($abo6->id, $abo6->date_fin, 31, uniqid());
 
         // Création d'abonnements
         for ($i = 0; $i < 60; $i++) {
@@ -693,6 +701,7 @@ class Init extends Migration
         $abonnement1->paye_id = $statusAboPayeId;
         $abonnement1->date_fin = $dateFin;
         $abonnement1->save();
+        return $abonnement1;
     }
 
     public function createHistorique($client_id, $employe_id, $type_id, $description, $date)
@@ -826,5 +835,15 @@ Passionné d’Histoire ou simplement curieux d’apprendre ? Le magazine Tout s
         $publication14->prix_an = 55;
         $publication14->description = "Avec [Terre Sauvage], partez à la découverte de notre planète dans ce qu’elle a de plus authentique, de plus fragile, de plus vivant : sa nature sauvage !Rencontres étonnantes entre les hommes et les animaux, récits d’aventuriers hors du commun, exploration sportive des terres extrêmes";
         $publication14->save();
+    }
+
+    public function createPaiement($abo_id, $date_fin, $montant, $cid) {
+        $paie = new \App\Paiement();
+        $paie->abonnement_id = $abo_id;
+        $paie->date_fin = $date_fin;
+        $paie->montant = $montant;
+        $paie->etat_id = 8;
+        $paie->cid = $cid;
+        $paie->save();
     }
 }
