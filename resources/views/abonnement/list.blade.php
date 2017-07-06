@@ -75,9 +75,9 @@
                     </div>
                     <div class="item-col fixed item-col-actions-dropdown">
                         <div class="item-actions-dropdown">
-                            <a class="edit"
-                               href="{{ url('/abonnement/pause/'.$abo->id) }}">
-                                <i class="fa fa-euro" aria-hidden="true"></i>
+                            <a class="edit" href="#"
+                                onclick="openModalPaiement({{$abo->id}});" >
+                                <i class="fa fa-credit-card" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
@@ -89,3 +89,5 @@
 </div>
 {{-- Pagination de la page (surcharge dans ressources/vendor/pagination/default.blade.php --}}
 {{ $abos->links() }}
+
+<div id="modale"></div>

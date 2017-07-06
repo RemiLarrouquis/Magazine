@@ -68,3 +68,21 @@ function pageToSurcharge(url) {
         $( "#list-view" ).html( data );
     });
 }
+
+// Récupération de la liste des paiements
+function openModalPaiement(id) {
+    $.get( "/paiement/list?full=true&abo_id="+id, function( data ) {
+        $( "#modale" ).html( data );
+        $("#paiement-modal").modal('show');
+    });
+}
+
+function showRemb(num) {
+    if ($("#remb"+num).hasClass('hideRemb')){
+        $("#remb"+num).show();
+        $("#remb"+num).removeClass('hideRemb')
+    } else {
+        $("#remb"+num).hide();
+        $("#remb"+num).addClass('hideRemb')
+    }
+}

@@ -30,7 +30,7 @@
                                                 @else
                                                     <div class="col-xs-12 col-md-12 col-lg-12">
                                                         <div class="magicsearch-wrapper" data-belong="magicsearch" style="width: 350px; display: inline-block; float: none; margin: 0px; min-width: 101px;" data-index="1">
-                                                            <input class="magicsearch multi" id="basic" name="clients" data-placeholder="search names..." data-id="" style="margin: 0px; box-sizing: border-box; width: 350px; height: 56px; padding-left: 10px; min-width: 101px; padding-top: 5px;" placeholder="search names...">
+                                                            <input class="magicsearch multi" id="basic" name="clients" data-placeholder="Entrez un nom..." data-id="" style="margin: 0px; box-sizing: border-box; width: 350px; height: 56px; padding-left: 10px; min-width: 101px; padding-top: 5px;" placeholder="Entrez un nom...">
                                                             <div class="magicsearch-box all" style="top: 56px; max-height: 248px; display: none;"></div>
                                                             <div class="multi-items" style="top: 8px; left: 8px; bottom: 8px; right: 8px;"></div>
                                                         </div>
