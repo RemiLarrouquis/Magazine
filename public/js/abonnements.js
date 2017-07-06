@@ -40,6 +40,7 @@ var filtreDateFin = '';
 var filtreEtat = '';
 var filtreStatus = getURLParameter('filterPaye');
 var filtreClient = getURLParameter('client_id');
+var filtreEnCours = getURLParameter('filterEnCours');
 function filters() {
     var filtres = '';
     if (filtreTitre != '') {
@@ -56,6 +57,9 @@ function filters() {
     }
     if (filtreClient != '' && filtreClient != undefined) {
         filtres += "client_id=" + filtreClient + "&";
+    }
+    if (filtreEnCours != '' && filtreEnCours != undefined) {
+        filtres += "filterEnCours=" + filtreEnCours + "&";
     }
     return filtres;
 }

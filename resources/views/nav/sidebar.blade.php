@@ -39,7 +39,7 @@
                     </a>
                 </li>
                 <li>
-                    <a id="liste-abonnement-impaye" href="{{ url('/abonnement/list?full=true&filterPaye=8') }}">
+                    <a id="liste-abonnement-impaye" href="{{ url('/abonnement/list?full=true&filterPaye=8&filterEnCours=true') }}">
                         Impayées
                     </a>
                 </li>
