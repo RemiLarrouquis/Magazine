@@ -117,8 +117,8 @@ class AbonnementServices
     public static function repriseApresPause($idAbo)
     {
         $abo = Abonnement::find($idAbo);
-        $dureePause = (new DateTime($abo->date_fin))->diff((new DateTime($abo->date_pause)));
-        $abo->date_fin = (new DateTime($abo->date_fin))->add($dureePause);
+        // $dureePause = (new DateTime($abo->date_fin))->diff((new DateTime($abo->date_pause)));
+        // $abo->date_fin = (new DateTime($abo->date_fin))->add($dureePause);
         $abo->date_pause = null;
         $abo->etat_id = self::EN_COURS;
         $abo->save();
@@ -235,12 +235,12 @@ class AbonnementServices
         if (count($paies) > 0) {
             foreach ($paies as $paie) {
                 // Si un paiement est impayé alors l'abonnement l'est aussi
-                if ($paie->paye_id == self::IMPAYE) {
+                if ($paie->etat_id == self::IMPAYE) {
                     $impaye = true;
                     break;
                 }
                 // L'abonnement est remboursé si tous ces paiements le sont.
-                if ($paie->paye_id != self::REMBOURSE) {
+                if ($paie->etat_id != self::REMBOURSE) {
                     $rembourse = false;
                 }
             }

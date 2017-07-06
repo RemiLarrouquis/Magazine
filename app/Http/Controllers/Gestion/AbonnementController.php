@@ -82,6 +82,7 @@ class AbonnementController extends Controller
     public function pause($id)
     {
         AbonnementServices::pause($id);
+        AbonnementServices::checkStatusPaie($id);
         return redirect('/abonnement/list');
     }
 
