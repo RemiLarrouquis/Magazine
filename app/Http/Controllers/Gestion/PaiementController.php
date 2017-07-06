@@ -46,4 +46,8 @@ class PaiementController extends Controller
         }
         return view('paiement.modal', $data);
     }
+
+    public function rembourser(Request $request) {
+
+    }
 }

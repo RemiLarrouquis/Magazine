@@ -4,16 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Paiement;
 use Hash;
+use Illuminate\Support\Facades\Log;
 use JWTAuth;
-use App\Abonnement;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Publication;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 use App\Services\PaiementServices;
 use App\Http\Controllers\Controller;
 
@@ -55,7 +48,7 @@ class ApiPaiementController extends Controller
         $paie = Paiement::find($input['paie_id']);
         $url = PaiementServices::prepareUrlPaye($paie, $input['cardnumber'], $input['cardmonth'], $input['cardyear']);
         // Indique l'envoie d'un paiement
-        PaiementServices::sendPaiement($paie->cid);
+        $paie = PaiementServices::sendPaiement($paie->cid);
 
         // Send CURL api request
         $ch = curl_init($url);
@@ -76,6 +69,9 @@ class ApiPaiementController extends Controller
         } else {
             $error = false;
             $msg = "Authorisation en cours. Veuillez rafraichir la page pour voir l'avancé du paiment.";
+        }
+        if ($error) {
+            PaiementServices::errorPaiement($paie->cid);
         }
         return response()->json([
             'error' => $error,
@@ -101,9 +97,8 @@ class ApiPaiementController extends Controller
 
     public function success(Request $request)
     {
-        $input = $request->all();
-        $transac = $input['transaction'];
-        $cid = $input['cid'];
+        $transac = request('transaction');
+        $cid = request('cid');
 
         PaiementServices::validePaiement($cid, $transac);
 

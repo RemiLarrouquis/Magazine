@@ -190,13 +190,15 @@ class AbonnementServices
         return $abos;
     }
 
-    public static function checkStatusPaie($abo) {
+    public static function checkStatusPaie($aboId) {
+
+        $abo = Abonnement::where('id', $aboId)->first();
         $paies = PaiementServices::liste(null, null, null, $abo->id, false);
 
         $impaye = false;
         $rembourse = true;
 
-        if (count($paies) > 1) {
+        if (count($paies) > 0) {
             foreach($paies as $paie) {
                 // Si un paiement est impayé alors l'abonnement l'est aussi
                 if ($paie->paye_id == self::IMPAYE) {

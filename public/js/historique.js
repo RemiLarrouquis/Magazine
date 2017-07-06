@@ -27,7 +27,7 @@ function filters() {
 }
 
 function reloadList() {
-    $.get( "Magazine/public/historique/list?full=false&"+filters(), function( data ) {
+    $.get( "/Magazine/public/historique/list?full=false&"+filters(), function( data ) {
         $( "#list-view" ).html( data );
     });
 }

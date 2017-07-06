@@ -26,7 +26,11 @@
         <!-- Fin header list -->
         <!-- Début liste dynamique -->
         @foreach ($abos as $abo)
+            @if($abo->etat_id == 6 || (strtotime($abo->date_fin) < strtotime("now")))
+            <li class="item bg-old">
+            @else
             <li class="item">
+            @endif
                 <div class="item-row">
                     <div class="item-col fixed pull-left item-col-title">
                         <div class="item-heading">Titre de la publication</div>
@@ -58,6 +62,7 @@
                         <div class="item-heading">Status</div>
                         <div>  {{$abo->paye_libelle}} </div>
                     </div>
+                    @if($abo->etat_id != 6 && (strtotime($abo->date_fin) > strtotime("now")))
                     <div class="item-col fixed item-col-actions-dropdown">
                         <div class="item-actions-dropdown">
                             @if($abo->idEtat == 5)
@@ -73,6 +78,9 @@
                             @endif
                         </div>
                     </div>
+                    @else
+                        <div class="item-col fixed item-col-actions-dropdown"></div>
+                    @endif
                     <div class="item-col fixed item-col-actions-dropdown">
                         <div class="item-actions-dropdown">
                             <a class="edit" href="#"

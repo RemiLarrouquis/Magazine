@@ -36,12 +36,12 @@ class Init extends Migration
         $this->createPublications();
 
         // Pour Client "Client1"
-        $abo1 = $this->createAbonnement(2, 3, 4, 7, date('Y-m-d', strtotime("15 July 2017")));
-        $abo2 = $this->createAbonnement(4, 3, 4, 7, date('Y-m-d', strtotime("02 August 2017")));
-        $abo3 = $this->createAbonnement(5, 3, 4, 7, $this->randomDate(false));
-        $abo4 = $this->createAbonnement(7, 3, 4, 9, $this->randomDate(false));
-        $abo5 = $this->createAbonnement(10, 3, 6, 7, $this->randomDate(false));
-        $abo6 = $this->createAbonnement(13, 3, 6, 9, $this->randomDate(false));
+        $abo1 = $this->createAbonnement(2, 3, 4, 8, date('Y-m-d', strtotime("15 July 2017")));
+        $abo2 = $this->createAbonnement(4, 3, 4, 8, date('Y-m-d', strtotime("02 August 2017")));
+        $abo3 = $this->createAbonnement(5, 3, 4, 8, $this->randomDate(false));
+        $abo4 = $this->createAbonnement(7, 3, 4, 8, $this->randomDate(false));
+        $abo5 = $this->createAbonnement(10, 3, 6, 8, $this->randomDate(false));
+        $abo6 = $this->createAbonnement(13, 3, 6, 8, $this->randomDate(false));
 
         // Paiements
         $this->createPaiement($abo1->id, $abo1->date_fin, 26, uniqid());
@@ -53,7 +53,7 @@ class Init extends Migration
 
         // Création d'abonnements
         for ($i = 0; $i < 60; $i++) {
-            $this->createAbonnement(rand(1, 14), rand(4, 31), $this->randEven(4, 6), $this->randOdd(7, 9), $this->randomDate(false));
+            $this->createAbonnement(rand(1, 14), rand(4, 31), $this->randEven(4, 6), 8, $this->randomDate(false));
         }
 
         //Création d'historique
@@ -89,6 +89,19 @@ class Init extends Migration
         } else {
             $max = strtotime("27 December 2018");
         }
+
+        // Generate random number using above bounds
+        $val = rand($min, $max);
+
+        // Convert back to desired date format
+        return date('Y-m-d', $val);
+    }
+
+    private function randomDateBirth()
+    {
+        // Convert to timetamps
+        $min = strtotime("01 January 1976");
+        $max = strtotime("01 July 2000");
 
         // Generate random number using above bounds
         $val = rand($min, $max);
@@ -241,7 +254,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = false;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Les Salles-Lavauguyon";
         $client1->adresse = "166 Cité Beaurepaire";
         $client1->code_postal = "87440";
@@ -256,7 +269,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Saint-Genis-les-Ollières";
         $client1->adresse = "182 Rue Bellart";
         $client1->code_postal = "69290";
@@ -271,7 +284,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Châtenay-Malabry";
         $client1->adresse = "101 Rue Gustave-Flaubert";
         $client1->code_postal = "92290";
@@ -286,7 +299,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Rignac";
         $client1->adresse = "96 Rue Baudricourt";
         $client1->code_postal = "12390";
@@ -301,7 +314,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = false;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Villeneuve-de-la-Raho";
         $client1->adresse = "168 Rue Doudeauville";
         $client1->code_postal = "66180";
@@ -316,7 +329,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Gervans";
         $client1->adresse = "176 Rue Gaston-Boissier";
         $client1->code_postal = "26600";
@@ -331,7 +344,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Saint-Germain-la-Blanche-Herbe";
         $client1->adresse = "50 Villa Daumesnil";
         $client1->code_postal = "14280";
@@ -346,7 +359,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Vicq";
         $client1->adresse = "22 Rue du Figuier";
         $client1->code_postal = "59970";
@@ -361,7 +374,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Valay";
         $client1->adresse = "22 Rue Duranton";
         $client1->code_postal = "70140";
@@ -376,7 +389,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Luneray";
         $client1->adresse = "183 Rue Gaston-Tessier";
         $client1->code_postal = "76810";
@@ -391,7 +404,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = false;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Villers-aux-Érables";
         $client1->adresse = "167 Rue de l'Industrie";
         $client1->code_postal = "80110";
@@ -406,7 +419,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Vendin-lès-Béthune";
         $client1->adresse = "137 Rue Caillié";
         $client1->code_postal = "62232";
@@ -421,7 +434,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "La Ferrière-sur-Risle";
         $client1->adresse = "23 Rue de l'Adjudant-Réau";
         $client1->code_postal = "27760";
@@ -436,7 +449,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Les Vans";
         $client1->adresse = "89 Rue de Longchamp";
         $client1->code_postal = "07140";
@@ -451,7 +464,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Vennezey";
         $client1->adresse = "24 Rue Gustave-Goublier";
         $client1->code_postal = "54830";
@@ -466,7 +479,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Saint-Quentin-de-Baron";
         $client1->adresse = "150 Rue de Chablis";
         $client1->code_postal = "33750";
@@ -481,7 +494,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = false;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Murol";
         $client1->adresse = "168 Rue Cadet";
         $client1->code_postal = "63790";
@@ -496,7 +509,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Novalaise";
         $client1->adresse = "14 Rue de l'Abbé-Rousselot";
         $client1->code_postal = "73470";
@@ -511,7 +524,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Sailly-lez-Lannoy";
         $client1->adresse = "91 Rue du Docteur-Tuffier";
         $client1->code_postal = "59390";
@@ -526,7 +539,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Juvisy-sur-Orge";
         $client1->adresse = "1 Rue Guillaume-Bertrand";
         $client1->code_postal = "91260";
@@ -541,7 +554,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Saint-Étienne-de-Tulmont";
         $client1->adresse = "181 Rue Dufrenoy";
         $client1->code_postal = "82410";
@@ -556,7 +569,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Le Pin";
         $client1->adresse = "144 Rue du Docteur-Victor-Hutinel";
         $client1->code_postal = "14590";
@@ -571,7 +584,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Vouzeron";
         $client1->adresse = "61 Boulevard d'Algérie";
         $client1->code_postal = "18330";
@@ -586,7 +599,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Les Trois Pierres";
         $client1->adresse = "186 Impasse Cels";
         $client1->code_postal = "76430";
@@ -601,7 +614,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Salouël";
         $client1->adresse = "7 Passage Gauthier";
         $client1->code_postal = "80480";
@@ -616,7 +629,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Vieux-Boucau-les-Bains";
         $client1->adresse = "55 Rue Gazan";
         $client1->code_postal = "40480";
@@ -631,7 +644,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Sains-du-Nord";
         $client1->adresse = "12 Rue des Fermiers";
         $client1->code_postal = "59177";
@@ -646,7 +659,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "La Vancelle";
         $client1->adresse = "34 Rue Henri-Dubouillon";
         $client1->code_postal = "67730";
@@ -661,7 +674,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = false;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Toulouse";
         $client1->adresse = "78 Square Henri-Duparc";
         $client1->code_postal = "31400";
@@ -676,7 +689,7 @@ class Init extends Migration
         $client1->password = bcrypt('client1');
         $client1->is_client = true;
         $client1->mail_confirm = true;
-        $client1->date_naissance = $this->randomDate(true);
+        $client1->date_naissance = $this->randomDateBirth();
         $client1->lieu_naissance = "Le Vaulmier";
         $client1->adresse = "48 Rue Ernest-Cresson";
         $client1->code_postal = "15380";

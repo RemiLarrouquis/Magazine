@@ -62,6 +62,10 @@ class PaiementServices
         $paie->etat_id = self::IMPAYE;
         $paie->cid = $cid;
         $paie->save();
+
+        // Met à jours le status de l'abonnement
+        AbonnementServices::checkStatusPaie($paie->abonnement_id);
+
         return $paie;
     }
 
@@ -73,6 +77,13 @@ class PaiementServices
         return $paie;
     }
 
+    public static function errorPaiement($cid) {
+        $paie = self::getPaiementByCid($cid);
+        $paie->etat_id = self::IMPAYE;
+        $paie->save();
+        return $paie;
+    }
+
     public static function validePaiement($cid, $transac) {
         $paie = self::getPaiementByCid($cid);
         $paie->transaction = $transac;
@@ -80,8 +91,7 @@ class PaiementServices
         $paie->save();
 
         // Met à jours le status de l'abonnement
-        $abo = Abonnement::find($paie->abonnement_id);
-        AbonnementServices::checkStatusPaie($abo);
+        AbonnementServices::checkStatusPaie($paie->abonnement_id);
 
         return $paie;
     }
@@ -97,8 +107,7 @@ class PaiementServices
         $paie->save();
 
         // Met à jours le status de l'abonnement
-        $abo = Abonnement::find($paie->abonnement_id);
-        AbonnementServices::checkStatusPaie($abo);
+        AbonnementServices::checkStatusPaie($paie->abonnement_id);
 
         return $paie;
     }
