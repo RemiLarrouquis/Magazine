@@ -1,11 +1,10 @@
+$(function () {
 
-$(function() {
-
-    $("#search-titre").on('input', function() {
+    $("#search-titre").on('input', function () {
         filtreTitre = $('#search-titre').val();
         reloadList();
     });
-    $("#buttonPrixSort").on('click', function() {
+    $("#buttonPrixSort").on('click', function () {
         if (filtrePrix == 'true') {
             filtrePrix = 'false';
         } else {
@@ -30,14 +29,22 @@ function filters() {
 }
 
 function reloadList() {
-    $.get( "/Magazine/public/publication/list?full=false&"+filters(), function( data ) {
-        $( "#list-view" ).html( data );
+    $.get("/Magazine/public/publication/list?full=false&" + filters(), function (data) {
+        $("#list-view").html(data);
     });
 }
 
 //Pagination dynamique (fonction à surcharger pour chaque modules "publications, abonnement, clients")
 function pageToSurcharge(url) {
-    $.get( url+"&full=false&"+filters(), function( data ) {
-        $( "#list-view" ).html( data );
+    $.get(url + "&full=false&" + filters(), function (data) {
+        $("#list-view").html(data);
+    });
+}
+
+// Récupération de la liste des paiements
+function openModalAbonnement(id) {
+    $.get("/Magazine/public/publication/formAbonnement/" + id , function (data) {
+        $("#modale").html(data);
+        $("#abo-modal").modal('show');
     });
 }

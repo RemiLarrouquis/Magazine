@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Gestion;
 
+use App\Abonnement;
+use App\Services\ClientServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Publication;
@@ -38,6 +40,26 @@ class PublicationController extends Controller
         return view('publication.form', $data);
     }
 
+    public function formAbonnement($id, Request $request)
+    {
+        $req = $request->request->all();
+
+
+        // Ajoute un element qui permet de retourner tous les résultats
+        $req['noPaging'] = true;
+        $req['id'] = $id;
+
+        $abonnement = new Abonnement();
+
+        $data = $this->getDataForForm($req, $abonnement, "Création d'un nouvel abonnement.");
+
+        if (array_key_exists('client_id', $req)) {
+            $data['selectedClient'] = \App\User::where('id', $req['client_id'])->first();
+        }
+
+        return view('publication.modal', $data);
+    }
+
     public function editForm($id)
     {
         $publication = Publication::find($id);
@@ -49,7 +71,8 @@ class PublicationController extends Controller
         return view('publication.form', $data);
     }
 
-    public function liste(Request $request) {
+    public function liste(Request $request)
+    {
 
         $req = $request->request->all();
         // unset($req['page']); //On retire la pagination du tableau
@@ -61,7 +84,7 @@ class PublicationController extends Controller
         );
 
         // if(array_key_exists('filterTitre', $req) || array_key_exists('filterPrix', $req)) {
-        if(array_key_exists('full', $req) && $req['full'] == "false") {
+        if (array_key_exists('full', $req) && $req['full'] == "false") {
             return view('publication.list', $data)->render();
         }
         return view('publication.view', $data);
@@ -116,5 +139,19 @@ class PublicationController extends Controller
         }
 
         return redirect('home');
+    }
+
+    private function getDataForForm($req, $histo, $title)
+    {
+        $clients = ClientServices::getClients($req);
+        $publication = Publication::find($req['id']);
+
+        $data = array(
+            'historique' => $histo,
+            'clients' => $clients,
+            'publication' => $publication,
+            'sub_title' => $title,
+        );
+        return $data;
     }
 }

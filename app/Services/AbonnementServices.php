@@ -34,7 +34,7 @@ class AbonnementServices
         $abo = self::getAbonnement($idPub, $idUser);
 
         if ($abo) {
-            if ($abo->etat_id == self::EN_COURS && strtotime('Y-m-d',$abo->date_fin) < Carbon::now()) {
+            if ($abo->etat_id == self::EN_COURS && strtotime('Y-m-d', $abo->date_fin) < Carbon::now()) {
                 $abo->etat_id = self::ARRETER;
                 $msg = "Abonnement arreté";
             } else {
@@ -60,14 +60,44 @@ class AbonnementServices
         return $msg;
     }
 
-    public static function createPaiement($abo) {
+    public static function newAbonnementDash($idPub, $idUser)
+    {
+        $msg = '';
+        $abo = self::getAbonnement($idPub, $idUser);
+
+        if ($abo) {
+            $abo->etat_id = self::EN_COURS;
+            $abo->paye_id = self::IMPAYE;
+            $abo->date_fin = Carbon::now()->addYear();
+            // On s'abonne de nouveau, on créé donc un nouveau paiement
+            $paie = self::createPaiement($abo);
+            $msg = "Abonnement en cours";
+
+            $abo->save();
+        } else {
+            $msg = "Abonnement créé";
+            $abo = Abonnement::Create([
+                'publication_id' => $idPub,
+                'client_id' => $idUser,
+                'etat_id' => self::EN_COURS,
+                'paye_id' => self::IMPAYE,
+                'date_fin' => Carbon::now()->addYear(),
+            ]);
+            $paie = self::createPaiement($abo);
+        }
+        return $msg;
+    }
+
+    public static function createPaiement($abo)
+    {
         $cid = PaiementServices::newCid(null);
         $pub = Publication::find($abo->publication_id);
         $paie = PaiementServices::newPaiement($abo->id, $abo->date_fin, $pub->prix_an, $cid);
         return $paie;
     }
 
-    public static function relance($idAbo) {
+    public static function relance($idAbo)
+    {
         $abo = Abonnement::find($idAbo);
         $abo->date_fin = Carbon::parse($abo->date_fin)->addYear();
         $abo->paye_id = self::IMPAYE;
@@ -76,14 +106,16 @@ class AbonnementServices
         $paie = self::createPaiement($abo);
     }
 
-    public static function pause($idAbo) {
+    public static function pause($idAbo)
+    {
         $abo = Abonnement::find($idAbo);
         $abo->date_pause = Carbon::now();
         $abo->etat_id = self::PAUSE;
         $abo->save();
     }
 
-    public static function repriseApresPause($idAbo) {
+    public static function repriseApresPause($idAbo)
+    {
         $abo = Abonnement::find($idAbo);
         $dureePause = (new DateTime($abo->date_fin))->diff((new DateTime($abo->date_pause)));
         $abo->date_fin = (new DateTime($abo->date_fin))->add($dureePause);
@@ -142,11 +174,11 @@ class AbonnementServices
             }
 
         }
-        if(array_key_exists('filtreTitre', $filters)) {
-            $query->where(function($q) use ($filters) {
-                $q->where('publications.titre', 'like', '%'.$filters['filtreTitre'].'%');
-                $q->orWhere('publications.titre', 'like', '%'.strtoupper($filters['filtreTitre']).'%');
-                $q->orWhere('publications.titre', 'like', '%'.ucfirst($filters['filtreTitre']).'%');
+        if (array_key_exists('filtreTitre', $filters)) {
+            $query->where(function ($q) use ($filters) {
+                $q->where('publications.titre', 'like', '%' . $filters['filtreTitre'] . '%');
+                $q->orWhere('publications.titre', 'like', '%' . strtoupper($filters['filtreTitre']) . '%');
+                $q->orWhere('publications.titre', 'like', '%' . ucfirst($filters['filtreTitre']) . '%');
             });
         }
 
@@ -181,16 +213,18 @@ class AbonnementServices
         return array('orderBy' => $orderBy, 'orderAsc' => $orderAsc);
     }
 
-    public static function listAboWithPaiement($filters, $idUser) {
+    public static function listAboWithPaiement($filters, $idUser)
+    {
         $abos = self::listAbonnements($filters, $idUser, false);
 
-        foreach($abos as $abo) {
+        foreach ($abos as $abo) {
             $abo->paiement = PaiementServices::liste($filters, $idUser, $abo->publication_id, null, false);
         }
         return $abos;
     }
 
-    public static function checkStatusPaie($aboId) {
+    public static function checkStatusPaie($aboId)
+    {
 
         $abo = Abonnement::where('id', $aboId)->first();
         $paies = PaiementServices::liste(null, null, null, $abo->id, false);
@@ -199,7 +233,7 @@ class AbonnementServices
         $rembourse = true;
 
         if (count($paies) > 0) {
-            foreach($paies as $paie) {
+            foreach ($paies as $paie) {
                 // Si un paiement est impayé alors l'abonnement l'est aussi
                 if ($paie->paye_id == self::IMPAYE) {
                     $impaye = true;

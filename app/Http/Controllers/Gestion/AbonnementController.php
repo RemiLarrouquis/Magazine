@@ -51,21 +51,47 @@ class AbonnementController extends Controller
         return view('abonnement.view', $data);
     }
 
+
+    public function save(Request $request)
+    {
+        // Données communes
+        $toCreate = [];
+        $toCreate['id'] = $request['id'];
+
+        $clients = [100];
+        if ($request['tous'] != 'on') {
+            $clients = explode(',', $request['clients']);
+        }
+
+        if (count($clients) > 1) {
+            foreach ($clients as $idClient) {
+                AbonnementServices::newAbonnementDash($toCreate['id'], $idClient);
+            }
+        } else {
+            AbonnementServices::newAbonnementDash($toCreate['id'], $clients[0]);
+        }
+
+        return redirect('/abonnement/list');
+    }
+
     /**
      * Pour AJAX request
      * @param $id
      * @return Objet Json
      */
-    public function pause($id) {
+    public function pause($id)
+    {
         AbonnementServices::pause($id);
         return redirect('/abonnement/list');
     }
+
     /**
      * Pour AJAX request
      * @param $id
      * @return Objet Json
      */
-    public function reprise($id) {
+    public function reprise($id)
+    {
         AbonnementServices::repriseApresPause($id);
         return redirect('/abonnement/list');
     }

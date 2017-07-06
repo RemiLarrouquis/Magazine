@@ -53,6 +53,12 @@
                         <div> {{ $publication->nb_an }} </div>
                     </div>
                     <div class="item-col fixed item-col-actions-dropdown">
+                        <div class="item-actions-dropdown" style="margin-right: 15px;">
+                            <a class="edit"
+                               href="#" onclick="openModalAbonnement({{$publication->id}});">
+                                <i class="fa fa-share-alt"></i>
+                            </a>
+                        </div>
                         <div class="item-actions-dropdown">
                             <a class="edit"
                                href="{{ url('/publication/edit/') . '/' . $publication->id }}">
@@ -68,3 +74,4 @@
 </div>
 {{-- Pagination de la page (surcharge dans ressources/vendor/pagination/default.blade.php --}}
 {{ $publications->links() }}
+<div id="modale"></div>
