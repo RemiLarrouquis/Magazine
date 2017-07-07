@@ -81,6 +81,9 @@ class AbonnementController extends Controller
      */
     public function pause($id)
     {
+        if (!is_numeric($id)) {
+            return view('errors.500');
+        }
         AbonnementServices::pause($id);
         AbonnementServices::checkStatusPaie($id);
         return redirect('/abonnement/list');
@@ -93,6 +96,9 @@ class AbonnementController extends Controller
      */
     public function reprise($id)
     {
+        if (!is_numeric($id)) {
+            return view('errors.500');
+        }
         AbonnementServices::repriseApresPause($id);
         return redirect('/abonnement/list');
     }

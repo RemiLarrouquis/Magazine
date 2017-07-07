@@ -115,17 +115,33 @@ class ApiPaiementController extends Controller
             $cid = request('cid');
         }
 
+        $msg = "";
+        $error = true;
         if ($cid != null) {
-            PaiementServices::remboursementPaiement($cid, $amount);
-
             $paie = PaiementServices::getPaiementByCid($cid);
-            // Send CURL api request
             $url = PaiementServices::prepareUrlRemb($paie, $amount);
+            // Send CURL api request
             $content = $this->sendCurlRequest($url);
+
+            if ($content == 400) {
+                $msg = "Un des paramètres de la requête est incorrect.";
+            } else if ($content == 403) {
+                $msg = "L'adresse IP du serveur qui contact le service n'est pas correcte.";
+            } else if ($content == 500) {
+                $msg = "Erreur de connexion au web service.";
+            } else {
+                $error = false;
+                $msg = "Remboursement effectué.";
+                PaiementServices::remboursementPaiement($cid, $amount);
+            }
         } else {
-            return response()->json('Erreur données manquantes', 404);
+            $msg = 'Erreur données manquantes';
         }
-        return response()->json('ok', 200);
+        return response()->json([
+            'error' => $error,
+            'msg' => $msg,
+            'result' => '', 'status_code' => $content
+        ]);
 
     }
 

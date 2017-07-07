@@ -44,6 +44,9 @@ class PublicationController extends Controller
     {
         $req = $request->request->all();
 
+        if (!is_numeric($id)) {
+            return view('errors.500');
+        }
 
         // Ajoute un element qui permet de retourner tous les résultats
         $req['noPaging'] = true;

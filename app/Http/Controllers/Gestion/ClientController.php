@@ -54,6 +54,10 @@ class ClientController extends Controller
     }
 
     public function detail($id) {
+
+        if (!is_numeric($id)) {
+            return view('errors.500');
+        }
         $query = User::query();
         $query->where('users.id', $id);
         $query->join('statuses', 'users.sexe_id', 'statuses.id');
