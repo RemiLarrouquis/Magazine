@@ -26,7 +26,7 @@
                 <td></td>
             @endif
             <td>
-                @if ($paie->transaction != null)
+                @if ($paie->transaction != null && $paie->montant != 0)
                 <a href="#" onclick="showRemb({{$paie->numero}});"
                    class="btn btn-primary btn-sm rounded">
                     Rembourser

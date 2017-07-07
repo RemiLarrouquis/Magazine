@@ -38,9 +38,9 @@ class Init extends Migration
         // Pour Client "Client1"
         $abo1 = $this->createAbonnement(2, 3, 4, 8, date('Y-m-d', strtotime("15 July 2017")));
         $abo2 = $this->createAbonnement(4, 3, 4, 8, date('Y-m-d', strtotime("02 August 2017")));
-        $abo3 = $this->createAbonnement(5, 3, 4, 8, $this->randomDate(false));
-        $abo4 = $this->createAbonnement(7, 3, 4, 8, $this->randomDate(false));
-        $abo5 = $this->createAbonnement(10, 3, 6, 8, $this->randomDate(false));
+        $abo3 = $this->createAbonnement(5, 3, 4, 8, date('Y-m-d', strtotime("27 December 2017")));
+        $abo4 = $this->createAbonnement(7, 3, 4, 8, date('Y-m-d', strtotime("15 March 2018")));
+        $abo5 = $this->createAbonnement(10, 3, 6, 8, $this->randomDate(true));
         $abo6 = $this->createAbonnement(13, 3, 6, 8, $this->randomDate(false));
 
         // Paiements
