@@ -51,7 +51,7 @@ class ApiPaiementController extends Controller
         $paie = PaiementServices::sendPaiement($paie->cid);
 
         // Send CURL api request
-        $content = sendCurlRequest($url);
+        $content = $this->sendCurlRequest($url);
 
         $msg = "";
         $error = true;

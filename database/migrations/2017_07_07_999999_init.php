@@ -53,7 +53,7 @@ class Init extends Migration
 
         // Création d'abonnements
         for ($i = 0; $i < 60; $i++) {
-            $this->createAbonnement(rand(1, 14), rand(4, 31), $this->randEven(4, 6), 8, $this->randomDate(false));
+            $this->createAbonnement(rand(1, 14), rand(4, 31), $this->randEven(4, 6), 7, $this->randomDate(false));
         }
 
         //Création d'historique
