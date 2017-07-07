@@ -10,7 +10,7 @@
                 <div class="item-col item-col-header item-col-title clientToHide">
                     <div> <span>Nom du client</span> </div>
                 </div>
-                <div class="item-col item-col-header item-col-title">
+                <div class="item-col item-col-header item-col-stats">
                     <div> <span>Date de fin</span> </div>
                 </div>
                 <div class="item-col item-col-header item-col-stats">
@@ -46,7 +46,7 @@
                             </h4>
                         </div>
                     </div>
-                    <div class="item-col fixed pull-left item-col-title">
+                    <div class="item-col item-col-stats no-overflow">
                         <div class="item-heading">Date de fin</div>
                         <div>
                             <h4 class="item-title">
