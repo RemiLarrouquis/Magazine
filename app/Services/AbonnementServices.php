@@ -34,7 +34,7 @@ class AbonnementServices
         $abo = self::getAbonnement($idPub, $idUser);
 
         if ($abo) {
-            if ($abo->etat_id == self::EN_COURS && strtotime('Y-m-d', $abo->date_fin) < Carbon::now()) {
+            if ($abo->etat_id == self::EN_COURS && (Carbon::parse($abo->date_fin) > Carbon::now())) {
                 $abo->etat_id = self::ARRETER;
                 $msg = "Abonnement arreté";
             } else {
