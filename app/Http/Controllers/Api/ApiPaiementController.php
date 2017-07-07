@@ -140,7 +140,7 @@ class ApiPaiementController extends Controller
         return response()->json([
             'error' => $error,
             'msg' => $msg,
-            'result' => '', 'status_code' => $content
+            'result' => '', 'status_code' => 200
         ]);
 
     }
